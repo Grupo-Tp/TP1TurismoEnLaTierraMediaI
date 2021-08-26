@@ -1,5 +1,5 @@
 package clases;
 
-public class Atraccion {
+public class Atraccion extends Base{
 
 }

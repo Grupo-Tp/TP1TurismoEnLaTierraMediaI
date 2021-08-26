@@ -1,5 +1,5 @@
 package clases;
 
-public class Promocion {
+public class Promocion extends Base {
 
 }
