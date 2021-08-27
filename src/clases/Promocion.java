@@ -8,8 +8,8 @@ public abstract class Promocion extends Base {
 
 	public Promocion(List<Atraccion> atracciones, String nombre) {
 		super(nombre, 0);
-		this.setCosto(0);
 		this.setAtracciones(atracciones);
+		this.setCosto(this.calcularCostoDePromocion());
 	}
 
 	public Promocion(List<Atraccion> atracciones) {
@@ -18,9 +18,9 @@ public abstract class Promocion extends Base {
 
 	/**
 	 * @pre No Tiene.
-	 * @post Se suguirio una promoción posibles para un usuario determinado.
-	 * @param usuario Usuario para el cual se crea la promoción determinada.
-	 * @return Una Promoción para un Usuario.
+	 * @post Se suguirio una promocion posibles para un usuario determinado.
+	 * @param usuario Usuario para el cual se crea la promocion determinada.
+	 * @return Una Promocion para un Usuario.
 	 */
 	public abstract Promocion sugerirPromocion(Usuario usuario);
 
@@ -61,4 +61,6 @@ public abstract class Promocion extends Base {
 	public void setAtracciones(List<Atraccion> atracciones) {
 		this.atracciones = atracciones;
 	}
+	
+	public abstract double calcularCostoDePromocion();
 }
