@@ -14,22 +14,18 @@ public class Atraccion extends Base {
 	}
 
 	public Atraccion(TipoAtraccion tipo, int cupo, double costo, String nombre) {
-		super(nombre);
 		this(tipo, cupo, costo, nombre, 0);
 	}
 
 	public Atraccion(TipoAtraccion tipo, int cupo, double costo) {
-		super();
 		this(tipo, cupo, costo, "", 0);
 	}
 
 	public Atraccion(TipoAtraccion tipo, int cupo) {
-		super();
 		this(tipo, cupo, 0, "", 0);
 	}
 
 	public Atraccion(TipoAtraccion tipo) {
-		super();
 		this(tipo, 0, 0, "", 0);
 	}
 
@@ -97,7 +93,8 @@ public class Atraccion extends Base {
 	 */
 	@Override
 	public String toString() {
-		return "Atraccion [tipo=" + tipo + ", cupo=" + cupo + ", costo=" + costo + "]";
+		return "Atraccion [nombre= " + super.getNombre() + ", costo= " + costo + ", tiempo= " + super.getTiempo()
+				+ ", cupo= " + cupo + ", tipo= " + tipo + "]";
 	}
 
 }
