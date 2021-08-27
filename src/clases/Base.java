@@ -30,7 +30,7 @@ public abstract class Base {
 	/**
 	 * @pre No Tiene.
 	 * @post Se actualizo el nombre de la Atraccion o Promocion.
-	 * @param nombre	Nuevo nombre a actualizar.
+	 * @param nombre Nuevo nombre a actualizar.
 	 * @return No tiene.
 	 */
 	public void setNombre(String nombre) {
@@ -49,7 +49,7 @@ public abstract class Base {
 	/**
 	 * @pre No Tiene.
 	 * @post Se actualizo la duracion de la Atraccion o Promocion.
-	 * @param tiempo	Nueva duración a actualizar.
+	 * @param tiempo Nueva duración a actualizar.
 	 * @return No tiene.
 	 */
 	public void setTiempo(double tiempo) {
