@@ -6,10 +6,31 @@ public class Atraccion extends Base {
 	private int cupo;
 	private double costo;
 
-	public Atraccion() {
-		this.setTipo(TipoAtraccion.AVENTURA);
-		this.setCupo(0);
-		this.setCosto(0);
+	public Atraccion(TipoAtraccion tipo, int cupo, double costo, String nombre, double tiempo) {
+		super(nombre, tiempo);
+		this.setTipo(tipo);
+		this.setCupo(cupo);
+		this.setCosto(costo);
+	}
+
+	public Atraccion(TipoAtraccion tipo, int cupo, double costo, String nombre) {
+		super(nombre);
+		this(tipo, cupo, costo, nombre, 0);
+	}
+
+	public Atraccion(TipoAtraccion tipo, int cupo, double costo) {
+		super();
+		this(tipo, cupo, costo, "", 0);
+	}
+
+	public Atraccion(TipoAtraccion tipo, int cupo) {
+		super();
+		this(tipo, cupo, 0, "", 0);
+	}
+
+	public Atraccion(TipoAtraccion tipo) {
+		super();
+		this(tipo, 0, 0, "", 0);
 	}
 
 	/**
