@@ -36,5 +36,10 @@ public class TestPromocionPorcentual {
 	public void testCalcularCostoDePromocion() {
 		assertEquals(22.4, porcentual.calcularCostoDePromocion(), 0.0);
 	}
+	
+	@Test
+	public void testCalcularTiempoDePromocion() {
+		assertEquals(7, porcentual.calcularSumaDeTiempoDeAtracciones(), 0.0);
+	}
 
 }
