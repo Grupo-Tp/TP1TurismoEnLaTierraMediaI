@@ -41,7 +41,7 @@ public class Main {
 		//uso
 		// agregar promociones y atracciones al sistema
 		
-		//sistema.generarRecomendaionesParaUsuario(sam);
+		//sistema.generarRecomendacionesParaUsuario(sam);
 	}
 
 }
