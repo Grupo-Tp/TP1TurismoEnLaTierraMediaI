@@ -7,16 +7,25 @@ import org.junit.Test;
 
 public class TestUsuario {
 	
-	Usuario usuario;
+	Usuario eowyn;
+	Usuario gandalf;
+	Usuario sam;
+	Usuario galadriel;
 	
 	@Before
 	public void setUp() {
-		usuario = new Usuario("Pepe", 2, 100, TipoAtraccion.AVENTURA);
+		eowyn = new Usuario("Eowyn", 8, 10, TipoAtraccion.AVENTURA);
+		gandalf = new Usuario("Gandalf", 5, 100, TipoAtraccion.PAISAJE);
+		sam = new Usuario("Sam", 8, 36, TipoAtraccion.DEGUSTACION);
+		galadriel = new Usuario("Galadriel", 6, 120, TipoAtraccion.PAISAJE);
 	}
 	
 	@Test
 	public void testGetNombre() {
-		assertEquals("Pepe", usuario.getNombre());
+		assertEquals("Eowyn", eowyn.getNombre());
+		assertEquals("Gandalf", gandalf.getNombre());
+		assertEquals("Sam", sam.getNombre());
+		assertEquals("Galadriel", galadriel.getNombre());
 	}
 
 }
