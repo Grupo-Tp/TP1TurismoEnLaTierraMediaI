@@ -20,15 +20,15 @@ public class Atraccion extends Base {
 	}
 
 	public Atraccion(TipoAtraccion tipo, int cupo, double costo) {
-		this(tipo, cupo, costo, "", 0);
+		this(tipo, cupo, costo, "");
 	}
 
 	public Atraccion(TipoAtraccion tipo, int cupo) {
-		this(tipo, cupo, 0, "", 0);
+		this(tipo, cupo, 0);
 	}
 
 	public Atraccion(TipoAtraccion tipo) {
-		this(tipo, 0, 0, "", 0);
+		this(tipo, 0);
 	}
 
 	/**
