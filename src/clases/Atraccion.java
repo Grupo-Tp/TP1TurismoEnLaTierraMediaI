@@ -2,6 +2,7 @@ package clases;
 
 public class Atraccion extends Base {
 
+	private Promocion promocion;
 	private TipoAtraccion tipo;
 	private int cupo;
 	private double costo;
@@ -11,6 +12,7 @@ public class Atraccion extends Base {
 		this.setTipo(tipo);
 		this.setCupo(cupo);
 		this.setCosto(costo);
+		this.setPromocion(null);
 	}
 
 	public Atraccion(TipoAtraccion tipo, int cupo, double costo, String nombre) {
@@ -84,6 +86,25 @@ public class Atraccion extends Base {
 	 */
 	public void setCosto(double costo) {
 		this.costo = costo;
+	}
+
+	/**
+	 * @pre No tiene.
+	 * @post No tiene.
+	 * @return Promocion en que esta incluida la Atraccion.
+	 */
+	public Promocion getPromocion() {
+		return promocion;
+	}
+
+	/**
+	 * @pre No Tiene.
+	 * @post Se actualizo la Promocion en la que se incluyo la Atraccion.
+	 * @param promocion Promocion en la que esta incluida la Atraccion.
+	 * @return No tiene.
+	 */
+	public void setPromocion(Promocion promocion) {
+		this.promocion = promocion;
 	}
 
 	/**
