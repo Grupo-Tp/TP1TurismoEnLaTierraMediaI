@@ -7,18 +7,13 @@ public class PromocionPorcentual extends Promocion {
 	double porcentajeDescuento;
 
 	public PromocionPorcentual(List<Atraccion> atracciones, String nombre, double porcentaje) {
-		super(atracciones);
-		this.setNombre(nombre);
+		super(atracciones, nombre);
 		this.porcentajeDescuento = porcentaje;
 	}
 	
 	@Override
 	public double calcularCostoDePromocion() {
-		double costoTotal = 0;
-		for (Atraccion atraccion: this.getAtracciones()) {
-            costoTotal += atraccion.getCosto();
-        }
-		
+		double costoTotal = this.calcularCostoDeAtracciones();
 		return costoTotal - costoTotal * porcentajeDescuento;
 	}
 

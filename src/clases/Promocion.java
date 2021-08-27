@@ -10,11 +10,9 @@ public abstract class Promocion extends Base {
 		super(nombre, 0);
 		this.setAtracciones(atracciones);
 		this.setCosto(this.calcularCostoDePromocion());
+		this.setTiempo(this.calcularSumaDeTiempoDeAtracciones());
 	}
 
-	public Promocion(List<Atraccion> atracciones) {
-		this(atracciones, "");
-	}
 
 	/**
 	 * @pre No Tiene.
@@ -63,4 +61,21 @@ public abstract class Promocion extends Base {
 	}
 	
 	public abstract double calcularCostoDePromocion();
+	
+	// sum costo atracciones > costo de promocion
+	public double calcularCostoDeAtracciones() {
+		double costoTotal = 0;
+		for (Atraccion atraccion: this.getAtracciones()) {
+            costoTotal += atraccion.getCosto();
+        }
+		return costoTotal;
+	}
+	
+	public double calcularSumaDeTiempoDeAtracciones() {
+		double tiempoTotal = 0;
+		for (Atraccion atraccion: this.getAtracciones()) {
+			tiempoTotal  += atraccion.getTiempo();
+        }
+		return tiempoTotal ;
+	}
 }
