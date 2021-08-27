@@ -8,7 +8,7 @@ public class PromocionPorcentual extends Promocion {
 
 	public PromocionPorcentual(List<Atraccion> atracciones, String nombre, double porcentaje) {
 		super(atracciones, nombre);
-		this.porcentajeDescuento = porcentaje;
+		this.porcentajeDescuento = porcentaje / 100;
 	}
 	
 	@Override
