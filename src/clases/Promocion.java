@@ -14,6 +14,8 @@ public abstract class Promocion extends Base {
 	}
 
 	/**
+	 * sugerirPromocion no se usa en la clase, podría borrarse
+	 *  
 	 * @pre No Tiene.
 	 * @post Se suguirio una promocion posibles para un usuario determinado.
 	 * @param usuario Usuario para el cual se crea la promocion determinada.
