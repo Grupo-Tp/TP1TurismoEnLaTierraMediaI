@@ -13,7 +13,6 @@ public abstract class Promocion extends Base {
 		this.setTiempo(this.calcularSumaDeTiempoDeAtracciones());
 	}
 
-
 	/**
 	 * @pre No Tiene.
 	 * @post Se suguirio una promocion posibles para un usuario determinado.
@@ -59,23 +58,23 @@ public abstract class Promocion extends Base {
 	public void setAtracciones(List<Atraccion> atracciones) {
 		this.atracciones = atracciones;
 	}
-	
+
 	public abstract double calcularCostoDePromocion();
-	
+
 	// sum costo atracciones > costo de promocion
 	public double calcularCostoDeAtracciones() {
 		double costoTotal = 0;
-		for (Atraccion atraccion: this.getAtracciones()) {
-            costoTotal += atraccion.getCosto();
-        }
+		for (Atraccion atraccion : this.getAtracciones()) {
+			costoTotal += atraccion.getCosto();
+		}
 		return costoTotal;
 	}
-	
+
 	public double calcularSumaDeTiempoDeAtracciones() {
 		double tiempoTotal = 0;
-		for (Atraccion atraccion: this.getAtracciones()) {
-			tiempoTotal  += atraccion.getTiempo();
-        }
-		return tiempoTotal ;
+		for (Atraccion atraccion : this.getAtracciones()) {
+			tiempoTotal += atraccion.getTiempo();
+		}
+		return tiempoTotal;
 	}
 }
