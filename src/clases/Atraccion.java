@@ -36,7 +36,7 @@ public class Atraccion extends Base {
 	@Override
 	public String toString() {
 		return "Atraccion [nombre= " + super.getNombre() + ", costo= " + super.getCosto() + ", tiempo= " + super.getTiempo()
-				+ ", cupo= " + cupo + ", tipo= " + super.getTipo().toString() + "]";
+				+ ", cupo= " + this.getCupo() + ", tipo= " + super.getTipo().toString() + "]";
 	}
 
 }
