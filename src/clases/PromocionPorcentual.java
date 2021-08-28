@@ -3,14 +3,14 @@ package clases;
 import java.util.List;
 
 public class PromocionPorcentual extends Promocion {
-	
+
 	double porcentajeDescuento;
 
-	public PromocionPorcentual(List<Atraccion> atracciones, String nombre, double porcentaje) {
-		super(atracciones, nombre);
-		this.porcentajeDescuento = porcentaje / 100;
+	public PromocionPorcentual(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones, double porcentaje) {
+		super(nombre, tipo, atracciones);
+		this.porcentajeDescuento = 1 + (porcentaje / 100);
 	}
-	
+
 	@Override
 	public double calcularCostoDePromocion() {
 		double costoTotal = this.calcularCostoDeAtracciones();
@@ -20,7 +20,7 @@ public class PromocionPorcentual extends Promocion {
 	@Override
 	public Promocion sugerirPromocion(Usuario usuario) {
 		return null;
-		
+
 	}
 
 }

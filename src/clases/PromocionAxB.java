@@ -3,14 +3,15 @@ package clases;
 import java.util.List;
 
 public class PromocionAxB extends Promocion {
-	
+	private int cantidadDeAtracciones;
 	//Atraccion atraccionDeRegalo; 
 	
 	/**
-	 * @pre la atraccion de regalo será la primera de lista de atracciones
+	 * @pre la atraccion de regalo serï¿½ la primera de lista de atracciones
 	 */
-	public PromocionAxB(List<Atraccion> atracciones, String nombre) {
-		super(atracciones, nombre);
+	public PromocionAxB(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones) {
+		super(nombre, tipo, atracciones);
+		this.setCantidadDeAtracciones(0);
 		//this.atraccionDeRegalo = atraccionDeRegalo;
 	}
 	
@@ -28,6 +29,20 @@ public class PromocionAxB extends Promocion {
 	public Promocion sugerirPromocion(Usuario usuario) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * @return the cantidadDeAtracciones
+	 */
+	public int getCantidadDeAtracciones() {
+		return cantidadDeAtracciones;
+	}
+
+	/**
+	 * @param cantidadDeAtracciones the cantidadDeAtracciones to set
+	 */
+	public void setCantidadDeAtracciones(int cantidadDeAtracciones) {
+		this.cantidadDeAtracciones = cantidadDeAtracciones;
 	}
 
 }
