@@ -4,19 +4,16 @@ public abstract class Base {
 
 	private String nombre;
 	private double tiempo;
+	private double costo;
+	private TipoAtraccion tipo;
 
-	public Base(String nombre, double tiempo) {
+	public Base(String nombre, double tiempo, double costo, TipoAtraccion tipo) {
 		this.setNombre(nombre);
 		this.setTiempo(tiempo);
+		this.setCosto(costo);
+		this.setTipo(tipo);
 	}
 
-	public Base(String nombre) {
-		this(nombre, 0);
-	}
-
-	public Base() {
-		this("");
-	}
 
 	/**
 	 * @pre No tiene.
@@ -54,6 +51,44 @@ public abstract class Base {
 	 */
 	public void setTiempo(double tiempo) {
 		this.tiempo = tiempo;
+	}
+
+	/**
+	 * @pre No tiene.
+	 * @post No tiene.
+	 * @return Costo de la Atraccion.
+	 */
+	public double getCosto() {
+		return costo;
+	}
+
+	/**
+	 * @pre No Tiene.
+	 * @post Se actualizo el costo de la Atraccion.
+	 * @param costo Cantidad de monedas que requiere la atraccion a actualizar.
+	 * @return No tiene.
+	 */
+	public void setCosto(double costo) {
+		this.costo = costo;
+	}
+
+	/**
+	 * @pre No tiene.
+	 * @post No tiene.
+	 * @return Tipo de Atraccion.
+	 */
+	public TipoAtraccion getTipo() {
+		return tipo;
+	}
+
+	/**
+	 * @pre No Tiene.
+	 * @post Se actualizo el tipo de Atraccion.
+	 * @param tipo Tipo de atraccion a actualizar.
+	 * @return No tiene.
+	 */
+	public void setTipo(TipoAtraccion tipo) {
+		this.tipo = tipo;
 	}
 
 }
