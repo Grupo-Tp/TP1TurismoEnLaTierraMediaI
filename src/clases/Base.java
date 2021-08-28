@@ -56,7 +56,7 @@ public abstract class Base {
 	/**
 	 * @pre No tiene.
 	 * @post No tiene.
-	 * @return Costo de la Atraccion.
+	 * @return Costo de la Atraccion o Promocion.
 	 */
 	public double getCosto() {
 		return costo;
@@ -64,8 +64,8 @@ public abstract class Base {
 
 	/**
 	 * @pre No Tiene.
-	 * @post Se actualizo el costo de la Atraccion.
-	 * @param costo Cantidad de monedas que requiere la atraccion a actualizar.
+	 * @post Se actualizo el costo de la Atraccion o Promocion.
+	 * @param costo Cantidad de monedas que requiere la atraccion o promocion a actualizar.
 	 * @return No tiene.
 	 */
 	public void setCosto(double costo) {
@@ -75,7 +75,7 @@ public abstract class Base {
 	/**
 	 * @pre No tiene.
 	 * @post No tiene.
-	 * @return Tipo de Atraccion.
+	 * @return Tipo de Atraccion o Promocion.
 	 */
 	public TipoAtraccion getTipo() {
 		return tipo;
@@ -83,8 +83,8 @@ public abstract class Base {
 
 	/**
 	 * @pre No Tiene.
-	 * @post Se actualizo el tipo de Atraccion.
-	 * @param tipo Tipo de atraccion a actualizar.
+	 * @post Se actualizo el tipo de Atraccion o Promocion.
+	 * @param tipo Tipo de atraccion o promocion a actualizar.
 	 * @return No tiene.
 	 */
 	public void setTipo(TipoAtraccion tipo) {

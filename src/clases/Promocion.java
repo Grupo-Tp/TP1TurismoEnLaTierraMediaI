@@ -4,18 +4,17 @@ import java.util.List;
 
 public abstract class Promocion extends Base {
 	private List<Atraccion> atracciones;
-	private double costo;
 
-	public Promocion(List<Atraccion> atracciones, String nombre) {
-		super(nombre, 0);
+	public Promocion(String nombre, double tiempo, double costo, TipoAtraccion tipo, List<Atraccion> atracciones) {
+		super(nombre, tiempo, costo, tipo);
 		this.setAtracciones(atracciones);
 		this.setCosto(this.calcularCostoDePromocion());
 		this.setTiempo(this.calcularSumaDeTiempoDeAtracciones());
 	}
 
 	/**
-	 * sugerirPromocion no se usa en la clase, podría borrarse
-	 *  
+	 * sugerirPromocion no se usa en la clase, podrï¿½a borrarse
+	 * 
 	 * @pre No Tiene.
 	 * @post Se suguirio una promocion posibles para un usuario determinado.
 	 * @param usuario Usuario para el cual se crea la promocion determinada.
