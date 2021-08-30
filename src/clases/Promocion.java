@@ -31,12 +31,23 @@ public abstract class Promocion extends Base {
 
 	/**
 	 * @pre No Tiene.
-	 * @post Se actualizo la lista con las atracciones que incluye la Promocion.
-	 * @param atracciones Lista con atracciones que incluye la Promocion.
+	 * @post Se actualizo la lista con las atracciones disponibles.
+	 * @param atracciones Lista con atracciones disponibles.
 	 * @return No tiene.
 	 */
 	public void setAtracciones(List<Atraccion> atracciones) {
 		this.atracciones = atracciones;
+	}
+
+	/**
+	 * @pre No Tiene.
+	 * @post Se agrego una atraccion a la lista de atracciones disponibles.
+	 * @param atraccion Atraccion disponible para ser usada en una promocion o
+	 *                  sugerencia.
+	 * @return No tiene.
+	 */
+	public void añadirAtraccion(Atraccion atraccion) {
+		this.atracciones.add(atraccion);
 	}
 
 	public abstract double calcularCostoDePromocion();
