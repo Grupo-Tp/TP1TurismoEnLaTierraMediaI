@@ -8,17 +8,20 @@ public class PromocionPorcentual extends Promocion {
 
 	public PromocionPorcentual(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones, double porcentaje) {
 		super(nombre, tipo, atracciones);
-		this.porcentajeDescuento = 1 + (porcentaje / 100);
+		this.porcentajeDescuento = porcentaje;
+	}
+
+	/**
+	 * @pre No tiene.
+	 * @post No tiene.
+	 * @return Cantidad de descuento en porcentaje que tiene la promocion.
+	 */
+	public double getPorcentajeDescuento() {
+		return porcentajeDescuento;
 	}
 
 	@Override
-	public double calcularCostoDePromocion() {
-		double costoTotal = this.calcularCostoDeAtracciones();
-		return costoTotal - costoTotal * porcentajeDescuento;
-	}
-
-	@Override
-	public Promocion sugerirPromocion(Usuario usuario) {
+	public Base sugerirPromocion(Usuario usuario) {
 		return null;
 
 	}
