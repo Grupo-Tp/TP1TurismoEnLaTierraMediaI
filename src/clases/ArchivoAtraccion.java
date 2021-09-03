@@ -136,6 +136,12 @@ public class ArchivoAtraccion {
 		return tipoDeAtraccion;
 	}
 
+	/**
+	 * @pre No tiene.
+	 * @post Se validaron y crearon todas las atracciones contenidas en el archivo
+	 *       de atracciones.
+	 * @return Retorna una lista con todas las instancias de atracciones creadas.
+	 */
 	public List<Atraccion> leerArchivoAtraccion() {
 		try {
 			while ((lineaAtraccion = bufferDelLectorDeArchivoDeAtracciones.readLine()) != null) {
