@@ -14,7 +14,7 @@ public class App {
 				lectorDeArchivoDePromociones = null;
 		BufferedReader bufferDelLectorDeArchivoDeUsuarios = null, bufferDelLectorDeArchivoDeAtracciones = null,
 				bufferDelLectorDeArchivoDePromociones = null;
-		String lineaUsuario, lineaAtraccion, lineaPromocion;
+		String lineaUsuario="", lineaAtraccion="", lineaPromocion="";
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		List<Base> promociones = new ArrayList<Base>();
