@@ -46,7 +46,7 @@ public abstract class Promocion extends Base {
 	 *                  sugerencia.
 	 * @return No tiene.
 	 */
-	public void añadirAtraccion(Atraccion atraccion) {
+	public void anadirAtraccion(Atraccion atraccion) {
 		this.atracciones.add(atraccion);
 	}
 
