@@ -2,6 +2,7 @@ package clases;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,14 +27,13 @@ public class ArchivoUsuario {
 				TipoAtraccion[] todasLasPreferencias = TipoAtraccion.values();
 				TipoAtraccion preferencia = null;
 				try {
-					try {
-					if(parametros[0]=="") {
+					if(parametros[0]=="") 
 						throw new RuntimeException();
-					}}catch(RuntimeException excepcionDeNombre) {
-						System.err.println("");}
-					try {
-						System.out.println("");
 					}
+					catch(RuntimeException excepcionDeNombre) {
+						System.err.println("Uno de los usuarios leidos tiene un problema en el nombre");
+					}
+					try {
 					// Este bloque se puede mejorar
 					preferenciaDelArchivo = parametros[1].toUpperCase();
 					if (preferenciaDelArchivo == todasLasPreferencias[0].name()) {
@@ -52,16 +52,19 @@ public class ArchivoUsuario {
 				}
 				try {
 					presupuesto = Double.parseDouble(parametros[2]);
-				} catch (NumberFormatException excepcionDePresupuestoYTiempo) {
-
+				} catch (NumberFormatException excepcionDePresupuesto) {
+					System.err.println("Uno de los usuarios leidos tiene un problema en su presupuesto");
 				}
 				try {
 					tiempo = Double.parseDouble(parametros[3]);
-				} catch (NumberFormatException excepcionDePresupuestoYTiempo) {
-					System.err.println("Uno de los usuarios leidos tiene un problema en su presupuesto o tiempo");
+				} catch (NumberFormatException excepcionDeTiempo) {
+					System.err.println("Uno de los usuarios leidos tiene un problema en su tiempo");
 				}
 				usuarios.add(new Usuario(parametros[0], tiempo, presupuesto, preferencia));
 			}
+		}catch (IOException excepcion) {
+		System.err.println("Hubo un problema al momento de leerr uno de los archivos");
+		}
+		return usuarios;
 	}
-}
 }
