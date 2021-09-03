@@ -8,7 +8,7 @@ public ArchivoPromocion() {
 }
 public List<Base> leerArchivoPromocion(){
 	while ((lineaPromocion = bufferDelLectorDeArchivoDePromociones.readLine()) != null) {
-		String[] parametros = lineaPromocion.split(".");
+		String[] parametros = lineaPromocion.split(",");
 		double absoluto = 0, descuento = 0;
 		String tipoDePromocionDelArchivo = "";
 		TipoAtraccion[] todosLosTiposDePromocion = TipoAtraccion.values();

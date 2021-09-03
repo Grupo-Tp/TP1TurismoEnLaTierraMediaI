@@ -29,7 +29,7 @@ public class App {
 			bufferDelLectorDeArchivoDePromociones = new BufferedReader(bufferDelLectorDeArchivoDePromociones);
 
 			while ((lineaUsuario = bufferDelLectorDeArchivoDeUsuarios.readLine()) != null) {
-				String[] parametros = lineaUsuario.split(".");
+				String[] parametros = lineaUsuario.split(",");
 				double presupuesto = 0, tiempo = 0;
 				String preferenciaDelArchivo = "";
 				TipoAtraccion[] todasLasPreferencias = TipoAtraccion.values();

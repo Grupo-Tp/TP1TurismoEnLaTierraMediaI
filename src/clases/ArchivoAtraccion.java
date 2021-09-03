@@ -4,7 +4,7 @@ public class ArchivoAtraccion {
 public ArchivoAtraccion() {}
 public List<Atraccion> leerArchivoAtraccion(){
 	while ((lineaAtraccion = bufferDelLectorDeArchivoDeAtracciones.readLine()) != null) {
-		String[] parametros = lineaAtraccion.split(".");
+		String[] parametros = lineaAtraccion.split(",");
 		double costo = 0, tiempo = 0;
 		int cupo = 0;
 		String tipoDeAtraccionDelArchivo = "";
