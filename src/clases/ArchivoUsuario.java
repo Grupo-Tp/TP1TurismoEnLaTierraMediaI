@@ -18,8 +18,8 @@ public class ArchivoUsuario {
 
 	public List<Usuario> leerArchivoUsuario(){
 		try {
-			lectorDeArchivoDeUsuarios = new FileReader("usuarios.sad");
-			bufferDelLectorDeArchivoDeUsuarios = new BufferedReader(bufferDelLectorDeArchivoDeUsuarios);
+			lectorDeArchivoDeUsuarios = new FileReader("usuarios.csv");
+			bufferDelLectorDeArchivoDeUsuarios = new BufferedReader(lectorDeArchivoDeUsuarios);
 			while ((lineaUsuario = bufferDelLectorDeArchivoDeUsuarios.readLine()) != null) {
 				String[] parametros = lineaUsuario.split(",");
 				double presupuesto = 0, tiempo = 0;

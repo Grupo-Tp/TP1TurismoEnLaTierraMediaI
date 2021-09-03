@@ -21,9 +21,9 @@ public class App {
 
 		try {
 
-			lectorDeArchivoDeUsuarios = new FileReader("usuarios.sad");
-			lectorDeArchivoDeAtracciones = new FileReader("atracciones.sad");
-			lectorDeArchivoDePromociones = new FileReader("promociones.sad");
+			lectorDeArchivoDeUsuarios = new FileReader("usuarios.csv");
+			lectorDeArchivoDeAtracciones = new FileReader("atracciones.csv");
+			lectorDeArchivoDePromociones = new FileReader("promociones.csv");
 			bufferDelLectorDeArchivoDeUsuarios = new BufferedReader(bufferDelLectorDeArchivoDeUsuarios);
 			bufferDelLectorDeArchivoDeAtracciones = new BufferedReader(bufferDelLectorDeArchivoDeAtracciones);
 			bufferDelLectorDeArchivoDePromociones = new BufferedReader(bufferDelLectorDeArchivoDePromociones);
