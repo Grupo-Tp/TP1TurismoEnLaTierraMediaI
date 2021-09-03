@@ -54,6 +54,15 @@ public class Usuario {
 	public TipoAtraccion getPreferencia() {
 		return preferencia;
 	}
+	
+	/**
+	 * @pre No tiene.
+	 * @post No tiene.
+	 * @return Tipo el itinerario del usuario.
+	 */
+	public List<Base> getItinerario() {
+		return itinerario;
+	}
 
 	// Debemos corregir este método, ya que debe admitir la posibilidad de que sea
 	// aceptada o rechazada por la consola
