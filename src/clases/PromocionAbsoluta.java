@@ -6,8 +6,8 @@ public class PromocionAbsoluta extends Promocion {
 
 	double descuentoAbsoluto;
 
-	public PromocionAbsoluta(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones, double descuentoAbsoluto) {
-		super(nombre, tipo, atracciones);
+	public PromocionAbsoluta(TipoAtraccion tipo, List<Atraccion> atracciones, double descuentoAbsoluto) {
+		super(tipo, atracciones);
 		this.descuentoAbsoluto = descuentoAbsoluto;
 	}
 

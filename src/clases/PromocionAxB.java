@@ -5,8 +5,8 @@ import java.util.List;
 public class PromocionAxB extends Promocion {
 	private int cantidadDeAtracciones;
 
-	public PromocionAxB(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones) {
-		super(nombre, tipo, atracciones);
+	public PromocionAxB(TipoAtraccion tipo, List<Atraccion> atracciones) {
+		super(tipo, atracciones);
 		this.setCantidadDeAtracciones(0);
 	}
 

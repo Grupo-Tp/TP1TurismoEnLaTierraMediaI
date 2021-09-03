@@ -5,8 +5,8 @@ import java.util.List;
 public abstract class Promocion extends Base {
 	private List<Atraccion> atracciones;
 
-	public Promocion(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones) {
-		super(nombre, 0, 0, tipo);
+	public Promocion(TipoAtraccion tipo, List<Atraccion> atracciones) {
+		super("", 0, 0, tipo);
 		this.setAtracciones(atracciones);
 		this.setCosto(0);
 		this.setTiempo(0);
