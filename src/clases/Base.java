@@ -71,4 +71,14 @@ public abstract class Base {
 		return tipo;
 	}
 
+	/**
+	 * @pre No Tiene.
+	 * @post Se actualizo el tipo de la Atraccion o Promocion.
+	 * @param tipo Tipo que requiere la atraccion o promocion a
+	 *              actualizar.
+	 * @return No tiene.
+	 */
+	public void setTipo(TipoAtraccion tipo) {
+		this.tipo = tipo;
+	}
 }

@@ -8,8 +8,6 @@ public abstract class Promocion extends Base {
 	public Promocion(TipoAtraccion tipo, List<Atraccion> atracciones) {
 		super("", 0, 0, tipo);
 		this.setAtracciones(atracciones);
-		this.setCosto(0);
-		this.setTiempo(0);
 	}
 
 	/**

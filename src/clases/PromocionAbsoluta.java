@@ -11,6 +11,10 @@ public class PromocionAbsoluta extends Promocion {
 		this.descuentoAbsoluto = descuentoAbsoluto;
 	}
 
+	public PromocionAbsoluta(double descuentoAbsoluto) {
+		this(null, null, descuentoAbsoluto);
+	}
+
 	@Override
 	public Base sugerirPromocion(Usuario usuario) {
 		// TODO Auto-generated method stub

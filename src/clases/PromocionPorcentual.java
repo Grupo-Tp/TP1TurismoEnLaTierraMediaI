@@ -11,6 +11,10 @@ public class PromocionPorcentual extends Promocion {
 		this.porcentajeDescuento = porcentaje;
 	}
 
+	public PromocionPorcentual(double porcentaje) {
+		this(null, null, porcentaje);
+	}
+
 	/**
 	 * @pre No tiene.
 	 * @post No tiene.
