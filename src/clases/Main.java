@@ -7,10 +7,10 @@ public class Main {
 	public static void main(String[] args) {
 	
 		//usuarios
-		Usuario eowyn = new Usuario("Eowyn", 8, 10, TipoAtraccion.AVENTURA);
-		Usuario gandalf = new Usuario("Gandalf", 5, 100, TipoAtraccion.PAISAJE);
-		Usuario sam = new Usuario("Sam", 8, 36, TipoAtraccion.DEGUSTACION);
-		Usuario galadriel = new Usuario("Galadriel", 6, 120, TipoAtraccion.PAISAJE);
+		Usuario eowyn = new Usuario("Eowyn", 8.0, 10.0, TipoAtraccion.AVENTURA);
+		Usuario gandalf = new Usuario("Gandalf", 5.0, 100.0, TipoAtraccion.PAISAJE);
+		Usuario sam = new Usuario("Sam", 8.0, 36.0, TipoAtraccion.DEGUSTACION);
+		Usuario galadriel = new Usuario("Galadriel", 6.0, 120.0, TipoAtraccion.PAISAJE);
 		
 		//atracciones
 		Atraccion bosqueNegro = new Atraccion("Bosque Negro", 4.0, 3.0, TipoAtraccion.AVENTURA, 12);
