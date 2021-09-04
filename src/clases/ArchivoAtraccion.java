@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ArchivoAtraccion {
@@ -23,6 +24,8 @@ public class ArchivoAtraccion {
 	}
 
 	/**
+	 * Esto va en la clase
+	 * 
 	 * @pre No tiene.
 	 * @post Se valido el nombre de la Atraccion.
 	 * @param nombre Ingresa el parametro leido de una linea del archivo de
@@ -50,12 +53,8 @@ public class ArchivoAtraccion {
 		double valor = 0;
 		try {
 			valor = Double.parseDouble(costo);
-			if (valor <= 0)
-				throw new IllegalArgumentException();
 		} catch (NumberFormatException excepcionDeCosto) {
 			System.err.println("Una de las atracciones leidas tiene un problema en su costo");
-		} catch (IllegalArgumentException excepcionMenorIgualCero) {
-			System.err.println("Una de las atracciones leidas tiene un costo menor o igual que cero");
 		}
 		return valor;
 	}
@@ -71,12 +70,8 @@ public class ArchivoAtraccion {
 		double valor = 0;
 		try {
 			valor = Double.parseDouble(tiempo);
-			if (valor <= 0)
-				throw new IllegalArgumentException();
 		} catch (NumberFormatException excepcionDeCosto) {
 			System.err.println("Una de las atracciones leidas tiene un problema en su tiempo");
-		} catch (IllegalArgumentException excepcionMenorIgualCero) {
-			System.err.println("Una de las atracciones leidas tiene un tiempo menor o igual que cero");
 		}
 		return valor;
 	}
@@ -92,12 +87,8 @@ public class ArchivoAtraccion {
 		int valor = 0;
 		try {
 			valor = Integer.parseInt(cupo);
-			if (valor <= 0)
-				throw new IllegalArgumentException();
 		} catch (NumberFormatException excepcionDeCosto) {
 			System.err.println("Una de las atracciones leidas tiene un problema en su cupo");
-		} catch (IllegalArgumentException excepcionMenorIgualCero) {
-			System.err.println("Una de las atracciones leidas tiene un cupo menor o igual que cero");
 		}
 		return valor;
 	}
@@ -114,12 +105,6 @@ public class ArchivoAtraccion {
 		TipoAtraccion tipoDeAtraccion = null;
 		try {
 			String tipoDeAtraccionDelArchivo = tipo.toUpperCase();
-			try {
-				if (tipoDeAtraccionDelArchivo == "")
-					throw new IllegalArgumentException();
-			} catch (IllegalArgumentException excepcionDeTipoVacia) {
-				System.err.println("Una de las atracciones leidas tiene su tipo de atraccion vacia");
-			}
 			for (TipoAtraccion indice : TipoAtraccion.values()) {
 				if (tipoDeAtraccionDelArchivo == indice.toString()) {
 					tipoDeAtraccion = indice;
@@ -135,35 +120,48 @@ public class ArchivoAtraccion {
 		return tipoDeAtraccion;
 	}
 
+
+//    public class UsuarioException extends Exception { 
+//    public UsuarioException(String msg) {
+//        super(msg);
+//    }
+//}
 	/**
 	 * @pre No tiene.
-	 * @post Se creo una nueva lista con las instancias de las atracciones nombradas.
-	 * @param nombresDeAtracciones Arreglo con los nombres de las instancias de las atracciones a buscar en la lista de atracciones prorporcionada.
-	 * @param lista Lista con las instancias de las atracciones.
-	 * @return Retorna una lista con las instancias de atracciones que forman parte de la promocion.
+	 * @post Se creo una nueva lista con las instancias de las atracciones
+	 *       nombradas.
+	 * @param nombresDeAtracciones Arreglo con los nombres de las instancias de las
+	 *                             atracciones a buscar en la lista de atracciones
+	 *                             prorporcionada.
+	 * @param lista                Lista con las instancias de las atracciones.
+	 * @return Retorna una lista con las instancias de atracciones que forman parte
+	 *         de la promocion.
 	 */
 	public List<Atraccion> crearListaDeAtraccion(String[] nombresDeAtracciones, List<Atraccion> lista) {
+		try {
+			Iterator<Atraccion> indice = lista.iterator();
+			while (indice.hasNext()) {
+				String[] parametros = lineaAtraccion.split(",");
+				double costo = 0, tiempo = 0;
+				int cupo = 0;
+				String nombre = "";
+				TipoAtraccion tipoDeAtraccion = null;
+				nombre = parametros[0];
+				costo = this.validarCosto(parametros[1]);
+				tiempo = this.validarTiempo(parametros[2]);
+				cupo = this.validarCupo(parametros[3]);
+				tipoDeAtraccion = this.validarTipo(parametros[4]);
+				atracciones.add(new Atraccion(nombre, tiempo, costo, tipoDeAtraccion, cupo));
+			}
+		} catch (IOException excepcion) {
+			System.err.println("Hubo un problema al momento de leer las atracciones del archivo de atracciones");
+		}
 		/**
-		 * 		try {
-		 * 			while ((lineaAtraccion = bufferDelLectorDeArchivoDeAtracciones.readLine()) != null) {
-		 * 				String[] parametros = lineaAtraccion.split(",");
-		 * 				double costo = 0, tiempo = 0;
-		 * 				int cupo = 0;
-		 * 				String nombre = "";
-		 * 				TipoAtraccion tipoDeAtraccion = null;
-		 * 				nombre = this.validarNombre(parametros[0]);
-		 * 				costo = this.validarCosto(parametros[1]);
-		 * 				tiempo = this.validarTiempo(parametros[2]);
-		 * 				cupo = this.validarCupo(parametros[3]);
-		 * 				tipoDeAtraccion = this.validarTipo(parametros[4]);
-		 * 				atracciones.add(new Atraccion(nombre, tiempo, costo, tipoDeAtraccion, cupo));
-		 * 			}
-		 * 		} catch (IOException excepcion) {
-		 * 			System.err.println("Hubo un problema al momento de leer las atracciones del archivo de atracciones");
-		 * 		}
-		 * Este método tiene que buscar las instancias de las atracciones que coincida con los nombres de atracciones proporcionadas
-		 * en los nombresDeAtracciones, para cada uno tiene que validarlo y retornar la nueva lista con las instancias.
-		*/
+		 * Este método tiene que buscar las instancias de las atracciones que coincida
+		 * con los nombres de atracciones proporcionadas en los nombresDeAtracciones,
+		 * para cada uno tiene que validarlo y retornar la nueva lista con las
+		 * instancias.
+		 */
 		return atracciones;
 	}
 
