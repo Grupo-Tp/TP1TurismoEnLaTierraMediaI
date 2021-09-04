@@ -24,37 +24,19 @@ public class ArchivoAtraccion {
 	}
 
 	/**
-	 * Esto va en la clase
-	 * 
-	 * @pre No tiene.
-	 * @post Se valido el nombre de la Atraccion.
-	 * @param nombre Ingresa el parametro leido de una linea del archivo de
-	 *               atracciones.
-	 * @return Retorna el nombre validado.
-	 */
-	private String validarNombre(String nombre) {
-		try {
-			if (nombre == "")
-				throw new IllegalArgumentException();
-		} catch (IllegalArgumentException excepcionDeNombre) {
-			System.err.println("Una de las atracciones leidas tiene un problema en su nombre");
-		}
-		return nombre;
-	}
-
-	/**
 	 * @pre No tiene.
 	 * @post Se valido que el costo de la Atraccion sea valido y positivo.
 	 * @param costo Ingresa el parametro leido de una linea del archivo de
 	 *              atracciones.
 	 * @return Retorna el costo validado.
+	 * @throws ExcepcionDeAtraccion Nuestra excepcion para informar los errores.
 	 */
-	private double validarCosto(String costo) {
+	private double validarCosto(String costo) throws ExcepcionDeAtraccion {
 		double valor = 0;
 		try {
 			valor = Double.parseDouble(costo);
 		} catch (NumberFormatException excepcionDeCosto) {
-			System.err.println("Una de las atracciones leidas tiene un problema en su costo");
+			throw new ExcepcionDeAtraccion("Una de las atracciones leidas tiene un problema en su costo");
 		}
 		return valor;
 	}
@@ -65,13 +47,14 @@ public class ArchivoAtraccion {
 	 * @param tiempo Ingresa el parametro leido de una linea del archivo de
 	 *               atracciones.
 	 * @return Retorna el tiempo validado.
+	 * @throws ExcepcionDeAtraccion Nuestra excepcion para informar los errores.
 	 */
-	private double validarTiempo(String tiempo) {
+	private double validarTiempo(String tiempo) throws ExcepcionDeAtraccion {
 		double valor = 0;
 		try {
 			valor = Double.parseDouble(tiempo);
 		} catch (NumberFormatException excepcionDeCosto) {
-			System.err.println("Una de las atracciones leidas tiene un problema en su tiempo");
+			throw new ExcepcionDeAtraccion("Una de las atracciones leidas tiene un problema en su tiempo");
 		}
 		return valor;
 	}
@@ -82,13 +65,14 @@ public class ArchivoAtraccion {
 	 * @param cupo Ingresa el parametro leido de una linea del archivo de
 	 *             atracciones.
 	 * @return Retorna el cupo validado.
+	 * @throws ExcepcionDeAtraccion Nuestra excepcion para informar los errores.
 	 */
-	private int validarCupo(String cupo) {
+	private int validarCupo(String cupo) throws ExcepcionDeAtraccion {
 		int valor = 0;
 		try {
 			valor = Integer.parseInt(cupo);
 		} catch (NumberFormatException excepcionDeCosto) {
-			System.err.println("Una de las atracciones leidas tiene un problema en su cupo");
+			throw new ExcepcionDeAtraccion("Una de las atracciones leidas tiene un problema en su cupo");
 		}
 		return valor;
 	}
@@ -99,9 +83,9 @@ public class ArchivoAtraccion {
 	 * @param tipo Ingresa el parametro leido de una linea del archivo de
 	 *             atracciones.
 	 * @return Retorna el tipo de atraccion validado.
+	 * @throws ExcepcionDeAtraccion Nuestra excepcion para informar los errores.
 	 */
-	private TipoAtraccion validarTipo(String tipo) {
-		// todo este codigo se puede mejorar
+	private TipoAtraccion validarTipo(String tipo) throws ExcepcionDeAtraccion {
 		TipoAtraccion tipoDeAtraccion = null;
 		try {
 			String tipoDeAtraccionDelArchivo = tipo.toUpperCase();
@@ -110,22 +94,14 @@ public class ArchivoAtraccion {
 					tipoDeAtraccion = indice;
 				}
 			}
-			if (tipoDeAtraccion == null)
+			if (tipoDeAtraccion == null) // Ver si esto se puede mejorar
 				throw new NullPointerException();
-			// aca debería poner la excepcion que haga saltar que existe un error y que sea
-			// capturada en el catch, pero no me acuerdo como era, despues lo hago
 		} catch (NullPointerException excepcionDeTipoNula) {
-			System.err.println("Una de las atracciones leidas tiene un problema en su tipo de atraccion");
+			throw new ExcepcionDeAtraccion("Una de las atracciones leidas tiene un problema en su tipo de atraccion");
 		}
 		return tipoDeAtraccion;
 	}
 
-
-//    public class UsuarioException extends Exception { 
-//    public UsuarioException(String msg) {
-//        super(msg);
-//    }
-//}
 	/**
 	 * @pre No tiene.
 	 * @post Se creo una nueva lista con las instancias de las atracciones
@@ -137,32 +113,29 @@ public class ArchivoAtraccion {
 	 * @return Retorna una lista con las instancias de atracciones que forman parte
 	 *         de la promocion.
 	 */
-	public List<Atraccion> crearListaDeAtraccion(String[] nombresDeAtracciones, List<Atraccion> lista) {
+	public static List<Atraccion> crearListaDeAtraccion(String[] nombresDeAtracciones, List<Atraccion> lista) {
+		List<Atraccion> retorno = new ArrayList<Atraccion>();
 		try {
-			Iterator<Atraccion> indice = lista.iterator();
-			while (indice.hasNext()) {
-				String[] parametros = lineaAtraccion.split(",");
-				double costo = 0, tiempo = 0;
-				int cupo = 0;
-				String nombre = "";
-				TipoAtraccion tipoDeAtraccion = null;
-				nombre = parametros[0];
-				costo = this.validarCosto(parametros[1]);
-				tiempo = this.validarTiempo(parametros[2]);
-				cupo = this.validarCupo(parametros[3]);
-				tipoDeAtraccion = this.validarTipo(parametros[4]);
-				atracciones.add(new Atraccion(nombre, tiempo, costo, tipoDeAtraccion, cupo));
+			for (int cantidad = 0; cantidad <= nombresDeAtracciones.length; cantidad++) {
+				Iterator<Atraccion> indice = lista.iterator();
+				Atraccion atraccion = null;
+				boolean encontre = false;
+				while ((indice.hasNext()) && !encontre) {
+					atraccion = indice.next();
+					if (atraccion.getNombre() == nombresDeAtracciones[cantidad]) {
+						retorno.add(atraccion);
+						encontre = true;
+					}
+				}
 			}
-		} catch (IOException excepcion) {
+			// hay que poner las excepciones que hacen falta, la de fuera del arreglo,
+			// nullpointerexception, classcastexception y seguro alguna más que no me
+			// acuerdo y controlar que salga de ese for, largar una exepciondeatraccion con
+			// su mensaje para informar el error
+		} catch (Exception excepcion) {
 			System.err.println("Hubo un problema al momento de leer las atracciones del archivo de atracciones");
 		}
-		/**
-		 * Este método tiene que buscar las instancias de las atracciones que coincida
-		 * con los nombres de atracciones proporcionadas en los nombresDeAtracciones,
-		 * para cada uno tiene que validarlo y retornar la nueva lista con las
-		 * instancias.
-		 */
-		return atracciones;
+		return retorno;
 	}
 
 	/**
@@ -180,13 +153,15 @@ public class ArchivoAtraccion {
 				int cupo = 0;
 				String nombre = "";
 				TipoAtraccion tipoDeAtraccion = null;
-				nombre = this.validarNombre(parametros[0]);
+				nombre = parametros[0];
 				costo = this.validarCosto(parametros[1]);
 				tiempo = this.validarTiempo(parametros[2]);
 				cupo = this.validarCupo(parametros[3]);
 				tipoDeAtraccion = this.validarTipo(parametros[4]);
 				atracciones.add(new Atraccion(nombre, tiempo, costo, tipoDeAtraccion, cupo));
 			}
+		} catch (ExcepcionDeAtraccion exepcionDeValidacion) {
+			System.err.println(exepcionDeValidacion.getMessage());
 		} catch (IOException excepcion) {
 			System.err.println("Hubo un problema al momento de leer las atracciones del archivo de atracciones");
 		}
