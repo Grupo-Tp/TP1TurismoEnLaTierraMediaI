@@ -17,10 +17,11 @@ public class ArchivoAtraccion {
 		try {
 			lectorDeArchivoDeAtracciones = new FileReader(nombreArchivo);
 			bufferDelLectorDeArchivoDeAtracciones = new BufferedReader(lectorDeArchivoDeAtracciones);
-		} catch (FileNotFoundException excepcion) {
-			System.err.println("Hubo un problema al momento de leer el archivo de atracciones");
+			atracciones = new ArrayList<Atraccion>();
+			this.atracciones = this.leerArchivoAtraccion();
+		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
+			System.err.println("El archivo de atracciones: " + nombreArchivo + " no fue encontrado.");
 		}
-		atracciones = new ArrayList<Atraccion>();
 	}
 
 	/**
@@ -36,7 +37,7 @@ public class ArchivoAtraccion {
 		try {
 			valor = Double.parseDouble(costo);
 		} catch (NumberFormatException excepcionDeCosto) {
-			throw new ExcepcionDeAtraccion("Una de las atracciones leidas tiene un problema en su costo");
+			throw new ExcepcionDeAtraccion("costo, el valor leido es: " + costo);
 		}
 		return valor;
 	}
@@ -54,7 +55,7 @@ public class ArchivoAtraccion {
 		try {
 			valor = Double.parseDouble(tiempo);
 		} catch (NumberFormatException excepcionDeCosto) {
-			throw new ExcepcionDeAtraccion("Una de las atracciones leidas tiene un problema en su tiempo");
+			throw new ExcepcionDeAtraccion("tiempo, el valor leido es: " + tiempo);
 		}
 		return valor;
 	}
@@ -72,7 +73,7 @@ public class ArchivoAtraccion {
 		try {
 			valor = Integer.parseInt(cupo);
 		} catch (NumberFormatException excepcionDeCosto) {
-			throw new ExcepcionDeAtraccion("Una de las atracciones leidas tiene un problema en su cupo");
+			throw new ExcepcionDeAtraccion("cupo, el valor leido es: " + cupo);
 		}
 		return valor;
 	}
@@ -97,7 +98,7 @@ public class ArchivoAtraccion {
 			if (tipoDeAtraccion == null) // Ver si esto se puede mejorar
 				throw new NullPointerException();
 		} catch (NullPointerException excepcionDeTipoNula) {
-			throw new ExcepcionDeAtraccion("Una de las atracciones leidas tiene un problema en su tipo de atraccion");
+			throw new ExcepcionDeAtraccion("tipo de atraccion, el valor leido es: " + tipo);
 		}
 		return tipoDeAtraccion;
 	}
@@ -144,9 +145,9 @@ public class ArchivoAtraccion {
 	 *       de atracciones.
 	 * @return Retorna una lista con todas las instancias de atracciones creadas.
 	 */
-	public List<Atraccion> leerArchivoAtraccion() {
-		String lineaAtraccion = "";
+	private List<Atraccion> leerArchivoAtraccion() {
 		try {
+			String lineaAtraccion = "";
 			while ((lineaAtraccion = bufferDelLectorDeArchivoDeAtracciones.readLine()) != null) {
 				String[] parametros = lineaAtraccion.split(",");
 				double costo = 0, tiempo = 0;
@@ -154,16 +155,20 @@ public class ArchivoAtraccion {
 				String nombre = "";
 				TipoAtraccion tipoDeAtraccion = null;
 				nombre = parametros[0];
-				costo = this.validarCosto(parametros[1]);
-				tiempo = this.validarTiempo(parametros[2]);
-				cupo = this.validarCupo(parametros[3]);
-				tipoDeAtraccion = this.validarTipo(parametros[4]);
-				atracciones.add(new Atraccion(nombre, tiempo, costo, tipoDeAtraccion, cupo));
+				try {
+					costo = this.validarCosto(parametros[1]);
+					tiempo = this.validarTiempo(parametros[2]);
+					cupo = this.validarCupo(parametros[3]);
+					tipoDeAtraccion = this.validarTipo(parametros[4]);
+					atracciones.add(new Atraccion(nombre, tiempo, costo, tipoDeAtraccion, cupo));
+				} catch (ExcepcionDeAtraccion exepcionDeValidacion) {
+					System.err.println(
+							"La atraccion " + nombre + " reporta un error su " + exepcionDeValidacion.getMessage());
+				}
 			}
-		} catch (ExcepcionDeAtraccion exepcionDeValidacion) {
-			System.err.println(exepcionDeValidacion.getMessage());
-		} catch (IOException excepcion) {
-			System.err.println("Hubo un problema al momento de leer las atracciones del archivo de atracciones");
+		} catch (IOException excepcionDeLecturaDeLineaDelArchivo) {
+			System.err.println("Hubo un problema al momento de leer una linea de las atracciones del archivo: "
+					+ excepcionDeLecturaDeLineaDelArchivo.getMessage());
 		}
 		return atracciones;
 	}
