@@ -20,7 +20,7 @@ public class ArchivoAtraccion {
 			atracciones = new ArrayList<Atraccion>();
 			this.atracciones = this.leerArchivoAtraccion();
 		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
-			System.err.println("El archivo de atracciones: " + nombreArchivo + " no fue encontrado.");
+			System.err.println("El archivo de atracciones: '" + nombreArchivo + "' no fue encontrado.");
 		}
 	}
 
