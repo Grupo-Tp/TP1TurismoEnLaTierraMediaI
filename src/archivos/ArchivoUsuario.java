@@ -1,6 +1,7 @@
 package archivos;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,65 +9,128 @@ import java.util.List;
 
 import clases.TipoAtraccion;
 import clases.Usuario;
+import excepciones.ExcepcionArchivoDeUsuario;
+import excepciones.ExcepcionDeUsuario;
 
 public class ArchivoUsuario {
 	private FileReader lectorDeArchivoDeUsuarios = null;
 	private BufferedReader bufferDelLectorDeArchivoDeUsuarios = null;
-	private String lineaUsuario = "";
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 
-	public ArchivoUsuario() {
-
+	public ArchivoUsuario(String nombreArchivo) {
+		try {
+			lectorDeArchivoDeUsuarios = new FileReader(nombreArchivo);
+			bufferDelLectorDeArchivoDeUsuarios = new BufferedReader(lectorDeArchivoDeUsuarios);
+			usuarios = new ArrayList<Usuario>();
+			this.usuarios = this.leerArchivoUsuario();
+		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
+			System.err.println("El archivo de usuarios: '" + nombreArchivo + "' no fue encontrado.");
+		}
 	}
 
-	public List<Usuario> leerArchivoUsuario(){
+	/**
+	 * @pre No tiene.
+	 * @post No tiene.
+	 * @return Retorna la lista con las instancias de usuarios que fueron generadas
+	 *         a partir del archivo de usuarios.
+	 */
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	/**
+	 * @pre No tiene.
+	 * @post Se valido que el presupuesto del Usuario sea valido.
+	 * @param presupuesto Ingresa el parametro leido de una linea del archivo de
+	 *                    atracciones.
+	 * @return Retorna el costo validado.
+	 * @throws ExcepcionArchivoDeUsuario Nuestra excepcion para informar los
+	 *                                   errores.
+	 */
+	private double validarPresupuesto(String presupuesto) throws ExcepcionArchivoDeUsuario {
+		double valor = 0;
 		try {
-			lectorDeArchivoDeUsuarios = new FileReader("usuarios.csv");
-			bufferDelLectorDeArchivoDeUsuarios = new BufferedReader(lectorDeArchivoDeUsuarios);
+			valor = Double.parseDouble(presupuesto);
+		} catch (NumberFormatException excepcionDeCosto) {
+			throw new ExcepcionArchivoDeUsuario("presupuesto, el valor leido es: " + presupuesto);
+		}
+		return valor;
+	}
+
+	/**
+	 * @pre No tiene.
+	 * @post Se valido que el tiempo del Usuario sea valido.
+	 * @param tiempo Ingresa el parametro leido de una linea del archivo de
+	 *               atracciones.
+	 * @return Retorna el tiempo validado.
+	 * @throws ExcepcionArchivoDeUsuario Nuestra excepcion para informar los
+	 *                                   errores.
+	 */
+	private double validarTiempo(String tiempo) throws ExcepcionArchivoDeUsuario {
+		double valor = 0;
+		try {
+			valor = Double.parseDouble(tiempo);
+		} catch (NumberFormatException excepcionDeCosto) {
+			throw new ExcepcionArchivoDeUsuario("tiempo, el valor leido es: " + tiempo);
+		}
+		return valor;
+	}
+
+	/**
+	 * @pre No tiene.
+	 * @post Se valido que la preferencia del Usuario sea valida.
+	 * @param preferencia Ingresa el parametro leido de una linea del archivo de
+	 *                    atracciones.
+	 * @return Retorna el tipo de atraccion validado.
+	 * @throws ExcepcionArchivoDeUsuario Nuestra excepcion para informar los
+	 *                                   errores.
+	 */
+	private TipoAtraccion validarPreferencia(String preferencia) throws ExcepcionArchivoDeUsuario {
+		TipoAtraccion tipoDePreferencia = null;
+		try {
+			String tipoDePreferenciaDelArchivo = preferencia.toUpperCase();
+			for (TipoAtraccion indice : TipoAtraccion.values()) {
+				if (tipoDePreferenciaDelArchivo == indice.toString()) {
+					tipoDePreferencia = indice;
+				}
+			}
+			if (tipoDePreferencia == null)
+				throw new NullPointerException();
+		} catch (NullPointerException excepcionDeTipoNula) {
+			throw new ExcepcionArchivoDeUsuario("tipo de atraccion, el valor leido es: " + preferencia);
+		}
+		return tipoDePreferencia;
+	}
+
+	/**
+	 * @pre No tiene.
+	 * @post Se validaron y crearon todos los usuarios contenidos en el archivo de
+	 *       usuarios.
+	 * @return Retorna una lista con todas las instancias de usuario creados.
+	 */
+	public List<Usuario> leerArchivoUsuario() {
+		try {
+			String lineaUsuario = "";
 			while ((lineaUsuario = bufferDelLectorDeArchivoDeUsuarios.readLine()) != null) {
 				String[] parametros = lineaUsuario.split(",");
 				double presupuesto = 0, tiempo = 0;
-				String preferenciaDelArchivo = "";
-				TipoAtraccion[] todasLasPreferencias = TipoAtraccion.values();
 				TipoAtraccion preferencia = null;
+				String nombre = parametros[0];
 				try {
-					if(parametros[0]=="") 
-						throw new RuntimeException();
-					}
-					catch(RuntimeException excepcionDeNombre) {
-						System.err.println("Uno de los usuarios leidos tiene un problema en el nombre");
-					}
-					try {
-					// Este bloque se puede mejorar
-					preferenciaDelArchivo = parametros[1].toUpperCase();
-					if (preferenciaDelArchivo == todasLasPreferencias[0].name()) {
-						preferencia = TipoAtraccion.AVENTURA;
-					} else if (preferenciaDelArchivo == todasLasPreferencias[1].name()) {
-						preferencia = TipoAtraccion.PAISAJE;
-					} else if (preferenciaDelArchivo == todasLasPreferencias[2].name()) {
-						preferencia = TipoAtraccion.DEGUSTACION;
-					} else {
-						throw new RuntimeException();
-					}
-					// Aquí finaliza el bloque que se puede mejorar
-				} catch (RuntimeException excepcionDePreferencias) {
-					// este es el catch que debe capturar la excepcion que esta descrita arriba
-					System.err.println("Uno de los usuarios leidos tiene un problema en su preferencia");
+					preferencia = this.validarPreferencia(parametros[1]);
+					presupuesto = this.validarPresupuesto(parametros[2]);
+					tiempo = this.validarTiempo(parametros[3]);
+					usuarios.add(new Usuario(nombre, tiempo, presupuesto, preferencia));
+				} catch (ExcepcionArchivoDeUsuario excepcionDeValidacion) {
+					System.err.println("El usuario " + nombre + " reporta un error al momento de "
+							+ excepcionDeValidacion.getMessage());
+				} catch (ExcepcionDeUsuario excepcionDeConstructorDeUsuario) {
+					System.err.println(" El usuario " + nombre + " reporta un error al momento de "
+							+ excepcionDeConstructorDeUsuario.getMessage());
 				}
-				try {
-					presupuesto = Double.parseDouble(parametros[2]);
-				} catch (NumberFormatException excepcionDePresupuesto) {
-					System.err.println("Uno de los usuarios leidos tiene un problema en su presupuesto");
-				}
-				try {
-					tiempo = Double.parseDouble(parametros[3]);
-				} catch (NumberFormatException excepcionDeTiempo) {
-					System.err.println("Uno de los usuarios leidos tiene un problema en su tiempo");
-				}
-				usuarios.add(new Usuario(parametros[0], tiempo, presupuesto, preferencia));
 			}
-		}catch (IOException excepcion) {
-		System.err.println("Hubo un problema al momento de leerr uno de los archivos");
+		} catch (IOException excepcion) {
+			System.err.println("Hubo un problema al momento de leerr uno de los archivos");
 		}
 		return usuarios;
 	}
