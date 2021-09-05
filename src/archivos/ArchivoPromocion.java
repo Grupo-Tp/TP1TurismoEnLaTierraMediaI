@@ -74,7 +74,7 @@ public class ArchivoPromocion {
 
 	/**
 	 * @pre No tiene.
-	 * @post Se valido que el costo de la Atraccion sea valido y positivo.
+	 * @post Se valido que el costo de la Atraccion sea valido.
 	 * @param costo Ingresa el parametro leido de una linea del archivo de
 	 *              atracciones.
 	 * @return Retorna el costo validado.
@@ -93,7 +93,7 @@ public class ArchivoPromocion {
 
 	/**
 	 * @pre No tiene.
-	 * @post Se valido que el costo de la Atraccion sea valido y positivo.
+	 * @post Se valido que el costo de la Atraccion sea valido.
 	 * @param costo Ingresa el parametro leido de una linea del archivo de
 	 *              atracciones.
 	 * @return Retorna el costo validado.
