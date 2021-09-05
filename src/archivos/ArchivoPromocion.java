@@ -174,12 +174,12 @@ public class ArchivoPromocion {
 				} catch (ExcepcionArchivoDePromocion excepcionDeValidacion) {
 					System.err.println("Una de las promociones leidas tiene un problema en su "
 							+ excepcionDeValidacion.getMessage());
-				} catch (ExcepcionDeBase excepcionDeCreacionDeInstanciaEnElConstructorBase) {
+				} catch (ExcepcionDeBase excepcionDeConstructorDeBase) {
 					System.err.println("Una de las promociones presenta un error al momento de "
-							+ excepcionDeCreacionDeInstanciaEnElConstructorBase.getMessage());
-				} catch (ExcepcionDePromocion exepcionDeCreacionDeInstanciaDePromocion) {
+							+ excepcionDeConstructorDeBase.getMessage());
+				} catch (ExcepcionDePromocion exepcionDeConstructorDePromocion) {
 					System.err.println("Una de las promociones presenta un error al momento de "
-							+ exepcionDeCreacionDeInstanciaDePromocion.getMessage());
+							+ exepcionDeConstructorDePromocion.getMessage());
 				}
 				promociones.add(promocion);
 			}
