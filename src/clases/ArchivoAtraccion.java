@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ArchivoAtraccion {
 	private FileReader lectorDeArchivoDeAtracciones = null;
@@ -113,8 +114,10 @@ public class ArchivoAtraccion {
 	 * @param lista                Lista con las instancias de las atracciones.
 	 * @return Retorna una lista con las instancias de atracciones que forman parte
 	 *         de la promocion.
+	 * @throws ExcepcionDeAtraccion Nuestra excepcion para informar errores.
 	 */
-	public static List<Atraccion> crearListaDeAtraccion(String[] nombresDeAtracciones, List<Atraccion> lista) {
+	public static List<Atraccion> crearListaDeAtraccion(String[] nombresDeAtracciones, List<Atraccion> lista)
+			throws ExcepcionDeAtraccion {
 		List<Atraccion> retorno = new ArrayList<Atraccion>();
 		try {
 			for (int cantidad = 0; cantidad <= nombresDeAtracciones.length; cantidad++) {
@@ -129,12 +132,14 @@ public class ArchivoAtraccion {
 					}
 				}
 			}
-			// hay que poner las excepciones que hacen falta, la de fuera del arreglo,
-			// nullpointerexception, classcastexception y seguro alguna más que no me
-			// acuerdo y controlar que salga de ese for, largar una exepciondeatraccion con
-			// su mensaje para informar el error
-		} catch (Exception excepcion) {
-			System.err.println("Hubo un problema al momento de leer las atracciones del archivo de atracciones");
+		} catch (NullPointerException excepcionDeAgregarUnaAtraccionNula) {
+			throw new ExcepcionDeAtraccion("se ha intentado agregar una atraccion nula.");
+		} catch (ClassCastException excepcionDeAgregarUnObjetoQueNoEsAtraccion) {
+			throw new ExcepcionDeAtraccion("se ha intentado agregar algo que no es una atraccion.");
+		} catch (NoSuchElementException excepcionDeSiguienteElementoDeLista) {
+			throw new ExcepcionDeAtraccion("ha habido un problema con la lista de atracciones proporcionada.");
+		} catch (ArrayIndexOutOfBoundsException excepcionDeFueraDeLosLimitesDelArreglo) {
+			throw new ExcepcionDeAtraccion("ha habido un problema con los nombres de las atracciones que incluye la promocion.");
 		}
 		return retorno;
 	}
@@ -167,8 +172,9 @@ public class ArchivoAtraccion {
 				}
 			}
 		} catch (IOException excepcionDeLecturaDeLineaDelArchivo) {
-			System.err.println("Hubo un problema al momento de leer una linea de las atracciones del archivo: "
-					+ excepcionDeLecturaDeLineaDelArchivo.getMessage());
+			System.err.println(
+					"Hubo un problema al momento de leer una linea de las atracciones del archivo de atracciones: "
+							+ excepcionDeLecturaDeLineaDelArchivo.getMessage());
 		}
 		return atracciones;
 	}
