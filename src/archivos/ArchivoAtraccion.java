@@ -193,6 +193,8 @@ public class ArchivoAtraccion {
 				} catch (ExcepcionDeBase excepcionDeConstructorBase) {
 					System.err.println("La atraccion " + nombre + " reporta un error al momento de "
 							+ excepcionDeConstructorBase.getMessage());
+				} catch (ExcepcionDeAtraccion excepcionDeConstructorDeAtraccion) {
+					System.err.println("" + excepcionDeConstructorDeAtraccion.getMessage());
 				}
 			}
 		} catch (IOException excepcionDeLecturaDeLineaDelArchivo) {
