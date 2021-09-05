@@ -2,6 +2,9 @@ package clases;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import excepciones.ExcepcionDeUsuario;
 
 public class Usuario {
 
@@ -12,11 +15,16 @@ public class Usuario {
 	private List<Base> itinerario;
 
 	public Usuario(String nombre, double tiempo, double presupuesto, TipoAtraccion preferencia) {
-		this.setNombre(nombre);
-		this.setTiempo(tiempo);
-		this.setPresupuesto(presupuesto);
-		this.setPreferencia(preferencia);
-		this.itinerario = new ArrayList<Base>();
+		try {
+			this.setNombre(nombre);
+			this.setTiempo(tiempo);
+			this.setPresupuesto(presupuesto);
+			this.setPreferencia(preferencia);
+			this.itinerario = new ArrayList<Base>();
+		} catch (ExcepcionDeUsuario excepcionDeValorDeAtributoInvalido) {
+			System.err.println("No se ha podido crear el usuario ya que ha ocurrido un error al momento de "
+					+ excepcionDeValorDeAtributoInvalido.getMessage());
+		}
 	}
 
 	/**
@@ -32,12 +40,13 @@ public class Usuario {
 	 * @pre No tiene.
 	 * @post Se asigno y valido el nombre del usuario.
 	 * @param nombre Nuevo nombre que tendra el usuario.
+	 * @throws ExcepcionDeUsuario Excepcion que informa un error.
 	 */
-	private void setNombre(String nombre) {
+	private void setNombre(String nombre) throws ExcepcionDeUsuario {
 		if (nombre != "")
 			this.nombre = nombre;
 		else
-			System.out.println(""); // informar que el nombre es invalido
+			throw new ExcepcionDeUsuario("asignar el nombre, ya que este se encuentra vacio");
 	}
 
 	/**
@@ -53,12 +62,13 @@ public class Usuario {
 	 * @pre No tiene.
 	 * @post Se asigno y valido el tiempo disponible del usuario.
 	 * @param tiempo Nueva cantidad de tiempo que tendra el usuario.
+	 * @throws ExcepcionDeUsuario Excepcion que informa un error.
 	 */
-	private void setTiempo(double tiempo) {
+	private void setTiempo(double tiempo) throws ExcepcionDeUsuario {
 		if (tiempo > 0)
 			this.tiempo = tiempo;
 		else
-			System.out.println(""); // informar que el tiempo es negativo
+			throw new ExcepcionDeUsuario("asignar el tiempo disponible, ya que este es invalido: " + tiempo);
 	}
 
 	/**
@@ -74,12 +84,13 @@ public class Usuario {
 	 * @pre No tiene.
 	 * @post Se valido y asigno el presupuesto que dispone el usuario.
 	 * @param presupuesto Nueva cantidad de dinero que tendra el usuario.
+	 * @throws ExcepcionDeUsuario Excepcion que informa un error.
 	 */
-	private void setPresupuesto(double presupuesto) {
+	private void setPresupuesto(double presupuesto) throws ExcepcionDeUsuario {
 		if (presupuesto > 0)
 			this.presupuesto = presupuesto;
 		else
-			System.out.println(""); // informar que el presupuesto es negativo
+			throw new ExcepcionDeUsuario("asignar el presupuesto disponible, ya que este es invalido: " + presupuesto);
 	}
 
 	/**
@@ -100,28 +111,41 @@ public class Usuario {
 		this.preferencia = preferencia;
 	}
 
-	// Debemos corregir este método, ya que debe admitir la posibilidad de que sea
-	// aceptada o rechazada por la consola
 	/**
 	 * @pre No tiene.
 	 * @post Se agrego una sugerencia al itinerario si fue aceptada.
 	 * @param sugerencia Una promoción o atracción
 	 * @return No tiene. Aunque hay que analizar bien
 	 */
-	public void aceptarSugerencia(Base sugerencia) {
-		this.itinerario.add(sugerencia);
+	public boolean aceptarSugerencia(Base sugerencia) {
+		String decision = "";
+		Scanner entradaDeTeclado = new Scanner(System.in);
+		System.out.println("Si desea aceptar la sugerencia presione \"y\" de lo contrario presione \\\"n\\\"");
+		decision = entradaDeTeclado.nextLine();
+		while ((decision.toUpperCase() != "Y") || (decision.toUpperCase() != "N")) {
+			System.out.println("Por favor introduzca una decision valida");
+			System.out.println("Para aceptar presione \"y\" de lo contrario \"n\"");
+			decision = entradaDeTeclado.nextLine();
+		}
+		if (decision.toUpperCase() == "Y") {
+			this.tiempo = this.getTiempo() - sugerencia.getTiempo();
+			this.presupuesto = this.getPresupuesto() - sugerencia.getCosto();
+			this.itinerario.add(sugerencia);
+			entradaDeTeclado.close();
+			return true;
+		} else
+			entradaDeTeclado.close();
+		return false;
 	}
 
-	// Este método también se debe analizar bien, ya que debemos definir el
-	// formato que usaremos para imprimir y si haremos la impresión desde
-	// la aplicacion que ejecuta el prgrama o este modulo
 	/**
 	 * @pre No tiene.
 	 * @post Se imprimio por pantalla el itinerario del usuario.
 	 * @return El itinerario del usuario.
 	 */
 	public String mostrarItinerario() {
-		return this.itinerario.toString();
+		String salida = "El itinerario programado para " + this.getNombre() + " esta compuesto por :";
+		return salida + this.itinerario.toString();
 	}
 
 }

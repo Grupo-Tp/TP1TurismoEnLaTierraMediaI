@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import excepciones.ExcepcionDeAtraccion;
+
 public class ArchivoAtraccion {
 	private FileReader lectorDeArchivoDeAtracciones = null;
 	private BufferedReader bufferDelLectorDeArchivoDeAtracciones = null;

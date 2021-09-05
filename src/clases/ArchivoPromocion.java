@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import excepciones.ExcepcionDeAtraccion;
+import excepciones.ExcepcionDePromocion;
+
 public class ArchivoPromocion {
 	private FileReader lectorDeArchivoDePromociones = null;
 	private BufferedReader bufferDelLectorDeArchivoDePromociones = null;
