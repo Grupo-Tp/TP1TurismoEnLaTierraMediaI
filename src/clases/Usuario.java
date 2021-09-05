@@ -136,6 +136,15 @@ public class Usuario {
 
 	/**
 	 * @pre No tiene.
+	 * @post No tiene.
+	 * @return Retorna la lista con todo su itinerario
+	 */
+	public List<Base> getItinerario() {
+		return itinerario;
+	}
+
+	/**
+	 * @pre No tiene.
 	 * @post Se imprimio por pantalla el itinerario del usuario.
 	 * @return El itinerario del usuario.
 	 */

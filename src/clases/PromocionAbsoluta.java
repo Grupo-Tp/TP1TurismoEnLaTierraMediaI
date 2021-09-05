@@ -1,5 +1,7 @@
 package clases;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import excepciones.ExcepcionDeBase;
@@ -14,8 +16,38 @@ public class PromocionAbsoluta extends Promocion {
 
 	@Override
 	public Base sugerirPromocion(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Atraccion> misAtracciones = new ArrayList<Atraccion>();
+		List<Base> itinerario = new ArrayList<Base>();
+		double tiempoDeUsusario = 0, presupuesto = 0;
+		boolean cupo = false, laVisito = false;
+		TipoAtraccion preferencia = null;
+		misAtracciones = this.getAtracciones();
+		itinerario = usuario.getItinerario();
+		tiempoDeUsusario = usuario.getTiempo();
+		presupuesto = usuario.getPresupuesto();
+		preferencia = usuario.getPreferencia();
+
+		for (Atraccion miAtraccion : misAtracciones) {
+			Iterator<Base> suAtraccion = itinerario.iterator();
+			while ((suAtraccion.hasNext()) && !laVisito) {
+				if (miAtraccion.getNombre() == suAtraccion.next().) {
+					laVisito = true;
+				}
+			}
+			if (miAtraccion.getCupo() >= 1)
+				cupo = true;
+			else
+				cupo = false;
+		}
+
+		if ((this.getTiempo() <= tiempoDeUsusario) && (this.getCosto() <= presupuesto) && cupo && !laVisito) {
+			if (!itinerario.isEmpty()) {
+
+				return this;
+			} else
+				return this;
+		}
+		return this;
 	}
 
 }
