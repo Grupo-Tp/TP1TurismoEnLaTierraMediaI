@@ -14,7 +14,7 @@ public class Atraccion extends Base {
 	 * @post No tiene.
 	 * @return Cupo disponible de la Atraccion.
 	 */
-	public int getCupo() {
+	protected int getCupo() {
 		return cupo;
 	}
 
@@ -24,8 +24,11 @@ public class Atraccion extends Base {
 	 * @param cupo Cantidad de cupo de la atraccion a actualizar.
 	 * @return No tiene.
 	 */
-	public void setCupo(int cupo) {
-		this.cupo = cupo;
+	private void setCupo(int cupo) {
+		if (cupo > 0)
+			this.cupo = cupo;
+		else
+			System.out.println("");// informar error en el cupo de la atraccion
 	}
 
 	/**
@@ -35,8 +38,8 @@ public class Atraccion extends Base {
 	 */
 	@Override
 	public String toString() {
-		return "Atraccion [nombre= " + super.getNombre() + ", costo= " + super.getCosto() + ", tiempo= " + super.getTiempo()
-				+ ", cupo= " + this.getCupo() + ", tipo= " + super.getTipo().toString() + "]";
+		return "Atraccion [nombre= " + super.getNombre() + ", costo= " + super.getCosto() + ", tiempo= "
+				+ super.getTiempo() + ", cupo= " + this.getCupo() + ", tipo= " + super.getTipo().toString() + "]";
 	}
 
 }

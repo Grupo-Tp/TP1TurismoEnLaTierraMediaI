@@ -34,6 +34,9 @@ public abstract class Promocion extends Base {
 	 * @return No tiene.
 	 */
 	private void setAtracciones(List<Atraccion> atracciones) {
-		this.atracciones = atracciones;
+		if (atracciones!=null)
+			this.atracciones = atracciones;
+		else 
+			System.out.println(""); // informar error de lista de atracciones vacia
 	}
 }
