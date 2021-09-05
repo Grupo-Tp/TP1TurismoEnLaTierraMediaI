@@ -1,10 +1,13 @@
-package clases;
+package archivos;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import clases.TipoAtraccion;
+import clases.Usuario;
 
 public class ArchivoUsuario {
 	private FileReader lectorDeArchivoDeUsuarios = null;

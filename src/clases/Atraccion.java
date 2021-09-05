@@ -1,10 +1,14 @@
 package clases;
 
+import excepciones.ExcepcionArchivoDeAtraccion;
+import excepciones.ExcepcionDeBase;
+
 public class Atraccion extends Base {
 
 	private int cupo;
 
-	public Atraccion(String nombre, double tiempo, double costo, TipoAtraccion tipo, int cupo) {
+	public Atraccion(String nombre, double tiempo, double costo, TipoAtraccion tipo, int cupo)
+			throws ExcepcionDeBase, ExcepcionArchivoDeAtraccion {
 		super(nombre, tiempo, costo, tipo);
 		this.setCupo(cupo);
 	}
@@ -23,12 +27,13 @@ public class Atraccion extends Base {
 	 * @post Se actualizo el cupo de la Atraccion.
 	 * @param cupo Cantidad de cupo de la atraccion a actualizar.
 	 * @return No tiene.
+	 * @throws ExcepcionArchivoDeAtraccion Nuestra excepcion de error.
 	 */
-	private void setCupo(int cupo) {
+	private void setCupo(int cupo) throws ExcepcionArchivoDeAtraccion {
 		if (cupo > 0)
 			this.cupo = cupo;
 		else
-			System.out.println("");// informar error en el cupo de la atraccion
+			throw new ExcepcionArchivoDeAtraccion("asignar el cupo, ya que este es invalido: " + cupo);
 	}
 
 	/**
@@ -38,7 +43,7 @@ public class Atraccion extends Base {
 	 */
 	@Override
 	public String toString() {
-		return "Atraccion [nombre= " + super.getNombre() + ", costo= " + super.getCosto() + ", tiempo= "
+		return "\nAtraccion [nombre= " + super.getNombre() + ", costo= " + super.getCosto() + ", tiempo= "
 				+ super.getTiempo() + ", cupo= " + this.getCupo() + ", tipo= " + super.getTipo().toString() + "]";
 	}
 

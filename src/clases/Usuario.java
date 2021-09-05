@@ -14,17 +14,13 @@ public class Usuario {
 	private TipoAtraccion preferencia;
 	private List<Base> itinerario;
 
-	public Usuario(String nombre, double tiempo, double presupuesto, TipoAtraccion preferencia) {
-		try {
-			this.setNombre(nombre);
-			this.setTiempo(tiempo);
-			this.setPresupuesto(presupuesto);
-			this.setPreferencia(preferencia);
-			this.itinerario = new ArrayList<Base>();
-		} catch (ExcepcionDeUsuario excepcionDeValorDeAtributoInvalido) {
-			System.err.println("No se ha podido crear el usuario ya que ha ocurrido un error al momento de "
-					+ excepcionDeValorDeAtributoInvalido.getMessage());
-		}
+	public Usuario(String nombre, double tiempo, double presupuesto, TipoAtraccion preferencia)
+			throws ExcepcionDeUsuario {
+		this.setNombre(nombre);
+		this.setTiempo(tiempo);
+		this.setPresupuesto(presupuesto);
+		this.setPreferencia(preferencia);
+		this.itinerario = new ArrayList<Base>();
 	}
 
 	/**

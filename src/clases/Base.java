@@ -1,5 +1,7 @@
 package clases;
 
+import excepciones.ExcepcionDeBase;
+
 public abstract class Base {
 
 	private String nombre;
@@ -7,11 +9,12 @@ public abstract class Base {
 	private double costo;
 	private TipoAtraccion tipo;
 
-	public Base(String nombre, double tiempo, double costo, TipoAtraccion tipo) {
+	public Base(String nombre, double tiempo, double costo, TipoAtraccion tipo) throws ExcepcionDeBase {
 		this.setNombre(nombre);
 		this.setTiempo(tiempo);
 		this.setCosto(costo);
 		this.setTipo(tipo);
+
 	}
 
 	/**
@@ -19,7 +22,7 @@ public abstract class Base {
 	 * @post No tiene.
 	 * @return Nombre de la Atraccion o Promocion.
 	 */
-	protected String getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 
@@ -28,12 +31,13 @@ public abstract class Base {
 	 * @post Se actualizo el nombre de la Atraccion o Promocion.
 	 * @param nombre Nuevo nombre a actualizar.
 	 * @return .
+	 * @throws ExcepcionDeBase Nuestra excepcion de errores.
 	 */
-	private void setNombre(String nombre) {
+	private void setNombre(String nombre) throws ExcepcionDeBase {
 		if (nombre != "")
 			this.nombre = nombre;
 		else
-			System.err.println(""); // informar que el nombre no puede ser vacio
+			throw new ExcepcionDeBase("asignar el nombre, ya que este se encuentra vacio");
 	}
 
 	/**
@@ -50,12 +54,13 @@ public abstract class Base {
 	 * @post Se actualizo la duracion de la Atraccion o Promocion.
 	 * @param tiempo Nueva duración a actualizar.
 	 * @return No tiene.
+	 * @throws ExcepcionDeBase Nuestra excepcion de errores.
 	 */
-	public void setTiempo(double tiempo) {
+	public void setTiempo(double tiempo) throws ExcepcionDeBase {
 		if (tiempo <= 0)
 			this.tiempo = tiempo;
 		else
-			System.err.println(""); // informar que el tiempo no puede ser negativo
+			throw new ExcepcionDeBase("asignar el tiempo, ya que este es invalido: " + tiempo);
 	}
 
 	/**
@@ -73,12 +78,13 @@ public abstract class Base {
 	 * @param costo Cantidad de monedas que requiere la atraccion o promocion a
 	 *              actualizar.
 	 * @return No tiene.
+	 * @throws ExcepcionDeBase Nuestra excepcion para informar un error.
 	 */
-	private void setCosto(double costo) {
+	private void setCosto(double costo) throws ExcepcionDeBase {
 		if (costo <= 0)
 			this.costo = costo;
 		else
-			System.err.println(""); // informar que el costo no puede ser negativo
+			throw new ExcepcionDeBase("asignar el costo, ya que este es invalido: " + costo);
 	}
 
 	/**

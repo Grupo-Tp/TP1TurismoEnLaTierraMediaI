@@ -2,11 +2,15 @@ package clases;
 
 import java.util.List;
 
+import excepciones.ExcepcionDeBase;
+import excepciones.ExcepcionDePromocion;
+
 public class PromocionPorcentual extends Promocion {
 
 	double porcentajeDescuento;
 
-	public PromocionPorcentual(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones, double porcentaje) {
+	public PromocionPorcentual(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones, double porcentaje)
+			throws ExcepcionDeBase, ExcepcionDePromocion {
 		super(nombre, calcularTiempo(atracciones), calcularCosto(atracciones, porcentaje), tipo, atracciones);
 		this.setPorcentajeDescuento(porcentaje);
 	}
@@ -17,8 +21,9 @@ public class PromocionPorcentual extends Promocion {
 	 * @param atracciones Lista de atracciones que incluye la promocion.
 	 * @return Costo total de todas las atracciones con el porcentaje de descuento
 	 *         aplicado.
+	 * @throws ExcepcionDePromocion Nuestra excepcion de errores.
 	 */
-	private static double calcularCosto(List<Atraccion> atracciones, double porcentaje) {
+	private static double calcularCosto(List<Atraccion> atracciones, double porcentaje) throws ExcepcionDePromocion {
 		double costo = 0;
 		for (Atraccion atraccion : atracciones) {
 			costo += atraccion.getCosto();
@@ -31,13 +36,14 @@ public class PromocionPorcentual extends Promocion {
 	 * @post Se valido que el porcentaje de descuento.
 	 * @param porcentaje Valor que de descuento que tiene la promocion.
 	 * @return El porcentaje de descuento de la promocion.
+	 * @throws ExcepcionDePromocion Nuestra excepcion de errores.
 	 */
-	private static double validarPorcentaje(double porcentaje) {
+	private static double validarPorcentaje(double porcentaje) throws ExcepcionDePromocion {
 		if ((porcentaje > 0) && (porcentaje < 100))
 			return (1 + (porcentaje / 100));
 		else {
-			System.out.println(""); // informar
-			return 0;
+			throw new ExcepcionDePromocion(
+					"asignar su porcentaje de descuento, ya que este es invalido: " + porcentaje);
 		}
 	}
 
@@ -70,9 +76,15 @@ public class PromocionPorcentual extends Promocion {
 	 *       contenidas en la promocion.
 	 * @param porcentaje Monto con el porcentaje de descuento.
 	 * @return No tiene.
+	 * @throws ExcepcionDePromocion Nuestra excepcion de error.
 	 */
-	private void setPorcentajeDescuento(double porcentaje) {
-		this.porcentajeDescuento = porcentaje;
+	private void setPorcentajeDescuento(double porcentaje) throws ExcepcionDePromocion {
+		if ((porcentaje > 0) && (porcentaje < 100))
+			this.porcentajeDescuento = porcentaje;
+		else {
+			throw new ExcepcionDePromocion(
+					"asignar su porcentaje de descuento, ya que este es invalido: " + porcentaje);
+		}
 	}
 
 	@Override

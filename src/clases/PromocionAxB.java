@@ -2,10 +2,14 @@ package clases;
 
 import java.util.List;
 
+import excepciones.ExcepcionDeBase;
+import excepciones.ExcepcionDePromocion;
+
 public class PromocionAxB extends Promocion {
 	private Atraccion atraccionGratis;
 
-	public PromocionAxB(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones, Atraccion atraccionGratis) {
+	public PromocionAxB(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones, Atraccion atraccionGratis)
+			throws ExcepcionDeBase, ExcepcionDePromocion {
 		super(nombre, PromocionPorcentual.calcularTiempo(atracciones), calcularCosto(atracciones), tipo, atracciones);
 		this.setAtraccionGratis(atraccionGratis);
 	}
@@ -25,8 +29,8 @@ public class PromocionAxB extends Promocion {
 	}
 
 	/**
-	 * @pre
-	 * @post
+	 * @pre No tiene.
+	 * @post No tiene.
 	 * @return La atraccion que la promocion ofrece gratis.
 	 */
 	public Atraccion getAtraccionGratis() {
@@ -34,12 +38,15 @@ public class PromocionAxB extends Promocion {
 	}
 
 	/**
-	 * @pre
-	 * @post
+	 * @pre No tiene.
+	 * @post Se asigno la atraccion que es gratiuta en esta promocion.
 	 * @param atraccionGratis Atraccion que ofrece gratuita la promocion.
+	 * @throws ExcepcionDePromocion Nuestra excepcion de Promocion.
 	 */
-	private void setAtraccionGratis(Atraccion atraccionGratis) {
-		this.atraccionGratis = atraccionGratis;
+	private void setAtraccionGratis(Atraccion atraccionGratis) throws ExcepcionDePromocion {
+		if(atraccionGratis!=null)
+			this.atraccionGratis = atraccionGratis;
+		else throw new ExcepcionDePromocion("asignar su promocion gratis, ya que esta es nula o esta vacia");
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package clases;
+package archivos;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,8 +7,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import excepciones.ExcepcionDeAtraccion;
+import clases.Atraccion;
+import clases.Base;
+import clases.Promocion;
+import clases.PromocionAbsoluta;
+import clases.PromocionAxB;
+import clases.PromocionPorcentual;
+import clases.TipoAtraccion;
+import excepciones.ExcepcionDeBase;
 import excepciones.ExcepcionDePromocion;
+import excepciones.ExcepcionArchivoDePromocion;
+import excepciones.ExcepcionDeAtraccion;
 
 public class ArchivoPromocion {
 	private FileReader lectorDeArchivoDePromociones = null;
@@ -21,9 +30,20 @@ public class ArchivoPromocion {
 			lectorDeArchivoDePromociones = new FileReader(nombreArchivo);
 			bufferDelLectorDeArchivoDePromociones = new BufferedReader(lectorDeArchivoDePromociones);
 			promociones = new ArrayList<Base>();
+			promociones = this.leerArchivoPromocion();
 		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
 			System.err.println("El archivo de promociones: '" + nombreArchivo + "' no fue encontrado");
 		}
+	}
+
+	/**
+	 * @pre No tiene.
+	 * @post No tiene.
+	 * @return Retorna la lista con las instancias de promocion que fueron
+	 *         generadas a partir del archivo de atracciones.
+	 */
+	public List<Base> getPromociones() {
+		return promociones;
 	}
 
 	/**
@@ -32,9 +52,10 @@ public class ArchivoPromocion {
 	 * @param tipo Ingresa el parametro leido de una linea del archivo de
 	 *             atracciones.
 	 * @return Retorna el tipo de atraccion validado.
-	 * @throws ExcepcionDePromocion Nuestra excepcion para informar los errores.
+	 * @throws ExcepcionArchivoDePromocion Nuestra excepcion para informar los
+	 *                                     errores.
 	 */
-	private TipoAtraccion validarTipoDePromocion(String tipo) throws ExcepcionDePromocion {
+	private TipoAtraccion validarTipoDePromocion(String tipo) throws ExcepcionArchivoDePromocion {
 		TipoAtraccion tipoDePromocion = null;
 		try {
 			String tipoDePromocionDelArchivo = tipo.toUpperCase();
@@ -46,7 +67,7 @@ public class ArchivoPromocion {
 			if (tipoDePromocion == null)
 				throw new NullPointerException();
 		} catch (NullPointerException excepcionDeTipoNula) {
-			throw new ExcepcionDePromocion("tipo de promocion, el valor leido es: " + tipo);
+			throw new ExcepcionArchivoDePromocion("tipo de promocion, el valor leido es: " + tipo);
 		}
 		return tipoDePromocion;
 	}
@@ -57,14 +78,15 @@ public class ArchivoPromocion {
 	 * @param costo Ingresa el parametro leido de una linea del archivo de
 	 *              atracciones.
 	 * @return Retorna el costo validado.
-	 * @throws ExcepcionDePromocion Nuestra excepcion para informar los errores.
+	 * @throws ExcepcionArchivoDePromocion Nuestra excepcion para informar los
+	 *                                     errores.
 	 */
-	private double validarPrecioFinal(String monto) throws ExcepcionDePromocion {
+	private double validarPrecioFinal(String monto) throws ExcepcionArchivoDePromocion {
 		double valor = 0;
 		try {
 			valor = Double.parseDouble(monto);
 		} catch (NumberFormatException excepcionDeMonto) {
-			throw new ExcepcionDePromocion("monto, el valor leido es: " + monto);
+			throw new ExcepcionArchivoDePromocion("monto, el valor leido es: " + monto);
 		}
 		return valor;
 	}
@@ -75,19 +97,26 @@ public class ArchivoPromocion {
 	 * @param costo Ingresa el parametro leido de una linea del archivo de
 	 *              atracciones.
 	 * @return Retorna el costo validado.
-	 * @throws ExcepcionDePromocion Nuestra excepcion para informar los errores.
+	 * @throws ExcepcionArchivoDePromocion Nuestra excepcion para informar los
+	 *                                     errores.
 	 */
-	private double validarProcentajeDeDescuento(String monto) throws ExcepcionDePromocion {
+	private double validarProcentajeDeDescuento(String monto) throws ExcepcionArchivoDePromocion {
 		double valor = 0;
 		try {
 			valor = Double.parseDouble(monto);
 		} catch (NumberFormatException excepcionDeMonto) {
-			throw new ExcepcionDePromocion("porcentaje de descuento, el valor leido es: " + monto);
+			throw new ExcepcionArchivoDePromocion("porcentaje de descuento, el valor leido es: " + monto);
 		}
 		return valor;
 	}
 
-	public List<Base> leerArchivoPromocion() {
+	/**
+	 * @pre No tiene.
+	 * @post Se validaron y crearon todas las promociones contenidas en el archivo
+	 *       de atracciones.
+	 * @return Retorna una lista con todas las instancias de promocion creadas.
+	 */
+	private List<Base> leerArchivoPromocion() {
 		try {
 			while ((lineaPromocion = bufferDelLectorDeArchivoDePromociones.readLine()) != null) {
 				String[] parametros = lineaPromocion.split(",");
@@ -135,14 +164,22 @@ public class ArchivoPromocion {
 						break;
 					}
 					default:
-						throw new ExcepcionDePromocion("tipo de promocion, el valor leido es: " + parametros[2]);
+						throw new ExcepcionArchivoDePromocion(
+								"tipo de promocion, ya que el valor leido es: " + parametros[2]);
 					}
 				} catch (ExcepcionDeAtraccion excepcionDeCreacionDeListaDeAtraccionesQueIncluyeLaPromocion) {
-					System.err.println("La promocion: " + parametros[0] + " tubo un error al momento de generarse, ya que "
-							+ excepcionDeCreacionDeListaDeAtraccionesQueIncluyeLaPromocion.getMessage());
-				} catch (ExcepcionDePromocion excepcionDeValidacion) {
+					System.err.println(
+							"La promocion: " + parametros[0] + " tubo un error al momento de generarse, ya que "
+									+ excepcionDeCreacionDeListaDeAtraccionesQueIncluyeLaPromocion.getMessage());
+				} catch (ExcepcionArchivoDePromocion excepcionDeValidacion) {
 					System.err.println("Una de las promociones leidas tiene un problema en su "
 							+ excepcionDeValidacion.getMessage());
+				} catch (ExcepcionDeBase excepcionDeCreacionDeInstanciaEnElConstructorBase) {
+					System.err.println("Una de las promociones presenta un error al momento de "
+							+ excepcionDeCreacionDeInstanciaEnElConstructorBase.getMessage());
+				} catch (ExcepcionDePromocion exepcionDeCreacionDeInstanciaDePromocion) {
+					System.err.println("Una de las promociones presenta un error al momento de "
+							+ exepcionDeCreacionDeInstanciaDePromocion.getMessage());
 				}
 				promociones.add(promocion);
 			}
