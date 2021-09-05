@@ -1,6 +1,6 @@
 package clases;
 
-import excepciones.ExcepcionArchivoDeAtraccion;
+import excepciones.ExcepcionDeAtraccion;
 import excepciones.ExcepcionDeBase;
 
 public class Atraccion extends Base {
@@ -8,7 +8,7 @@ public class Atraccion extends Base {
 	private int cupo;
 
 	public Atraccion(String nombre, double tiempo, double costo, TipoAtraccion tipo, int cupo)
-			throws ExcepcionDeBase, ExcepcionArchivoDeAtraccion {
+			throws ExcepcionDeBase, ExcepcionDeAtraccion {
 		super(nombre, tiempo, costo, tipo);
 		this.setCupo(cupo);
 	}
@@ -27,13 +27,13 @@ public class Atraccion extends Base {
 	 * @post Se actualizo el cupo de la Atraccion.
 	 * @param cupo Cantidad de cupo de la atraccion a actualizar.
 	 * @return No tiene.
-	 * @throws ExcepcionArchivoDeAtraccion Nuestra excepcion de error.
+	 * @throws ExcepcionDeAtraccion Nuestra excepcion de error.
 	 */
-	private void setCupo(int cupo) throws ExcepcionArchivoDeAtraccion {
+	private void setCupo(int cupo) throws ExcepcionDeAtraccion {
 		if (cupo > 0)
 			this.cupo = cupo;
 		else
-			throw new ExcepcionArchivoDeAtraccion("asignar el cupo, ya que este es invalido: " + cupo);
+			throw new ExcepcionDeAtraccion("asignar el cupo, ya que este es invalido: " + cupo);
 	}
 
 	/**
