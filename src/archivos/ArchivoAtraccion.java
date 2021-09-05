@@ -34,8 +34,8 @@ public class ArchivoAtraccion {
 	/**
 	 * @pre No tiene.
 	 * @post No tiene.
-	 * @return Retorna la lista con las instancias de atraccion que fueron
-	 *         generadas a partir del archivo de atracciones.
+	 * @return Retorna la lista con las instancias de atraccion que fueron generadas
+	 *         a partir del archivo de atracciones.
 	 */
 	public List<Atraccion> getAtracciones() {
 		return atracciones;
@@ -194,7 +194,8 @@ public class ArchivoAtraccion {
 					System.err.println("La atraccion " + nombre + " reporta un error al momento de "
 							+ excepcionDeConstructorBase.getMessage());
 				} catch (ExcepcionDeAtraccion excepcionDeConstructorDeAtraccion) {
-					System.err.println("" + excepcionDeConstructorDeAtraccion.getMessage());
+					System.err.println("La atraccion " + nombre + " reporta un error al momento de "
+							+ excepcionDeConstructorDeAtraccion.getMessage());
 				}
 			}
 		} catch (IOException excepcionDeLecturaDeLineaDelArchivo) {
