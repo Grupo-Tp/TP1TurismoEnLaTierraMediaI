@@ -43,7 +43,7 @@ public class ArchivoAtraccion {
 
 	/**
 	 * @pre No tiene.
-	 * @post Se valido que el costo de la Atraccion sea valido y positivo.
+	 * @post Se valido que el costo de la Atraccion sea valido.
 	 * @param costo Ingresa el parametro leido de una linea del archivo de
 	 *              atracciones.
 	 * @return Retorna el costo validado.
@@ -62,7 +62,7 @@ public class ArchivoAtraccion {
 
 	/**
 	 * @pre No tiene.
-	 * @post Se valido que el tiempo de la Atraccion sea valido y positivo.
+	 * @post Se valido que el tiempo de la Atraccion sea valido.
 	 * @param tiempo Ingresa el parametro leido de una linea del archivo de
 	 *               atracciones.
 	 * @return Retorna el tiempo validado.
@@ -116,7 +116,7 @@ public class ArchivoAtraccion {
 					tipoDeAtraccion = indice;
 				}
 			}
-			if (tipoDeAtraccion == null) // Ver si esto se puede mejorar
+			if (tipoDeAtraccion == null)
 				throw new NullPointerException();
 		} catch (NullPointerException excepcionDeTipoNula) {
 			throw new ExcepcionArchivoDeAtraccion("tipo de atraccion, el valor leido es: " + tipo);
