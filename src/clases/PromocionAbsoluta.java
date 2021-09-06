@@ -17,6 +17,7 @@ public class PromocionAbsoluta extends Promocion {
 	@Override
 	public Base sugerirPromocion(Usuario usuario) {
 		List<Atraccion> misAtracciones = new ArrayList<Atraccion>();
+		List<Atraccion> atraccionesDeLaPromocion = new ArrayList<Atraccion>();
 		List<Base> itinerario = new ArrayList<Base>();
 		double tiempoDeUsusario = 0, presupuesto = 0;
 		boolean cupo = false, laVisito = false;
@@ -26,17 +27,11 @@ public class PromocionAbsoluta extends Promocion {
 		tiempoDeUsusario = usuario.getTiempo();
 		presupuesto = usuario.getPresupuesto();
 		preferencia = usuario.getPreferencia();
-
 		for (Atraccion miAtraccion : misAtracciones) {
-			Iterator<Base> suAtraccion = itinerario.iterator();
-			while ((suAtraccion.hasNext()) && !laVisito) {
-				if (miAtraccion.getNombre() == suAtraccion.next().) {
-					laVisito = true;
-				}
-			}
-			if (miAtraccion.getCupo() >= 1)
+			laVisito = usuario.atraccionRecorrida(miAtraccion);
+			if (miAtraccion.getCupo() >= 1) {
 				cupo = true;
-			else
+			} else
 				cupo = false;
 		}
 

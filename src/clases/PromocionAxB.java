@@ -51,7 +51,7 @@ public class PromocionAxB extends Promocion {
 
 	@Override
 	public Base sugerirPromocion(Usuario usuario) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 }
