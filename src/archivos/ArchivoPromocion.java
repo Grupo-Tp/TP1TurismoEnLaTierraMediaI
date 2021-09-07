@@ -182,7 +182,7 @@ public class ArchivoPromocion {
 							"La promocion: " + parametros[0] + " tubo un error al momento de generarse, ya que "
 									+ excepcionDeCreacionDeListaDeAtraccionesQueIncluyeLaPromocion.getMessage());
 				} catch (ExcepcionArchivoDePromocion excepcionDeValidacion) {
-					System.err.println("Una de las promociones leidas tiene un problema en su leer el "
+					System.err.println("Una de las promociones leidas tiene un problema en "
 							+ excepcionDeValidacion.getMessage());
 				} catch (ExcepcionDeBase excepcionDeConstructorDeBase) {
 					System.err.println("Una de las promociones presenta un error al momento de leer el "
