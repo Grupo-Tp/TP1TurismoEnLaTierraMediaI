@@ -108,20 +108,28 @@ public class ArchivoAtraccion {
 	 *                                     errores.
 	 */
 	private TipoAtraccion validarTipo(String tipo) throws ExcepcionArchivoDeAtraccion {
-		TipoAtraccion tipoDeAtraccion = null;
+		TipoAtraccion retorno = null;
 		try {
-			String tipoDeAtraccionDelArchivo = tipo.toUpperCase();
-			for (TipoAtraccion indice : TipoAtraccion.values()) {
-				if (tipoDeAtraccionDelArchivo == indice.toString()) {
-					tipoDeAtraccion = indice;
-				}
+			switch (tipo.toUpperCase()) {
+			case "AVENTURA": {
+				retorno = TipoAtraccion.AVENTURA;
+				break;
 			}
-			if (tipoDeAtraccion == null)
-				throw new NullPointerException();
-		} catch (NullPointerException excepcionDeTipoNula) {
+			case "DEGUSTACION": {
+				retorno = TipoAtraccion.DEGUSTACION;
+				break;
+			}
+			case "PAISAJE": {
+				retorno = TipoAtraccion.PAISAJE;
+				break;
+			}
+			default:
+				throw new IllegalArgumentException();
+			}
+		} catch (IllegalArgumentException excepcionDeTipoNula) {
 			throw new ExcepcionArchivoDeAtraccion("tipo de atraccion, el valor leido es: " + tipo);
 		}
-		return tipoDeAtraccion;
+		return retorno;
 	}
 
 	/**
@@ -188,13 +196,13 @@ public class ArchivoAtraccion {
 					tipoDeAtraccion = this.validarTipo(parametros[4]);
 					atracciones.add(new Atraccion(nombre, tiempo, costo, tipoDeAtraccion, cupo));
 				} catch (ExcepcionArchivoDeAtraccion exepcionDeValidacion) {
-					System.err.println("La atraccion " + nombre + " reporta un error al momento de "
+					System.err.println("La atraccion " + nombre + " reporta un error al momento de leer el "
 							+ exepcionDeValidacion.getMessage());
 				} catch (ExcepcionDeBase excepcionDeConstructorBase) {
-					System.err.println("La atraccion " + nombre + " reporta un error al momento de "
+					System.err.println("La atraccion " + nombre + " reporta un error al momento de leer el "
 							+ excepcionDeConstructorBase.getMessage());
 				} catch (ExcepcionDeAtraccion excepcionDeConstructorDeAtraccion) {
-					System.err.println("La atraccion " + nombre + " reporta un error al momento de "
+					System.err.println("La atraccion " + nombre + " reporta un error al momento de leer el "
 							+ excepcionDeConstructorDeAtraccion.getMessage());
 				}
 			}

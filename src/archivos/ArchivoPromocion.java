@@ -39,8 +39,8 @@ public class ArchivoPromocion {
 	/**
 	 * @pre No tiene.
 	 * @post No tiene.
-	 * @return Retorna la lista con las instancias de promocion que fueron
-	 *         generadas a partir del archivo de atracciones.
+	 * @return Retorna la lista con las instancias de promocion que fueron generadas
+	 *         a partir del archivo de atracciones.
 	 */
 	public List<Base> getPromociones() {
 		return promociones;
@@ -56,20 +56,28 @@ public class ArchivoPromocion {
 	 *                                     errores.
 	 */
 	private TipoAtraccion validarTipoDePromocion(String tipo) throws ExcepcionArchivoDePromocion {
-		TipoAtraccion tipoDePromocion = null;
+		TipoAtraccion retorno = null;
 		try {
-			String tipoDePromocionDelArchivo = tipo.toUpperCase();
-			for (TipoAtraccion indice : TipoAtraccion.values()) {
-				if (tipoDePromocionDelArchivo == indice.toString()) {
-					tipoDePromocion = indice;
-				}
+			switch (tipo.toUpperCase()) {
+			case "AVENTURA": {
+				retorno = TipoAtraccion.AVENTURA;
+				break;
 			}
-			if (tipoDePromocion == null)
-				throw new NullPointerException();
-		} catch (NullPointerException excepcionDeTipoNula) {
-			throw new ExcepcionArchivoDePromocion("tipo de promocion, el valor leido es: " + tipo);
+			case "DEGUSTACION": {
+				retorno = TipoAtraccion.DEGUSTACION;
+				break;
+			}
+			case "PAISAJE": {
+				retorno = TipoAtraccion.PAISAJE;
+				break;
+			}
+			default:
+				throw new IllegalArgumentException();
+			}
+		} catch (IllegalArgumentException excepcionDeTipoNula) {
+			throw new ExcepcionArchivoDePromocion("su tipo de promocion, el valor leido es: " + tipo);
 		}
-		return tipoDePromocion;
+		return retorno;
 	}
 
 	/**
@@ -167,18 +175,22 @@ public class ArchivoPromocion {
 						throw new ExcepcionArchivoDePromocion(
 								"tipo de promocion, ya que el valor leido es: " + parametros[2]);
 					}
+				} catch (ArrayIndexOutOfBoundsException excepcionDeFueraDeLosLimites) {
+					System.err.println("La promocion: " + parametros[0]
+							+ " tubo un error al momento de generarse, ya que "
+							+ "se ha encontrado un error en la cantidad de nombres de atracciones que incluye la promocion");
 				} catch (ExcepcionDeAtraccion excepcionDeCreacionDeListaDeAtraccionesQueIncluyeLaPromocion) {
 					System.err.println(
 							"La promocion: " + parametros[0] + " tubo un error al momento de generarse, ya que "
 									+ excepcionDeCreacionDeListaDeAtraccionesQueIncluyeLaPromocion.getMessage());
 				} catch (ExcepcionArchivoDePromocion excepcionDeValidacion) {
-					System.err.println("Una de las promociones leidas tiene un problema en su "
+					System.err.println("Una de las promociones leidas tiene un problema en su leer el "
 							+ excepcionDeValidacion.getMessage());
 				} catch (ExcepcionDeBase excepcionDeConstructorDeBase) {
-					System.err.println("Una de las promociones presenta un error al momento de "
+					System.err.println("Una de las promociones presenta un error al momento de leer el "
 							+ excepcionDeConstructorDeBase.getMessage());
 				} catch (ExcepcionDePromocion exepcionDeConstructorDePromocion) {
-					System.err.println("Una de las promociones presenta un error al momento de "
+					System.err.println("Una de las promociones presenta un error al momento de leer el "
 							+ exepcionDeConstructorDePromocion.getMessage());
 				}
 				promociones.add(promocion);

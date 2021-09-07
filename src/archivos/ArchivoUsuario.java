@@ -86,20 +86,28 @@ public class ArchivoUsuario {
 	 *                                   errores.
 	 */
 	private TipoAtraccion validarPreferencia(String preferencia) throws ExcepcionArchivoDeUsuario {
-		TipoAtraccion tipoDePreferencia = null;
+		TipoAtraccion retorno = null;
 		try {
-			String tipoDePreferenciaDelArchivo = preferencia.toUpperCase();
-			for (TipoAtraccion indice : TipoAtraccion.values()) {
-				if (tipoDePreferenciaDelArchivo == indice.toString()) {
-					tipoDePreferencia = indice;
-				}
+			switch (preferencia.toUpperCase()) {
+			case "AVENTURA": {
+				retorno = TipoAtraccion.AVENTURA;
+				break;
 			}
-			if (tipoDePreferencia == null)
-				throw new NullPointerException();
-		} catch (NullPointerException excepcionDeTipoNula) {
-			throw new ExcepcionArchivoDeUsuario("tipo de atraccion, el valor leido es: " + preferencia);
+			case "DEGUSTACION": {
+				retorno = TipoAtraccion.DEGUSTACION;
+				break;
+			}
+			case "PAISAJE": {
+				retorno = TipoAtraccion.PAISAJE;
+				break;
+			}
+			default:
+				throw new IllegalArgumentException();
+			}
+		} catch (IllegalArgumentException excepcionDeTipoNula) {
+			throw new ExcepcionArchivoDeUsuario("su preferencia de atraccion, el valor leido es: " + preferencia);
 		}
-		return tipoDePreferencia;
+		return retorno;
 	}
 
 	/**
@@ -122,10 +130,10 @@ public class ArchivoUsuario {
 					tiempo = this.validarTiempo(parametros[3]);
 					usuarios.add(new Usuario(nombre, tiempo, presupuesto, preferencia));
 				} catch (ExcepcionArchivoDeUsuario excepcionDeValidacion) {
-					System.err.println("El usuario " + nombre + " reporta un error al momento de "
+					System.err.println("El usuario " + nombre + " reporta un error al momento de leer el "
 							+ excepcionDeValidacion.getMessage());
 				} catch (ExcepcionDeUsuario excepcionDeConstructorDeUsuario) {
-					System.err.println(" El usuario " + nombre + " reporta un error al momento de "
+					System.err.println(" El usuario " + nombre + " reporta un error al momento de leer el"
 							+ excepcionDeConstructorDeUsuario.getMessage());
 				}
 			}
