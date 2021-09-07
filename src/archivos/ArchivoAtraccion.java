@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import clases.Atraccion;
-import clases.Base;
 import clases.TipoAtraccion;
 import excepciones.ExcepcionArchivoDeAtraccion;
 import excepciones.ExcepcionDeBase;
@@ -19,13 +18,13 @@ import excepciones.ExcepcionDeAtraccion;
 public class ArchivoAtraccion {
 	private FileReader lectorDeArchivoDeAtracciones = null;
 	private BufferedReader bufferDelLectorDeArchivoDeAtracciones = null;
-	private List<Base> atracciones;
+	private List<Atraccion> atracciones;
 
 	public ArchivoAtraccion(String nombreArchivo) {
 		try {
 			lectorDeArchivoDeAtracciones = new FileReader(nombreArchivo);
 			bufferDelLectorDeArchivoDeAtracciones = new BufferedReader(lectorDeArchivoDeAtracciones);
-			atracciones = new ArrayList<Base>();
+			atracciones = new ArrayList<Atraccion>();
 			this.atracciones = this.leerArchivoAtraccion();
 		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
 			System.err.println("El archivo de atracciones: '" + nombreArchivo + "' no fue encontrado.");
@@ -38,7 +37,7 @@ public class ArchivoAtraccion {
 	 * @return Retorna la lista con las instancias de atraccion que fueron generadas
 	 *         a partir del archivo de atracciones.
 	 */
-	public List<Base> getAtracciones() {
+	public List<Atraccion> getAtracciones() {
 		return atracciones;
 	}
 
@@ -74,7 +73,7 @@ public class ArchivoAtraccion {
 		double valor = 0;
 		try {
 			valor = Double.parseDouble(tiempo);
-		} catch (NumberFormatException excepcionDeCosto) {
+		} catch (NumberFormatException excepcionDeTiempo) {
 			throw new ExcepcionArchivoDeAtraccion("tiempo, el valor leido es: " + tiempo);
 		}
 		return valor;
@@ -149,18 +148,22 @@ public class ArchivoAtraccion {
 			throws ExcepcionDeAtraccion {
 		List<Atraccion> retorno = new ArrayList<Atraccion>();
 		try {
-			for (int cantidad = 0; cantidad <= nombresDeAtracciones.length; cantidad++) {
+			for (int cantidad = 0; cantidad < nombresDeAtracciones.length; cantidad++) {
 				Iterator<Atraccion> indice = lista.iterator();
-				Atraccion atraccion = null;
 				boolean encontre = false;
-				while ((indice.hasNext()) && !encontre) {
-					atraccion = indice.next();
-					if (atraccion.getNombre() == nombresDeAtracciones[cantidad]) {
+				System.out.println("nombre leido: "+nombresDeAtracciones[cantidad]);
+				while (indice.hasNext() && !encontre) {
+					Atraccion atraccion = indice.next();
+					System.out.println("nombre de atraccion: "+atraccion.getNombre());
+					if (atraccion.getNombre().equals(nombresDeAtracciones[cantidad])) {
 						retorno.add(atraccion);
 						encontre = true;
+						System.out.println("encontre la atraccion");
 					}
 				}
 			}
+			if (retorno.size() != nombresDeAtracciones.length)
+				throw new ArrayIndexOutOfBoundsException();
 		} catch (NullPointerException excepcionDeAgregarUnaAtraccionNula) {
 			throw new ExcepcionDeAtraccion("se ha intentado agregar una atraccion nula.");
 		} catch (ClassCastException excepcionDeAgregarUnObjetoQueNoEsAtraccion) {
@@ -180,7 +183,7 @@ public class ArchivoAtraccion {
 	 *       de atracciones.
 	 * @return Retorna una lista con todas las instancias de atraccion creadas.
 	 */
-	private List<Base> leerArchivoAtraccion() {
+	private List<Atraccion> leerArchivoAtraccion() {
 		try {
 			String lineaAtraccion = "";
 			while ((lineaAtraccion = bufferDelLectorDeArchivoDeAtracciones.readLine()) != null) {
@@ -197,13 +200,13 @@ public class ArchivoAtraccion {
 					tipoDeAtraccion = this.validarTipo(parametros[4]);
 					atracciones.add(new Atraccion(nombre, tiempo, costo, tipoDeAtraccion, cupo));
 				} catch (ExcepcionArchivoDeAtraccion exepcionDeValidacion) {
-					System.err.println("La atraccion " + nombre + " reporta un error al momento de leer el "
+					System.err.println("La atraccion " + nombre + " reporta un error al momento de "
 							+ exepcionDeValidacion.getMessage());
 				} catch (ExcepcionDeBase excepcionDeConstructorBase) {
-					System.err.println("La atraccion " + nombre + " reporta un error al momento de leer el "
+					System.err.println("La atraccion " + nombre + " reporta un error al momento de "
 							+ excepcionDeConstructorBase.getMessage());
 				} catch (ExcepcionDeAtraccion excepcionDeConstructorDeAtraccion) {
-					System.err.println("La atraccion " + nombre + " reporta un error al momento de leer el "
+					System.err.println("La atraccion " + nombre + " reporta un error al momento de "
 							+ excepcionDeConstructorDeAtraccion.getMessage());
 				}
 			}

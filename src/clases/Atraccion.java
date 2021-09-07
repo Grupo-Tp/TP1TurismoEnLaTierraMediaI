@@ -43,8 +43,8 @@ public class Atraccion extends Base {
 	 */
 	@Override
 	public String toString() {
-		return "\nAtraccion [nombre= " + super.getNombre() + ", costo= " + super.getCosto() + ", tiempo= "
-				+ super.getTiempo() + ", cupo= " + this.getCupo() + ", tipo= " + super.getTipo().toString() + "]";
+		return this.getNombre() + ", con un costo de " + this.getCosto() + " monedas de oro, un tiempo necesario para recorrerlo de "
+				+ super.getTiempo() + " horas, un cupo de " + this.getCupo() + " usuarios y su tipo de atraccion es " + this.getTipo().toString();
 	}
 
 }

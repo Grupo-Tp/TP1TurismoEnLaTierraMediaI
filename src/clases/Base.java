@@ -57,7 +57,7 @@ public abstract class Base {
 	 * @throws ExcepcionDeBase Nuestra excepcion de errores.
 	 */
 	public void setTiempo(double tiempo) throws ExcepcionDeBase {
-		if (tiempo <= 0)
+		if (tiempo > 0)
 			this.tiempo = tiempo;
 		else
 			throw new ExcepcionDeBase("asignar el tiempo, ya que este es invalido: " + tiempo);
@@ -81,7 +81,7 @@ public abstract class Base {
 	 * @throws ExcepcionDeBase Nuestra excepcion para informar un error.
 	 */
 	private void setCosto(double costo) throws ExcepcionDeBase {
-		if (costo <= 0)
+		if (costo > 0)
 			this.costo = costo;
 		else
 			throw new ExcepcionDeBase("asignar el costo, ya que este es invalido: " + costo);

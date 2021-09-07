@@ -106,34 +106,7 @@ public class Usuario {
 	private void setPreferencia(TipoAtraccion preferencia) {
 		this.preferencia = preferencia;
 	}
-	/**
-	/**
-	 * @pre No tiene.
-	 * @post Se informo si el usuario acepto anteriormente la atraccion.
-	 * @param atraccion Atraccion a verificar si se encuentra en nuestro itinerario.
-	 * @return Retorna si la tiene o no en su itinerario.
-	 
-	public boolean atraccionRecorrida(Atraccion atraccion) {
-		List<Base> miItinerario = new ArrayList<Base>();
-		List<Atraccion> misAtracciones = new ArrayList<Atraccion>();
-		boolean laVisite = false;
-		miItinerario = this.itinerario;
-		for (Base baseATratar : miItinerario) {
-			if ((baseATratar instanceof Promocion) && !laVisite) {
-				Promocion tratarComoPromocion = (Promocion) baseATratar;
-				misAtracciones = tratarComoPromocion.getAtracciones();
-				if (misAtracciones.contains(atraccion))
-					laVisite = true;
-			}
-			if ((baseATratar instanceof Atraccion) && !laVisite) {
-				Atraccion tratarComoAtraccion = (Atraccion) baseATratar;
-				if (tratarComoAtraccion.getNombre() == atraccion.getNombre())
-					laVisite = true;
-			}
-		}
-		return laVisite;
-	}
-	*/
+
 	/**
 	 * @pre No tiene.
 	 * @post Se agrego una sugerencia al itinerario si fue aceptada.
@@ -188,6 +161,13 @@ public class Usuario {
 	public String mostrarItinerario() {
 		String salida = "El itinerario programado para " + this.getNombre() + " esta compuesto por :";
 		return salida + this.itinerario.toString();
+	}
+
+	@Override
+	public String toString() {
+		return this.getNombre() + ", con un tiempo disponible de " + this.getTiempo() + ", un presupuesto de "
+				+ this.getPresupuesto() + " monedas de oro y una preferencia para las atracciones de tipo "
+				+ this.getPreferencia().toString();
 	}
 
 }

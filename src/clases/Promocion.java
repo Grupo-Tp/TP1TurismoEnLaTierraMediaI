@@ -44,4 +44,20 @@ public abstract class Promocion extends Base {
 		else
 			throw new ExcepcionDePromocion("asignar la lista de atracciones, ya que esta es nula o esta vacia");
 	}
+
+	private String imprimir() {
+		String retorno = "";
+		for (Atraccion indice : this.getAtracciones()) {
+			retorno += indice.getNombre() + ", ";
+		}
+		return retorno;
+	}
+
+	@Override
+	public String toString() {
+		return this.getNombre() + ", que incluye a las atracciones de " + this.imprimir() + "que son de tipo "
+				+ this.getTipo().toString() + ", con un costo de " + this.getCosto()
+				+ " monedas de oro, un tiempo necesario para recorrerlas de " + super.getTiempo() + " horas";
+	}
+
 }
