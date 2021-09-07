@@ -100,6 +100,7 @@ public class PromocionPorcentual extends Promocion {
 			noLaVisito = noLaVisito && (usuario.getAtraccionesDeSuItinerario().contains(miAtraccion));
 		}
 		if ((this.getTiempo() <= tiempoDeUsusario) && (this.getCosto() <= presupuesto) && cupo && noLaVisito)
-			usuario.aceptarSugerencia(this);
+			if (usuario.aceptarSugerencia(this))
+				this.subirAtraccion();
 	}
 }

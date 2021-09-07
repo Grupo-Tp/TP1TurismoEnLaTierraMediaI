@@ -45,6 +45,23 @@ public abstract class Promocion extends Base {
 			throw new ExcepcionDePromocion("asignar la lista de atracciones, ya que esta es nula o esta vacia");
 	}
 
+	/**
+	 * @pre No tiene.
+	 * @post Se redujo en uno el cupo de todas las atracciones que componen la
+	 *       promocion.
+	 */
+	protected void subirAtraccion() {
+		for (Atraccion indice : this.getAtracciones()) {
+			indice.subirAtraccion();
+		}
+	}
+
+	/**
+	 * @pre No tiene.
+	 * @post Busco y recupero los nombres de las atracciones que componen la
+	 *       promocion.
+	 * @return String con los nombres de las atracciones que la componen.
+	 */
 	private String imprimir() {
 		String retorno = "";
 		for (Atraccion indice : this.getAtracciones()) {

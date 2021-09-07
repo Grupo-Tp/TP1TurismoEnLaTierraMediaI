@@ -113,7 +113,7 @@ public class Usuario {
 	 * @param sugerencia Una promoción o atracción
 	 * @return No tiene. Aunque hay que analizar bien
 	 */
-	public void aceptarSugerencia(Base sugerencia) {
+	public boolean aceptarSugerencia(Base sugerencia) {
 		String decision = "";
 		Scanner entradaDeTeclado = new Scanner(System.in);
 		System.out.println("Si desea aceptar la sugerencia presione \"y\" de lo contrario presione \\\"n\\\"");
@@ -123,12 +123,14 @@ public class Usuario {
 			System.out.println("Para aceptar presione \"y\" de lo contrario \"n\"");
 			decision = entradaDeTeclado.nextLine();
 		}
+		entradaDeTeclado.close();
 		if (decision.toUpperCase() == "Y") {
 			this.tiempo = this.getTiempo() - sugerencia.getTiempo();
 			this.presupuesto = this.getPresupuesto() - sugerencia.getCosto();
 			this.itinerario.add(sugerencia);
-		}
-		entradaDeTeclado.close();
+			return true;
+		} else
+			return false;
 	}
 
 	/**
