@@ -1,5 +1,6 @@
 package clases;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import excepciones.ExcepcionDeBase;
@@ -88,9 +89,17 @@ public class PromocionPorcentual extends Promocion {
 	}
 
 	@Override
-	public Base sugerirPromocion(Usuario usuario) {
-		return null;
-
+	public void sugerirPromocion(Usuario usuario) {
+		List<Atraccion> misAtracciones = new ArrayList<Atraccion>();
+		boolean cupo = true, noLaVisito = true;
+		misAtracciones = this.getAtracciones();
+		double tiempoDeUsusario = usuario.getTiempo();
+		double presupuesto = usuario.getPresupuesto();
+		for (Atraccion miAtraccion : misAtracciones) {
+			cupo = cupo && (miAtraccion.getCupo() >= 1);
+			noLaVisito = noLaVisito && (usuario.getAtraccionesDeSuItinerario().contains(miAtraccion));
+		}
+		if ((this.getTiempo() <= tiempoDeUsusario) && (this.getCosto() <= presupuesto) && cupo && noLaVisito)
+			usuario.aceptarSugerencia(this);
 	}
-
 }

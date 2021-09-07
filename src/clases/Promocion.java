@@ -20,7 +20,7 @@ public abstract class Promocion extends Base {
 	 * @param usuario Usuario para el cual se crea la promocion determinada.
 	 * @return Una Promocion para un Usuario.
 	 */
-	protected abstract Base sugerirPromocion(Usuario usuario);
+	public abstract void sugerirPromocion(Usuario usuario);
 
 	/**
 	 * @pre No tiene.

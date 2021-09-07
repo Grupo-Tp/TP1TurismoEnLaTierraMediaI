@@ -106,18 +106,18 @@ public class Usuario {
 	private void setPreferencia(TipoAtraccion preferencia) {
 		this.preferencia = preferencia;
 	}
-
+	/**
 	/**
 	 * @pre No tiene.
 	 * @post Se informo si el usuario acepto anteriormente la atraccion.
 	 * @param atraccion Atraccion a verificar si se encuentra en nuestro itinerario.
 	 * @return Retorna si la tiene o no en su itinerario.
-	 */
+	 
 	public boolean atraccionRecorrida(Atraccion atraccion) {
 		List<Base> miItinerario = new ArrayList<Base>();
 		List<Atraccion> misAtracciones = new ArrayList<Atraccion>();
 		boolean laVisite = false;
-		miItinerario = this.getItinerario();
+		miItinerario = this.itinerario;
 		for (Base baseATratar : miItinerario) {
 			if ((baseATratar instanceof Promocion) && !laVisite) {
 				Promocion tratarComoPromocion = (Promocion) baseATratar;
@@ -133,14 +133,14 @@ public class Usuario {
 		}
 		return laVisite;
 	}
-
+	*/
 	/**
 	 * @pre No tiene.
 	 * @post Se agrego una sugerencia al itinerario si fue aceptada.
 	 * @param sugerencia Una promoción o atracción
 	 * @return No tiene. Aunque hay que analizar bien
 	 */
-	public boolean aceptarSugerencia(Base sugerencia) {
+	public void aceptarSugerencia(Base sugerencia) {
 		String decision = "";
 		Scanner entradaDeTeclado = new Scanner(System.in);
 		System.out.println("Si desea aceptar la sugerencia presione \"y\" de lo contrario presione \\\"n\\\"");
@@ -154,20 +154,30 @@ public class Usuario {
 			this.tiempo = this.getTiempo() - sugerencia.getTiempo();
 			this.presupuesto = this.getPresupuesto() - sugerencia.getCosto();
 			this.itinerario.add(sugerencia);
-			entradaDeTeclado.close();
-			return true;
-		} else
-			entradaDeTeclado.close();
-		return false;
+		}
+		entradaDeTeclado.close();
 	}
 
 	/**
 	 * @pre No tiene.
 	 * @post No tiene.
-	 * @return Retorna la lista con todo su itinerario
+	 * @return Retorna la lista con todas las atracciones incluidas en su itinerario
 	 */
-	public List<Base> getItinerario() {
-		return itinerario;
+	public List<Atraccion> getAtraccionesDeSuItinerario() {
+		List<Atraccion> retorno = new ArrayList<Atraccion>();
+		List<Base> miItinerario = new ArrayList<Base>();
+		miItinerario = this.itinerario;
+		for (Base baseATratar : miItinerario) {
+			if (baseATratar instanceof Promocion) {
+				Promocion tratarComoPromocion = (Promocion) baseATratar;
+				retorno.addAll(tratarComoPromocion.getAtracciones());
+			}
+			if (baseATratar instanceof Atraccion) {
+				Atraccion tratarComoAtraccion = (Atraccion) baseATratar;
+				retorno.add(tratarComoAtraccion);
+			}
+		}
+		return retorno;
 	}
 
 	/**

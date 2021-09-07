@@ -1,7 +1,6 @@
 package clases;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import excepciones.ExcepcionDeBase;
@@ -15,34 +14,18 @@ public class PromocionAbsoluta extends Promocion {
 	}
 
 	@Override
-	public Base sugerirPromocion(Usuario usuario) {
+	public void sugerirPromocion(Usuario usuario) {
 		List<Atraccion> misAtracciones = new ArrayList<Atraccion>();
-		List<Atraccion> atraccionesDeLaPromocion = new ArrayList<Atraccion>();
-		List<Base> itinerario = new ArrayList<Base>();
-		double tiempoDeUsusario = 0, presupuesto = 0;
-		boolean cupo = false, laVisito = false;
-		TipoAtraccion preferencia = null;
+		boolean cupo = true, noLaVisito = true;
 		misAtracciones = this.getAtracciones();
-		itinerario = usuario.getItinerario();
-		tiempoDeUsusario = usuario.getTiempo();
-		presupuesto = usuario.getPresupuesto();
-		preferencia = usuario.getPreferencia();
+		double tiempoDeUsusario = usuario.getTiempo();
+		double presupuesto = usuario.getPresupuesto();
 		for (Atraccion miAtraccion : misAtracciones) {
-			laVisito = usuario.atraccionRecorrida(miAtraccion);
-			if (miAtraccion.getCupo() >= 1) {
-				cupo = true;
-			} else
-				cupo = false;
+			cupo = cupo && (miAtraccion.getCupo() >= 1);
+			noLaVisito = noLaVisito && (usuario.getAtraccionesDeSuItinerario().contains(miAtraccion));
 		}
-
-		if ((this.getTiempo() <= tiempoDeUsusario) && (this.getCosto() <= presupuesto) && cupo && !laVisito) {
-			if (!itinerario.isEmpty()) {
-
-				return this;
-			} else
-				return this;
-		}
-		return this;
+		if ((this.getTiempo() <= tiempoDeUsusario) && (this.getCosto() <= presupuesto) && cupo && noLaVisito)
+			usuario.aceptarSugerencia(this);
 	}
 
 }

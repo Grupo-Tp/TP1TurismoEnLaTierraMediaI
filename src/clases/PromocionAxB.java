@@ -1,5 +1,6 @@
 package clases;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import excepciones.ExcepcionDeBase;
@@ -44,14 +45,24 @@ public class PromocionAxB extends Promocion {
 	 * @throws ExcepcionDePromocion Nuestra excepcion de Promocion.
 	 */
 	private void setAtraccionGratis(Atraccion atraccionGratis) throws ExcepcionDePromocion {
-		if(atraccionGratis!=null)
+		if (atraccionGratis != null)
 			this.atraccionGratis = atraccionGratis;
-		else throw new ExcepcionDePromocion("asignar su promocion gratis, ya que esta es nula o esta vacia");
+		else
+			throw new ExcepcionDePromocion("asignar su promocion gratis, ya que esta es nula o esta vacia");
 	}
 
 	@Override
-	public Base sugerirPromocion(Usuario usuario) {
-		
-		return null;
+	public void sugerirPromocion(Usuario usuario) {
+		List<Atraccion> misAtracciones = new ArrayList<Atraccion>();
+		boolean cupo = true, noLaVisito = true;
+		misAtracciones = this.getAtracciones();
+		double tiempoDeUsusario = usuario.getTiempo();
+		double presupuesto = usuario.getPresupuesto();
+		for (Atraccion miAtraccion : misAtracciones) {
+			cupo = cupo && (miAtraccion.getCupo() >= 1);
+			noLaVisito = noLaVisito && (usuario.getAtraccionesDeSuItinerario().contains(miAtraccion));
+		}
+		if ((this.getTiempo() <= tiempoDeUsusario) && (this.getCosto() <= presupuesto) && cupo && noLaVisito)
+			usuario.aceptarSugerencia(this);
 	}
 }

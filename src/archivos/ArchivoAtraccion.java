@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import clases.Atraccion;
+import clases.Base;
 import clases.TipoAtraccion;
 import excepciones.ExcepcionArchivoDeAtraccion;
 import excepciones.ExcepcionDeBase;
@@ -18,13 +19,13 @@ import excepciones.ExcepcionDeAtraccion;
 public class ArchivoAtraccion {
 	private FileReader lectorDeArchivoDeAtracciones = null;
 	private BufferedReader bufferDelLectorDeArchivoDeAtracciones = null;
-	private List<Atraccion> atracciones;
+	private List<Base> atracciones;
 
 	public ArchivoAtraccion(String nombreArchivo) {
 		try {
 			lectorDeArchivoDeAtracciones = new FileReader(nombreArchivo);
 			bufferDelLectorDeArchivoDeAtracciones = new BufferedReader(lectorDeArchivoDeAtracciones);
-			atracciones = new ArrayList<Atraccion>();
+			atracciones = new ArrayList<Base>();
 			this.atracciones = this.leerArchivoAtraccion();
 		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
 			System.err.println("El archivo de atracciones: '" + nombreArchivo + "' no fue encontrado.");
@@ -37,7 +38,7 @@ public class ArchivoAtraccion {
 	 * @return Retorna la lista con las instancias de atraccion que fueron generadas
 	 *         a partir del archivo de atracciones.
 	 */
-	public List<Atraccion> getAtracciones() {
+	public List<Base> getAtracciones() {
 		return atracciones;
 	}
 
@@ -179,7 +180,7 @@ public class ArchivoAtraccion {
 	 *       de atracciones.
 	 * @return Retorna una lista con todas las instancias de atraccion creadas.
 	 */
-	private List<Atraccion> leerArchivoAtraccion() {
+	private List<Base> leerArchivoAtraccion() {
 		try {
 			String lineaAtraccion = "";
 			while ((lineaAtraccion = bufferDelLectorDeArchivoDeAtracciones.readLine()) != null) {
