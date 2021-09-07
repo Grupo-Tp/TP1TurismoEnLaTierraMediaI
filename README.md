@@ -22,5 +22,3 @@ ___
 -   Ibarra, César
 -   Schmitt, Gabriel Enrique
 -   Tesitore, Sebastian
-
-___
