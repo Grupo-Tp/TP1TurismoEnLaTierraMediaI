@@ -151,14 +151,11 @@ public class ArchivoAtraccion {
 			for (int cantidad = 0; cantidad < nombresDeAtracciones.length; cantidad++) {
 				Iterator<Atraccion> indice = lista.iterator();
 				boolean encontre = false;
-				System.out.println("nombre leido: "+nombresDeAtracciones[cantidad]);
 				while (indice.hasNext() && !encontre) {
 					Atraccion atraccion = indice.next();
-					System.out.println("nombre de atraccion: "+atraccion.getNombre());
 					if (atraccion.getNombre().equals(nombresDeAtracciones[cantidad])) {
 						retorno.add(atraccion);
 						encontre = true;
-						System.out.println("encontre la atraccion");
 					}
 				}
 			}
