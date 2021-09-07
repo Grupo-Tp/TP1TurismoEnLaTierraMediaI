@@ -161,8 +161,28 @@ public class Usuario {
 	 * @return El itinerario del usuario.
 	 */
 	public String mostrarItinerario() {
-		String salida = "El itinerario programado para " + this.getNombre() + " esta compuesto por :";
-		return salida + this.itinerario.toString();
+		String salida = "El itinerario programado para " + this.getNombre()
+				+ " esta compuesto por los siguientes productos :\n";
+		double tiempoTotal = 0, costoTotal = 0;
+		List<Base> miItinerario = new ArrayList<Base>();
+		for (Base baseATratar : miItinerario) {
+			if (baseATratar instanceof Promocion) {
+				Promocion tratarComoPromocion = (Promocion) baseATratar;
+				tiempoTotal += tratarComoPromocion.getTiempo();
+				costoTotal += tratarComoPromocion.getCosto();
+				salida = salida + "Promocion llamada " + tratarComoPromocion.getNombre()
+						+ " compuesta por las atracciones " + tratarComoPromocion.imprimir() + "\n";
+			}
+			if (baseATratar instanceof Atraccion) {
+				Atraccion tratarComoAtraccion = (Atraccion) baseATratar;
+				tiempoTotal += tratarComoAtraccion.getTiempo();
+				costoTotal += tratarComoAtraccion.getCosto();
+				salida = salida + "Atraccion llamada " + tratarComoAtraccion.getNombre() + "\n";
+			}
+			salida = salida + "El itinerario programado tiene una duracion total de " + tiempoTotal
+					+ " horas y un costo total de " + costoTotal + " monedas de oro";
+		}
+		return salida;
 	}
 
 	@Override
