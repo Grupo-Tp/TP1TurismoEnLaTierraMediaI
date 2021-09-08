@@ -52,16 +52,11 @@ public class Atraccion extends Base {
 	 */
 	public void sugerirAtraccion(Usuario usuario) {
 		if (this.getTiempo() <= usuario.getTiempo() && this.getCosto() <= usuario.getPresupuesto()
-				&& this.getCupo() >= 1 && usuario.getAtraccionesDeSuItinerario().contains(this))
+				&& this.getCupo() >= 1 && usuario.getItinerario().contains(this))
 			if (usuario.aceptarSugerencia(this))
 				this.subirAtraccion();
 	}
 
-	/**
-	 * Definir como vamos a implementar el esto toString, dado que lo pense para
-	 * definir el itinerario que se utiliza en la clase usuario, pero no la realize
-	 * aún
-	 */
 	@Override
 	public String toString() {
 		return this.getNombre() + ", con un costo de " + this.getCosto()

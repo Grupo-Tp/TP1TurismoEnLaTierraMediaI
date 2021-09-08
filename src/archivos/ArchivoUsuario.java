@@ -1,11 +1,11 @@
 package archivos;
 
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 import clases.TipoAtraccion;
 import clases.Usuario;
@@ -13,14 +13,12 @@ import excepciones.ExcepcionArchivoDeUsuario;
 import excepciones.ExcepcionDeUsuario;
 
 public class ArchivoUsuario {
-	private FileReader lectorDeArchivoDeUsuarios = null;
-	private BufferedReader bufferDelLectorDeArchivoDeUsuarios = null;
-	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	private Scanner lectorDeArchivo = null;
+	private List<Usuario> usuarios = null;
 
 	public ArchivoUsuario(String nombreArchivo) {
 		try {
-			lectorDeArchivoDeUsuarios = new FileReader(nombreArchivo);
-			bufferDelLectorDeArchivoDeUsuarios = new BufferedReader(lectorDeArchivoDeUsuarios);
+			lectorDeArchivo = new Scanner(new File(nombreArchivo));
 			usuarios = new ArrayList<Usuario>();
 			this.usuarios = this.leerArchivoUsuario();
 		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
@@ -119,7 +117,8 @@ public class ArchivoUsuario {
 	public List<Usuario> leerArchivoUsuario() {
 		try {
 			String lineaUsuario = "";
-			while ((lineaUsuario = bufferDelLectorDeArchivoDeUsuarios.readLine()) != null) {
+			while (lectorDeArchivo.hasNext()) {
+				lineaUsuario = lectorDeArchivo.next();
 				String[] parametros = lineaUsuario.split(",");
 				double presupuesto = 0, tiempo = 0;
 				TipoAtraccion preferencia = null;
@@ -137,8 +136,13 @@ public class ArchivoUsuario {
 							+ excepcionDeConstructorDeUsuario.getMessage());
 				}
 			}
-		} catch (IOException excepcion) {
-			System.err.println("Hubo un problema al momento de leerr uno de los archivos");
+			lectorDeArchivo.close();
+		} catch (NoSuchElementException excepcion) {
+			System.err.println("Hubo un problema al momento de leer una linea del archivo de usuarios: \n"
+					+ excepcion.getMessage());
+		} catch (IllegalStateException excepcion) {
+			System.err.println("Hubo un problema, ya que se ha cerrado el archivo de usuarios de forma inesperada: \n"
+					+ excepcion.getMessage());
 		}
 		return usuarios;
 	}
