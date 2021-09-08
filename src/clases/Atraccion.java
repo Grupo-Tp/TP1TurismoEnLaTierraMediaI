@@ -44,19 +44,6 @@ public class Atraccion extends Base {
 		this.cupo--;
 	}
 
-	/**
-	 * @pre No tiene.
-	 * @post Suguiere esta atraccion al usuario si éste cumple con las condiciones
-	 *       impuestas por la consigna.
-	 * @param usuario
-	 */
-	public void sugerirAtraccion(Usuario usuario) {
-		if (this.getTiempo() <= usuario.getTiempo() && this.getCosto() <= usuario.getPresupuesto()
-				&& this.getCupo() >= 1 && usuario.getItinerario().contains(this))
-			if (usuario.aceptarSugerencia(this))
-				this.subirAtraccion();
-	}
-
 	@Override
 	public String toString() {
 		return this.getNombre() + ", con un costo de " + this.getCosto()
