@@ -1,5 +1,6 @@
 package clases;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import excepciones.ExcepcionDeBase;
@@ -30,7 +31,27 @@ public abstract class Promocion extends Base {
 	protected List<Atraccion> getAtracciones() {
 		return atracciones;
 	}
-
+	/**
+	 * @pre No tiene.
+	 * @post No tiene.
+	 * @return Retorna la lista con todas las atracciones incluidas en su itinerario
+	 */
+	public List<Atraccion> getAtraccionesDeSuItinerario(Usuario usuario) {
+		List<Atraccion> retorno = new ArrayList<Atraccion>();
+		List<Base> miItinerario = new ArrayList<Base>();
+		miItinerario = usuario.getItinerario();
+		for (Base baseATratar : miItinerario) {
+			if (baseATratar instanceof Promocion) {
+				Promocion tratarComoPromocion = (Promocion) baseATratar;
+				retorno.addAll(tratarComoPromocion.getAtracciones());
+			}
+			if (baseATratar instanceof Atraccion) {
+				Atraccion tratarComoAtraccion = (Atraccion) baseATratar;
+				retorno.add(tratarComoAtraccion);
+			}
+		}
+		return retorno;
+	}
 	/**
 	 * @pre No Tiene.
 	 * @post Se actualizo la lista con las atracciones disponibles.
@@ -39,9 +60,18 @@ public abstract class Promocion extends Base {
 	 * @throws ExcepcionDePromocion Nuestra excepcion de error.
 	 */
 	private void setAtracciones(List<Atraccion> atracciones) throws ExcepcionDePromocion {
-		if (atracciones != null)
-			this.atracciones = atracciones;
-		else
+		if (atracciones != null) {
+			boolean validar = true;
+			for (Atraccion indice : atracciones) {
+				validar = validar && (this.getTipo() == indice.getTipo());
+			}
+			if (validar)
+				this.atracciones = atracciones;
+			else
+				throw new ExcepcionDePromocion(
+						"asignar la lista de atracciones, ya que el tipo de atraccion de una o más atracciones"
+								+ " no coincide con el tipo de atracciones de la promocion");
+		} else
 			throw new ExcepcionDePromocion("asignar la lista de atracciones, ya que esta es nula o esta vacia");
 	}
 

@@ -22,7 +22,7 @@ public class PromocionAbsoluta extends Promocion {
 		double presupuesto = usuario.getPresupuesto();
 		for (Atraccion miAtraccion : misAtracciones) {
 			cupo = cupo && (miAtraccion.getCupo() >= 1);
-			noLaVisito = noLaVisito && (usuario.getAtraccionesDeSuItinerario().contains(miAtraccion));
+			noLaVisito = noLaVisito && (this.getAtraccionesDeSuItinerario(usuario).contains(miAtraccion));
 		}
 		if ((this.getTiempo() <= tiempoDeUsusario) && (this.getCosto() <= presupuesto) && cupo && noLaVisito)
 			if (usuario.aceptarSugerencia(this))
