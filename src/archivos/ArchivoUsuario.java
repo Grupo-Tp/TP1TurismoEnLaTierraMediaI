@@ -2,6 +2,9 @@ package archivos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -114,7 +117,7 @@ public class ArchivoUsuario {
 	 *       usuarios.
 	 * @return Retorna una lista con todas las instancias de usuario creados.
 	 */
-	public List<Usuario> leerArchivoUsuario() {
+	private List<Usuario> leerArchivoUsuario() {
 		try {
 			String lineaUsuario = "";
 			while (lectorDeArchivo.hasNext()) {
@@ -145,5 +148,20 @@ public class ArchivoUsuario {
 					+ excepcion.getMessage());
 		}
 		return usuarios;
+	}
+
+	public void generarArchivoUsuario() {
+		String nombre = "";
+		try {
+			for (Usuario indice : this.usuarios) {
+				nombre = "Usuario " + indice.getNombre().toUpperCase() + ".txt";
+				PrintWriter salida = new PrintWriter(new FileWriter(new File(nombre)));
+				salida.print(indice.mostrarItinerario());
+				salida.close();
+			}
+		} catch (IOException excepcion) {
+			System.err.println("Hubo un error inesperado al momento de generar el archivo de salida para un usuario: "
+					+ excepcion.getMessage());
+		}
 	}
 }

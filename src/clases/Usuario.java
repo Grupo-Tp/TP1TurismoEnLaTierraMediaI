@@ -142,8 +142,8 @@ public class Usuario {
 	}
 	/**
 	 * @pre No tiene.
-	 * @post Se imprimio por pantalla el itinerario del usuario.
-	 * @return El itinerario del usuario.
+	 * @post Se genero un resumen del itinerario del usuario.
+	 * @return El itinerario del usuario resumido.
 	 */
 	public String mostrarItinerario() {
 		String salida = "El itinerario programado para " + this.getNombre()
