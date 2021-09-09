@@ -7,7 +7,10 @@ import archivos.ArchivoPromocion;
 import archivos.ArchivoUsuario;
 
 public class App {
-
+/**
+ * Eliminar casi todo el codigo de que se encuentra aquí, desplazandolo a las otras clases
+ * @param args
+ */
 	public static void main(String[] args) {
 		Scanner entradaDeTeclado = new Scanner(System.in);
 		String archivoUsuario = "usuarios.csv", archivoAtracciones = "atracciones.csv",

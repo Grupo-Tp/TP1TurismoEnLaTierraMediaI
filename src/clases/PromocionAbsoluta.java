@@ -13,6 +13,14 @@ public class PromocionAbsoluta extends Promocion {
 	}
 
 	@Override
+	public String imprimir() {
+		String retorno = "";
+		retorno += this.getAtracciones().get(0).getNombre() + " y ";
+		retorno += this.getAtracciones().get(1).getNombre();
+		return retorno;
+	}
+
+	@Override
 	public String toString() {
 		return this.getNombre() + ", que incluye a las atracciones de " + this.imprimir() + "que son de tipo "
 				+ this.getTipo().toString() + ", con un costo de " + this.getCosto()

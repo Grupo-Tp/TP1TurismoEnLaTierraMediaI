@@ -63,12 +63,6 @@ public abstract class Promocion extends Base {
 	 *       promocion.
 	 * @return String con los nombres de las atracciones que la componen.
 	 */
-	public String imprimir() {
-		String retorno = "";
-		for (Atraccion indice : this.getAtracciones()) {
-			retorno += indice.getNombre() + ", ";
-		}
-		return retorno;
-	}
+	public abstract String imprimir();
 
 }
