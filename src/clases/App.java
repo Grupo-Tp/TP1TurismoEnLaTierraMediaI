@@ -10,8 +10,8 @@ public class App {
 
 	public static void main(String[] args) {
 		Scanner entradaDeTeclado = new Scanner(System.in);
-		String archivoUsuario = "/home/tioliban/usuarios.csv", archivoAtracciones = "/home/tioliban/atracciones.csv",
-				archivoPromociones = "/home/tioliban/promociones.csv";
+		String archivoUsuario = "usuarios.csv", archivoAtracciones = "atracciones.csv",
+				archivoPromociones = "promociones.csv";
 		ArchivoUsuario losUsuarios = new ArchivoUsuario(archivoUsuario);
 		ArchivoAtraccion lasAtracciones = new ArchivoAtraccion(archivoAtracciones);
 		ArchivoPromocion lasPromociones = new ArchivoPromocion(archivoPromociones,lasAtracciones.getAtracciones());

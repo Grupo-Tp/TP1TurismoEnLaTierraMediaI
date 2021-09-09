@@ -15,14 +15,6 @@ public abstract class Promocion extends Base {
 	}
 
 	/**
-	 * @pre No Tiene.
-	 * @post Se suguirio una promocion posible para un usuario determinado.
-	 * @param usuario Usuario para el cual se crea la promocion determinada.
-	 * @return Una Promocion para un Usuario.
-	 */
-	public abstract void sugerirPromocion(Usuario usuario);
-
-	/**
 	 * @pre No tiene.
 	 * @post No tiene.
 	 * @return Lista con las atracciones que incluye la promocion.
@@ -39,9 +31,18 @@ public abstract class Promocion extends Base {
 	 * @throws ExcepcionDePromocion Nuestra excepcion de error.
 	 */
 	private void setAtracciones(List<Atraccion> atracciones) throws ExcepcionDePromocion {
-		if (atracciones != null)
-			this.atracciones = atracciones;
-		else
+		if (atracciones != null) {
+			boolean validar = true;
+			for (Atraccion indice : atracciones) {
+				validar = validar && (this.getTipo() == indice.getTipo());
+			}
+			if (validar)
+				this.atracciones = atracciones;
+			else
+				throw new ExcepcionDePromocion(
+						"asignar la lista de atracciones, ya que el tipo de atraccion de una o más atracciones"
+								+ " no coincide con el tipo de atracciones de la promocion");
+		} else
 			throw new ExcepcionDePromocion("asignar la lista de atracciones, ya que esta es nula o esta vacia");
 	}
 
@@ -68,13 +69,6 @@ public abstract class Promocion extends Base {
 			retorno += indice.getNombre() + ", ";
 		}
 		return retorno;
-	}
-
-	@Override
-	public String toString() {
-		return this.getNombre() + ", que incluye a las atracciones de " + this.imprimir() + "que son de tipo "
-				+ this.getTipo().toString() + ", con un costo de " + this.getCosto()
-				+ " monedas de oro, un tiempo necesario para recorrerlas de " + super.getTiempo() + " horas";
 	}
 
 }

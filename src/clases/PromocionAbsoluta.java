@@ -1,6 +1,5 @@
 package clases;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import excepciones.ExcepcionDeBase;
@@ -14,18 +13,9 @@ public class PromocionAbsoluta extends Promocion {
 	}
 
 	@Override
-	public void sugerirPromocion(Usuario usuario) {
-		List<Atraccion> misAtracciones = new ArrayList<Atraccion>();
-		boolean cupo = true, noLaVisito = true;
-		misAtracciones = this.getAtracciones();
-		double tiempoDeUsusario = usuario.getTiempo();
-		double presupuesto = usuario.getPresupuesto();
-		for (Atraccion miAtraccion : misAtracciones) {
-			cupo = cupo && (miAtraccion.getCupo() >= 1);
-			noLaVisito = noLaVisito && (usuario.getAtraccionesDeSuItinerario().contains(miAtraccion));
-		}
-		if ((this.getTiempo() <= tiempoDeUsusario) && (this.getCosto() <= presupuesto) && cupo && noLaVisito)
-			if (usuario.aceptarSugerencia(this))
-				this.subirAtraccion();
+	public String toString() {
+		return this.getNombre() + ", que incluye a las atracciones de " + this.imprimir() + "que son de tipo "
+				+ this.getTipo().toString() + ", con un costo de " + this.getCosto()
+				+ " monedas de oro, un tiempo necesario para recorrerlas de " + super.getTiempo() + " horas";
 	}
 }

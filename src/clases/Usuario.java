@@ -132,29 +132,14 @@ public class Usuario {
 		} else
 			return false;
 	}
-
 	/**
 	 * @pre No tiene.
 	 * @post No tiene.
-	 * @return Retorna la lista con todas las atracciones incluidas en su itinerario
+	 * @return Itinerario del usuario.
 	 */
-	public List<Atraccion> getAtraccionesDeSuItinerario() {
-		List<Atraccion> retorno = new ArrayList<Atraccion>();
-		List<Base> miItinerario = new ArrayList<Base>();
-		miItinerario = this.itinerario;
-		for (Base baseATratar : miItinerario) {
-			if (baseATratar instanceof Promocion) {
-				Promocion tratarComoPromocion = (Promocion) baseATratar;
-				retorno.addAll(tratarComoPromocion.getAtracciones());
-			}
-			if (baseATratar instanceof Atraccion) {
-				Atraccion tratarComoAtraccion = (Atraccion) baseATratar;
-				retorno.add(tratarComoAtraccion);
-			}
-		}
-		return retorno;
+	public List<Base> getItinerario() {
+		return itinerario;
 	}
-
 	/**
 	 * @pre No tiene.
 	 * @post Se imprimio por pantalla el itinerario del usuario.

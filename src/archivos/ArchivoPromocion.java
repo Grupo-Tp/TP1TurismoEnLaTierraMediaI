@@ -1,11 +1,11 @@
 package archivos;
 
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 import clases.Atraccion;
 import clases.Promocion;
@@ -19,15 +19,12 @@ import excepciones.ExcepcionArchivoDePromocion;
 import excepciones.ExcepcionDeAtraccion;
 
 public class ArchivoPromocion {
-	private FileReader lectorDeArchivoDePromociones = null;
-	private BufferedReader bufferDelLectorDeArchivoDePromociones = null;
-	private String lineaPromocion = "";
-	private List<Promocion> promociones;
+	private Scanner lectorDeArchivo = null;
+	private List<Promocion> promociones = null;
 
 	public ArchivoPromocion(String nombreArchivo, List<Atraccion> lasAtracciones) {
 		try {
-			lectorDeArchivoDePromociones = new FileReader(nombreArchivo);
-			bufferDelLectorDeArchivoDePromociones = new BufferedReader(lectorDeArchivoDePromociones);
+			lectorDeArchivo = new Scanner(new File(nombreArchivo));
 			promociones = new ArrayList<Promocion>();
 			promociones = this.leerArchivoPromocion(lasAtracciones);
 		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
@@ -125,7 +122,9 @@ public class ArchivoPromocion {
 	 */
 	private List<Promocion> leerArchivoPromocion(List<Atraccion> atracciones) {
 		try {
-			while ((lineaPromocion = bufferDelLectorDeArchivoDePromociones.readLine()) != null) {
+			String lineaPromocion = "";
+			while (lectorDeArchivo.hasNext()) {
+				lineaPromocion = lectorDeArchivo.next();
 				String[] parametros = lineaPromocion.split(",");
 				List<Atraccion> atraccionesDeLaPromocion = new ArrayList<Atraccion>();
 				Promocion promocion = null;
@@ -182,8 +181,8 @@ public class ArchivoPromocion {
 							"La promocion: " + parametros[0] + " tubo un error al momento de generarse, ya que "
 									+ excepcionDeCreacionDeListaDeAtraccionesQueIncluyeLaPromocion.getMessage());
 				} catch (ExcepcionArchivoDePromocion excepcionDeValidacion) {
-					System.err.println("Una de las promociones leidas tiene un problema en su leer el "
-							+ excepcionDeValidacion.getMessage());
+					System.err.println(
+							"Una de las promociones leidas tiene un problema en " + excepcionDeValidacion.getMessage());
 				} catch (ExcepcionDeBase excepcionDeConstructorDeBase) {
 					System.err.println("Una de las promociones presenta un error al momento de leer el "
 							+ excepcionDeConstructorDeBase.getMessage());
@@ -193,10 +192,14 @@ public class ArchivoPromocion {
 				}
 				promociones.add(promocion);
 			}
-		} catch (IOException excepcionDeLecturaDeLineaDelArchivo) {
+			lectorDeArchivo.close();
+		} catch (NoSuchElementException excepcionDeLecturaDeLineaDelArchivo) {
 			System.err.println(
-					"Hubo un problema al momento de leer una linea de las promociones del archivo de promociones: "
+					"Hubo un problema al momento de leer una linea de las promociones del archivo de promociones: \n"
 							+ excepcionDeLecturaDeLineaDelArchivo.getMessage());
+		} catch (IllegalStateException excepcion) {
+			System.err.println("Hubo un problema, ya que se ha cerrado el archivo de usuarios de forma inesperada: \n"
+					+ excepcion.getMessage());
 		}
 		return promociones;
 	}
