@@ -6,7 +6,7 @@ import excepciones.ExcepcionDeBase;
 import excepciones.ExcepcionDePromocion;
 
 public abstract class Promocion extends Base {
-	private List<Atraccion> atracciones;
+	private List<Atraccion> atracciones = null;
 
 	public Promocion(String nombre, double tiempo, double costo, TipoAtraccion tipo, List<Atraccion> atracciones)
 			throws ExcepcionDeBase, ExcepcionDePromocion {
@@ -19,7 +19,7 @@ public abstract class Promocion extends Base {
 	 * @post No tiene.
 	 * @return Lista con las atracciones que incluye la promocion.
 	 */
-	protected List<Atraccion> getAtracciones() {
+	public List<Atraccion> getAtracciones() {
 		return atracciones;
 	}
 
@@ -51,7 +51,7 @@ public abstract class Promocion extends Base {
 	 * @post Se redujo en uno el cupo de todas las atracciones que componen la
 	 *       promocion.
 	 */
-	protected void subirAtraccion() {
+	public void subirAtraccion() {
 		for (Atraccion indice : this.getAtracciones()) {
 			indice.subirAtraccion();
 		}

@@ -18,7 +18,7 @@ public class Atraccion extends Base {
 	 * @post No tiene.
 	 * @return Cupo disponible de la Atraccion.
 	 */
-	protected int getCupo() {
+	public int getCupo() {
 		return cupo;
 	}
 

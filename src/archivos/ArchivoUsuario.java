@@ -150,6 +150,12 @@ public class ArchivoUsuario {
 		return usuarios;
 	}
 
+	/**
+	 * @pre Se debe validar que la lista de usuarios no se encuentre vacia.
+	 * @post Se generó un archivo con el nombre "Usuario " más el nombre del usuario
+	 *       con la extencion .txt, por cada usuario que se encuentre en la lista
+	 *       que contiene la instancia.
+	 */
 	public void generarArchivoUsuario() {
 		String nombre = "";
 		try {

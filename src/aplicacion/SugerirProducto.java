@@ -1,8 +1,12 @@
-package clases;
+package aplicacion;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import clases.Atraccion;
+import clases.Base;
+import clases.Promocion;
+import clases.Usuario;
 import excepciones.ExcepcionDeAtraccion;
 import excepciones.ExcepcionDePromocion;
 import excepciones.ExcepcionDeUsuario;
@@ -80,9 +84,7 @@ public class SugerirProducto {
 	 */
 	public List<Atraccion> getAtraccionesDeSuItinerario(Usuario usuario) {
 		List<Atraccion> retorno = new ArrayList<Atraccion>();
-		List<Base> suItinerario = new ArrayList<Base>();
-		suItinerario = usuario.getItinerario();
-		for (Base baseATratar : suItinerario) {
+		for (Base baseATratar : usuario.getItinerario()) {
 			if (baseATratar instanceof Promocion) {
 				Promocion tratarComoPromocion = (Promocion) baseATratar;
 				retorno.addAll(tratarComoPromocion.getAtracciones());
@@ -101,12 +103,10 @@ public class SugerirProducto {
 	 * @return Una Promocion para un Usuario.
 	 */
 	public void sugerirPromocion(Usuario usuario, Promocion promocion) {
-		List<Atraccion> misAtracciones = new ArrayList<Atraccion>();
 		boolean cupo = true, noLaVisito = true;
-		misAtracciones = this.getAtracciones();
 		double tiempoDeUsusario = usuario.getTiempo();
 		double presupuesto = usuario.getPresupuesto();
-		for (Atraccion miAtraccion : misAtracciones) {
+		for (Atraccion miAtraccion : this.getAtracciones()) {
 			cupo = cupo && (miAtraccion.getCupo() >= 1);
 			noLaVisito = noLaVisito && (this.getAtraccionesDeSuItinerario(usuario).contains(miAtraccion));
 		}
@@ -123,7 +123,7 @@ public class SugerirProducto {
 	 */
 	public void sugerirAtraccion(Usuario usuario, Atraccion atraccion) {
 		if (atraccion.getTiempo() <= usuario.getTiempo() && atraccion.getCosto() <= usuario.getPresupuesto()
-				&& atraccion.getCupo() >= 1 && usuario.getItinerario().contains(atraccion))
+				&& atraccion.getCupo() >= 1 && !usuario.getItinerario().contains(atraccion))
 			if (usuario.aceptarSugerencia(atraccion))
 				atraccion.subirAtraccion();
 	}

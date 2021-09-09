@@ -1,10 +1,13 @@
-package clases;
+package aplicacion;
 
 import java.util.Scanner;
 
 import archivos.ArchivoAtraccion;
 import archivos.ArchivoPromocion;
 import archivos.ArchivoUsuario;
+import clases.Atraccion;
+import clases.Promocion;
+import clases.Usuario;
 
 public class App {
 /**

@@ -149,8 +149,7 @@ public class Usuario {
 		String salida = "El itinerario programado para " + this.getNombre()
 				+ " esta compuesto por los siguientes productos :\n";
 		double tiempoTotal = 0, costoTotal = 0;
-		List<Base> miItinerario = new ArrayList<Base>();
-		for (Base baseATratar : miItinerario) {
+		for (Base baseATratar : this.getItinerario()) {
 			if (baseATratar instanceof Promocion) {
 				Promocion tratarComoPromocion = (Promocion) baseATratar;
 				tiempoTotal += tratarComoPromocion.getTiempo();

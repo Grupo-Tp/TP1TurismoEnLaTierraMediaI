@@ -45,7 +45,7 @@ public abstract class Base {
 	 * @post No tiene.
 	 * @return Duración de la Atraccion o Promocion.
 	 */
-	protected double getTiempo() {
+	public double getTiempo() {
 		return tiempo;
 	}
 
@@ -56,7 +56,7 @@ public abstract class Base {
 	 * @return No tiene.
 	 * @throws ExcepcionDeBase Nuestra excepcion de errores.
 	 */
-	public void setTiempo(double tiempo) throws ExcepcionDeBase {
+	private void setTiempo(double tiempo) throws ExcepcionDeBase {
 		if (tiempo > 0)
 			this.tiempo = tiempo;
 		else
@@ -68,7 +68,7 @@ public abstract class Base {
 	 * @post No tiene.
 	 * @return Costo de la Atraccion o Promocion.
 	 */
-	protected double getCosto() {
+	public double getCosto() {
 		return costo;
 	}
 
@@ -92,7 +92,7 @@ public abstract class Base {
 	 * @post No tiene.
 	 * @return Tipo de Atraccion o Promocion.
 	 */
-	protected TipoAtraccion getTipo() {
+	public TipoAtraccion getTipo() {
 		return tipo;
 	}
 
