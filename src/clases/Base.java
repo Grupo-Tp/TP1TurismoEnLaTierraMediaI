@@ -105,4 +105,5 @@ public abstract class Base {
 	private void setTipo(TipoAtraccion tipo) {
 		this.tipo = tipo;
 	}
+
 }

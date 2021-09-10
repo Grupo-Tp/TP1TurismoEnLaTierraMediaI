@@ -1,12 +1,13 @@
-package aplicacion;
+package clases;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import clases.Atraccion;
-import clases.Base;
-import clases.Promocion;
-import clases.Usuario;
+import comparadores.PrecioDeAtraccionComparador;
+import comparadores.TiempoDeAtraccionComparador;
+import comparadores.TipoDeAtraccionComparador;
+import comparadores.TipoDeAtraccionDeLaPromocionComparador;
 import excepciones.ExcepcionDeAtraccion;
 import excepciones.ExcepcionDePromocion;
 import excepciones.ExcepcionDeUsuario;
@@ -119,13 +120,30 @@ public class SugerirProducto {
 	 * @pre No tiene.
 	 * @post Suguiere esta atraccion al usuario si éste cumple con las condiciones
 	 *       impuestas por la consigna.
-	 * @param usuario
+	 * @param usuario   Usuario a sugerir la atraccion.
+	 * @param atraccion Atraccion a ser sugerida.
 	 */
 	public void sugerirAtraccion(Usuario usuario, Atraccion atraccion) {
 		if (atraccion.getTiempo() <= usuario.getTiempo() && atraccion.getCosto() <= usuario.getPresupuesto()
 				&& atraccion.getCupo() >= 1 && !usuario.getItinerario().contains(atraccion))
 			if (usuario.aceptarSugerencia(atraccion))
 				atraccion.subirAtraccion();
+	}
+
+	public void ordenarPromocionesPorTipo() {
+		Collections.sort(this.getPromociones(), new TipoDeAtraccionDeLaPromocionComparador());
+	}
+
+	public void ordenarAtraccionesPorTipo() {
+		Collections.sort(this.getAtracciones(), new TipoDeAtraccionComparador());
+	}
+
+	public void ordenarAtraccionesPorPrecio() {
+		Collections.sort(this.getAtracciones(), new PrecioDeAtraccionComparador());
+	}
+
+	public void ordenarAtraccionesPorTiempo() {
+		Collections.sort(this.getAtracciones(), new TiempoDeAtraccionComparador());
 	}
 
 }
