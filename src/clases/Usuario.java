@@ -2,7 +2,6 @@ package clases;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import excepciones.ExcepcionDeUsuario;
 
@@ -110,28 +109,22 @@ public class Usuario {
 	/**
 	 * @pre No tiene.
 	 * @post Se agrego una sugerencia al itinerario si fue aceptada.
-	 * @param sugerencia Una promoción o atracción
-	 * @return No tiene. Aunque hay que analizar bien
+	 * @param sugerencia Una promoción o atracción.
+	 * @param decision   Un verdadero o falso, según haya sido la desicion ingresada
+	 *                   por consola.
+	 * @return Retorna un verdadero o falso, para informarle a la atraccion o
+	 *         promocion que la sugerencia fue aceptada.
 	 */
-	public boolean aceptarSugerencia(Base sugerencia) {
-		String decision = "";
-		Scanner entradaDeTeclado = new Scanner(System.in);
-		System.out.println("Si desea aceptar la sugerencia presione \"y\" de lo contrario presione \\\"n\\\"");
-		decision = entradaDeTeclado.nextLine();
-		while ((decision.toUpperCase() != "Y") || (decision.toUpperCase() != "N")) {
-			System.out.println("Por favor introduzca una decision valida");
-			System.out.println("Para aceptar presione \"y\" de lo contrario \"n\"");
-			decision = entradaDeTeclado.nextLine();
-		}
-		entradaDeTeclado.close();
-		if (decision.toUpperCase() == "Y") {
-			this.tiempo = this.getTiempo() - sugerencia.getTiempo();
-			this.presupuesto = this.getPresupuesto() - sugerencia.getCosto();
+	public boolean aceptarSugerencia(Base sugerencia, boolean decision) {
+		if (decision) {
+			this.tiempo -= sugerencia.getTiempo();
+			this.presupuesto -= sugerencia.getCosto();
 			this.itinerario.add(sugerencia);
-			return true;
+			return decision;
 		} else
-			return false;
+			return decision;
 	}
+
 	/**
 	 * @pre No tiene.
 	 * @post No tiene.
@@ -140,6 +133,7 @@ public class Usuario {
 	public List<Base> getItinerario() {
 		return itinerario;
 	}
+
 	/**
 	 * @pre No tiene.
 	 * @post Se genero un resumen del itinerario del usuario.
