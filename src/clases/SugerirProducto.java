@@ -3,6 +3,7 @@ package clases;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 import comparadores.NombreDeAtraccionComparador;
 import comparadores.PrecioYTiempoDeAtraccionComparador;
@@ -102,10 +103,25 @@ public class SugerirProducto {
 							&& (!this.getAtraccionesDeSuItinerario(usuario).contains(atraccionesDeLaPromocion));
 				}
 				if (tieneCupo && tieneTiempo && tienePresupuesto && noLaVisito)
-					if (usuario.aceptarSugerencia(laPromocion))
+					if (usuario.aceptarSugerencia(laPromocion, this.respuesta(laPromocion)))
 						laPromocion.subirAtraccion();
 			}
 		}
+	}
+
+	/**
+	 * 
+	 * @param laPromo
+	 * @return
+	 */
+	private boolean respuesta(Promocion laPromo) {
+		System.out.println("Si esea aceptar la promocion " + laPromo.toString());
+		System.out.println("Presione \"s\", de lo contario presione \"n\"");
+		String respuesta = "";
+		Scanner teclado = new Scanner(System.in);
+		respuesta = teclado.nextLine();
+		teclado.close();
+		return respuesta == "s";
 	}
 
 	/**
@@ -146,10 +162,25 @@ public class SugerirProducto {
 						tienePresupuesto = laAtraccion.getCosto() <= usuario.getPresupuesto(),
 						noLaVisito = !this.getAtraccionesDeSuItinerario(usuario).contains(laAtraccion);
 				if (tieneCupo && tieneTiempo && tienePresupuesto && noLaVisito)
-					if (usuario.aceptarSugerencia(laAtraccion))
+					if (usuario.aceptarSugerencia(laAtraccion, this.respuesta(laAtraccion)))
 						laAtraccion.subirAtraccion();
 			}
 		}
+	}
+
+	/**
+	 * 
+	 * @param laAtraccion
+	 * @return
+	 */
+	private boolean respuesta(Atraccion laAtraccion) {
+		System.out.println("Si esea aceptar la atraccion " + laAtraccion.toString());
+		System.out.println("Presione \"s\", de lo contario presione \"n\"");
+		String respuesta = "";
+		Scanner teclado = new Scanner(System.in);
+		respuesta = teclado.nextLine();
+		teclado.close();
+		return respuesta == "s";
 	}
 
 	public void ordenarPromocionesPorTipo(List<Promocion> promociones) {

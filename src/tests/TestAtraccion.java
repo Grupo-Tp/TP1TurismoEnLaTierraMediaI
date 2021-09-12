@@ -29,7 +29,7 @@ public class TestAtraccion {
 	}
 
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown(){
 		moria = null;
 		minasTirith = null;
 		laComarca = null;

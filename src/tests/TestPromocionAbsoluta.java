@@ -17,44 +17,30 @@ import excepciones.ExcepcionDePromocion;
 
 public class TestPromocionAbsoluta {
 
-	PromocionAbsoluta absoluta;
+	PromocionAbsoluta absoluta, invalida;
 	List<Atraccion> atracciones = new ArrayList<>();
-	Atraccion moria = null, minasTirith = null, laComarca = null, mordor = null, abismoDeHelm = null;
-	Atraccion lothlorein = null, erebor = null, bosqueNegro = null, esgaroth = null;
+	Atraccion moria = null, laComarca = null, lothlorein = null;
 
 	@Before
 	public void setUp() throws ExcepcionDeBase, ExcepcionDeAtraccion, ExcepcionDePromocion {
-		moria = new Atraccion("Moria", 10, 2, TipoAtraccion.AVENTURA, 6);
-		minasTirith = new Atraccion("Minas Tirith", 5, 2.5, TipoAtraccion.PAISAJE, 25);
-		laComarca = new Atraccion("La Comarca", 3, 6.5, TipoAtraccion.DEGUSTACION, 150);
-		mordor = new Atraccion("Mordor", 25, 3, TipoAtraccion.AVENTURA, 4);
-		abismoDeHelm = new Atraccion("Abismo de Helm", 5, 2, TipoAtraccion.PAISAJE, 15);
-		lothlorein = new Atraccion("Lothlórein", 35, 1, TipoAtraccion.DEGUSTACION, 30);
-		erebor = new Atraccion("Erebor", 12, 3, TipoAtraccion.PAISAJE, 32);
-		bosqueNegro = new Atraccion("Bosque Negro", 3, 4, TipoAtraccion.AVENTURA, 12);
-		esgaroth = new Atraccion("Esgaroth", 20, 3, TipoAtraccion.DEGUSTACION, 50);
-		atracciones.add(moria);
-		atracciones.add(minasTirith);
+		moria = new Atraccion("Moria", 2, 10, TipoAtraccion.AVENTURA, 6);
+		laComarca = new Atraccion("La Comarca", 6.5, 3, TipoAtraccion.DEGUSTACION, 150);
+		lothlorein = new Atraccion("Lothlórein", 1, 35, TipoAtraccion.DEGUSTACION, 30);
 		atracciones.add(laComarca);
-		atracciones.add(abismoDeHelm);
 		atracciones.add(lothlorein);
-		absoluta = new PromocionAbsoluta("Primera", TipoAtraccion.AVENTURA, atracciones, 35);
+		absoluta = new PromocionAbsoluta("Primera", TipoAtraccion.DEGUSTACION, atracciones, 36);
+	}
+
+	@Test(expected = ExcepcionDePromocion.class)
+	public void testDeTipoDeAtracciones() throws ExcepcionDeBase, ExcepcionDePromocion, ExcepcionDeAtraccion {
+		atracciones.add(moria);
+		invalida = new PromocionAbsoluta("Primera", TipoAtraccion.DEGUSTACION, atracciones, 36);
 	}
 
 	@Test
-	public void testPromocionAbsoluta() {
-		//assertEquals(2, absoluta.getAtracciones().size());
-		assertEquals("pack degustacion", absoluta.getNombre());
+	public void testDeToString() {
+		String test = "Primera, que incluye a las atracciones de La Comarca y Lothlórein que son de tipo DEGUSTACION, "
+				+ "con un costo de 36.0 monedas de oro, un tiempo necesario para recorrerlas de 7.5 horas";
+		assertEquals(test, absoluta.toString());
 	}
-
-	@Test
-	public void testCalcularCostoDePromocion() {
-		//assertEquals(36, absoluta.calcularCostoDePromocion(), 0.0);
-	}
-
-	@Test
-	public void testCalcularTiempoDePromocion() {
-		//assertEquals(7.5, absoluta.calcularSumaDeTiempoDeAtracciones(), 0.0);
-	}
-
 }
