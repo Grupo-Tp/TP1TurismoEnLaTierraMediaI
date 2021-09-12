@@ -157,9 +157,9 @@ public class Usuario {
 				costoTotal += tratarComoAtraccion.getCosto();
 				salida = salida + "Atraccion llamada " + tratarComoAtraccion.getNombre() + "\n";
 			}
-			salida = salida + "El itinerario programado tiene una duracion total de " + tiempoTotal
-					+ " horas y un costo total de " + costoTotal + " monedas de oro";
 		}
+		salida = salida + "El itinerario programado tiene una duracion total de " + tiempoTotal
+				+ " horas y un costo total de " + costoTotal + " monedas de oro";
 		return salida;
 	}
 

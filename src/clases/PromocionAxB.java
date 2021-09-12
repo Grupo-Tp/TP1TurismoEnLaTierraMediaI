@@ -22,8 +22,8 @@ public class PromocionAxB extends Promocion {
 	 */
 	protected static double calcularCosto(List<Atraccion> atracciones) {
 		double costo = 0;
-		for (Atraccion atraccion : atracciones) {
-			costo += atraccion.getCosto();
+		for (int indice = 0; indice < atracciones.size() - 1; indice++) {
+			costo += atracciones.get(indice).getCosto();
 		}
 		return costo;
 	}
