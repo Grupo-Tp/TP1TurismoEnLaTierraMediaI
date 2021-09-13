@@ -32,7 +32,7 @@ public class SugerirProducto {
 	/**
 	 * @param usuarios the usuarios to set
 	 */
-	public void setUsuarios(List<Usuario> usuarios) {
+	private void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 
@@ -46,7 +46,7 @@ public class SugerirProducto {
 	/**
 	 * @param promociones the promociones to set
 	 */
-	public void setPromociones(List<Promocion> promociones) {
+	private void setPromociones(List<Promocion> promociones) {
 		this.promociones = promociones;
 	}
 
@@ -60,7 +60,7 @@ public class SugerirProducto {
 	/**
 	 * @param atracciones the atracciones to set
 	 */
-	public void setAtracciones(List<Atraccion> atracciones) {
+	private void setAtracciones(List<Atraccion> atracciones) {
 		this.atracciones = atracciones;
 	}
 
@@ -111,8 +111,8 @@ public class SugerirProducto {
 
 	/**
 	 * 
-	 * @param laPromo
-	 * @return
+	 * @param laPromo Promocion que se muestra para tomar una decision.
+	 * @return La desicion traducida a un boolean.
 	 */
 	private boolean respuesta(Promocion laPromo) {
 		System.out.println("Si esea aceptar la promocion " + laPromo.toString());
@@ -170,8 +170,8 @@ public class SugerirProducto {
 
 	/**
 	 * 
-	 * @param laAtraccion
-	 * @return
+	 * @param laAtraccion Atraccion que se muestra para tomar una decision.
+	 * @return La desicion traducida a un boolean.
 	 */
 	private boolean respuesta(Atraccion laAtraccion) {
 		System.out.println("Si esea aceptar la atraccion " + laAtraccion.toString());
