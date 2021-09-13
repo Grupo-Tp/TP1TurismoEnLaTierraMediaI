@@ -106,6 +106,7 @@ public class SugerirProducto {
 					if (usuario.aceptarSugerencia(laPromocion, this.respuesta(laPromocion)))
 						laPromocion.subirAtraccion();
 			}
+			sugerirAtraccion(usuario);
 		}
 	}
 
@@ -152,19 +153,18 @@ public class SugerirProducto {
 	 * @pre No tiene.
 	 * @post Se sugirieron todas las atracciones posibles a todos los usuarios
 	 *       registrados.
+	 * @param usuario
 	 */
-	public void sugerirAtraccion() {
-		for (Usuario usuario : this.getUsuarios()) {
-			this.ordenarAtraccionesPorPrecioYTiempo(this.getAtracciones());
-			for (Atraccion laAtraccion : this.getAtracciones()) {
-				boolean tieneCupo = laAtraccion.getCupo() >= 1,
-						tieneTiempo = laAtraccion.getTiempo() <= usuario.getTiempo(),
-						tienePresupuesto = laAtraccion.getCosto() <= usuario.getPresupuesto(),
-						noLaVisito = !this.getAtraccionesDeSuItinerario(usuario).contains(laAtraccion);
-				if (tieneCupo && tieneTiempo && tienePresupuesto && noLaVisito)
-					if (usuario.aceptarSugerencia(laAtraccion, this.respuesta(laAtraccion)))
-						laAtraccion.subirAtraccion();
-			}
+	public void sugerirAtraccion(Usuario usuario) {
+		this.ordenarAtraccionesPorPrecioYTiempo(this.getAtracciones());
+		for (Atraccion laAtraccion : this.getAtracciones()) {
+			boolean tieneCupo = laAtraccion.getCupo() >= 1,
+					tieneTiempo = laAtraccion.getTiempo() <= usuario.getTiempo(),
+					tienePresupuesto = laAtraccion.getCosto() <= usuario.getPresupuesto(),
+					noLaVisito = !this.getAtraccionesDeSuItinerario(usuario).contains(laAtraccion);
+			if (tieneCupo && tieneTiempo && tienePresupuesto && noLaVisito)
+				if (usuario.aceptarSugerencia(laAtraccion, this.respuesta(laAtraccion)))
+					laAtraccion.subirAtraccion();
 		}
 	}
 
