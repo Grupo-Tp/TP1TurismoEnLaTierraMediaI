@@ -92,6 +92,7 @@ public class SugerirProducto {
 	public void sugerirPromocion() {
 		for (Usuario usuario : this.getUsuarios()) {
 			List<Promocion> promocionesOrdenadas = new ArrayList<Promocion>();
+			System.out.println("Usuario: " + usuario.getNombre());
 			promocionesOrdenadas = this.ordenarPromociones(usuario);
 			for (Promocion laPromocion : promocionesOrdenadas) {
 				boolean tieneCupo = true, noLaVisito = true,

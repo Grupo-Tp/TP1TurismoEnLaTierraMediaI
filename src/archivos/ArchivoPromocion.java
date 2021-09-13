@@ -1,11 +1,12 @@
 package archivos;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import clases.Atraccion;
 import clases.Promocion;
@@ -19,12 +20,14 @@ import excepciones.ExcepcionArchivoDePromocion;
 import excepciones.ExcepcionDeAtraccion;
 
 public class ArchivoPromocion {
-	private Scanner lectorDeArchivo = null;
+	private FileReader lectorDeArchivoDePromociones = null;
+	private BufferedReader bufferDelLectorDeArchivoDePromociones = null;
 	private List<Promocion> promociones = null;
 
 	public ArchivoPromocion(String nombreArchivo, List<Atraccion> lasAtracciones) {
 		try {
-			lectorDeArchivo = new Scanner(new File(nombreArchivo));
+			lectorDeArchivoDePromociones = new FileReader(nombreArchivo);
+			bufferDelLectorDeArchivoDePromociones = new BufferedReader(lectorDeArchivoDePromociones);
 			promociones = new ArrayList<Promocion>();
 			promociones = this.leerArchivoPromocion(lasAtracciones);
 		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
@@ -123,8 +126,7 @@ public class ArchivoPromocion {
 	private List<Promocion> leerArchivoPromocion(List<Atraccion> atracciones) {
 		try {
 			String lineaPromocion = "";
-			while (lectorDeArchivo.hasNext()) {
-				lineaPromocion = lectorDeArchivo.next();
+			while ((lineaPromocion = bufferDelLectorDeArchivoDePromociones.readLine()) != null) {
 				String[] parametros = lineaPromocion.split(",");
 				List<Atraccion> atraccionesDeLaPromocion = new ArrayList<Atraccion>();
 				Promocion promocion = null;
@@ -192,7 +194,6 @@ public class ArchivoPromocion {
 				}
 				promociones.add(promocion);
 			}
-			lectorDeArchivo.close();
 		} catch (NoSuchElementException excepcionDeLecturaDeLineaDelArchivo) {
 			System.err.println(
 					"Hubo un problema al momento de leer una linea de las promociones del archivo de promociones: \n"
@@ -200,6 +201,10 @@ public class ArchivoPromocion {
 		} catch (IllegalStateException excepcion) {
 			System.err.println("Hubo un problema, ya que se ha cerrado el archivo de usuarios de forma inesperada: \n"
 					+ excepcion.getMessage());
+		} catch (IOException excepcionDeLecturaDeLineaDelArchivo) {
+			System.err.println(
+					"Hubo un problema al momento de leer una linea de las promociones del archivo de promociones: "
+							+ excepcionDeLecturaDeLineaDelArchivo.getMessage());
 		}
 		return promociones;
 	}

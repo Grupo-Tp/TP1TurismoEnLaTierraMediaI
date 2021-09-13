@@ -10,7 +10,8 @@ import clases.Usuario;
 
 public class App {
 	public static void main(String[] args) {
-		String archivoUsuario = args[0], archivoAtracciones = args[1], archivoPromociones = args[2];
+		String archivoUsuario = "/home/tioliban/usuarios.csv", archivoAtracciones = "/home/tioliban/atracciones.csv",
+				archivoPromociones = "/home/tioliban/promociones.csv";
 		ArchivoUsuario losUsuarios = new ArchivoUsuario(archivoUsuario);
 		ArchivoAtraccion lasAtracciones = new ArchivoAtraccion(archivoAtracciones);
 		ArchivoPromocion lasPromociones = new ArchivoPromocion(archivoPromociones, lasAtracciones.getAtracciones());

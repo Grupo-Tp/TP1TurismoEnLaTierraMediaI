@@ -1,12 +1,13 @@
 package archivos;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import clases.Atraccion;
 import clases.TipoAtraccion;
@@ -15,12 +16,14 @@ import excepciones.ExcepcionDeBase;
 import excepciones.ExcepcionDeAtraccion;
 
 public class ArchivoAtraccion {
-	private Scanner lectorDeArchivo = null;
+	private FileReader lectorDeArchivoDeAtracciones = null;
+	private BufferedReader bufferDelLectorDeArchivoDeAtracciones = null;
 	private List<Atraccion> atracciones = null;
 
 	public ArchivoAtraccion(String nombreArchivo) {
 		try {
-			lectorDeArchivo = new Scanner(new File(nombreArchivo));
+			lectorDeArchivoDeAtracciones = new FileReader(nombreArchivo);
+			bufferDelLectorDeArchivoDeAtracciones = new BufferedReader(lectorDeArchivoDeAtracciones);
 			atracciones = new ArrayList<Atraccion>();
 			this.atracciones = this.leerArchivoAtraccion();
 		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
@@ -180,8 +183,7 @@ public class ArchivoAtraccion {
 	private List<Atraccion> leerArchivoAtraccion() {
 		try {
 			String lineaAtraccion = "";
-			while (lectorDeArchivo.hasNext()) {
-				lineaAtraccion = lectorDeArchivo.next();
+			while ((lineaAtraccion = bufferDelLectorDeArchivoDeAtracciones.readLine()) != null) {
 				String[] parametros = lineaAtraccion.split(",");
 				double costo = 0, tiempo = 0;
 				int cupo = 0;
@@ -205,7 +207,10 @@ public class ArchivoAtraccion {
 							+ excepcionDeConstructorDeAtraccion.getMessage());
 				}
 			}
-			lectorDeArchivo.close();
+		} catch (ArrayIndexOutOfBoundsException excepcionDeFueraDeLosLimitesDeLosParametros) {
+			System.err.println(
+					"Hubo un problema al momento de leer una lidea de las atracciones del archivo de atracciones: \n"
+							+ excepcionDeFueraDeLosLimitesDeLosParametros.getMessage());
 		} catch (NoSuchElementException excepcionDeLecturaDeLineaDelArchivo) {
 			System.err.println(
 					"Hubo un problema al momento de leer una linea de las atracciones del archivo de atracciones: \n"
@@ -213,6 +218,10 @@ public class ArchivoAtraccion {
 		} catch (IllegalStateException excepcion) {
 			System.err.println("Hubo un problema, ya que se ha cerrado el archivo de usuarios de forma inesperada: \n"
 					+ excepcion.getMessage());
+		} catch (IOException excepcionDeLecturaDeLineaDelArchivo) {
+			System.err.println(
+					"Hubo un problema al momento de leer una linea de las atracciones del archivo de atracciones: "
+							+ excepcionDeLecturaDeLineaDelArchivo.getMessage());
 		}
 		return atracciones;
 	}
