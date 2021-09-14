@@ -23,8 +23,9 @@ public class TestSugerirProducto {
 	Usuario eowyn, gandalf, sam, galadriel;
 	List<Usuario> usuarios;
 	Atraccion moria, minasTirith, laComarca, mordor, abismoDeHelm, lothlorein, erebor, bosqueNegro, esgaroth;
-	List<Atraccion> atracciones, atraccionesPrimera, atraccionesSegunda, atraccionesTercera, atraccionesCuarta,
-			atraccionesQuinta;
+	List<Atraccion> atracciones;
+	List<String> atraccionesPrimera, atraccionesSegunda, atraccionesTercera, atraccionesCuarta, atraccionesQuinta;
+	String[] primeras, segundas, terceras, cuartas, quintas;
 	PromocionPorcentual primera, cuarta;
 	PromocionAbsoluta tercera;
 	PromocionAxB segunda, quinta;
@@ -61,29 +62,46 @@ public class TestSugerirProducto {
 		atracciones.add(erebor);
 		atracciones.add(bosqueNegro);
 		atracciones.add(esgaroth);
-		atraccionesPrimera = new ArrayList<Atraccion>();
-		atraccionesSegunda = new ArrayList<Atraccion>();
-		atraccionesTercera = new ArrayList<Atraccion>();
-		atraccionesCuarta = new ArrayList<Atraccion>();
-		atraccionesQuinta = new ArrayList<Atraccion>();
-		atraccionesPrimera.add(bosqueNegro);
-		atraccionesPrimera.add(mordor);
-		atraccionesSegunda.add(moria);
-		atraccionesSegunda.add(mordor);
-		atraccionesSegunda.add(bosqueNegro);
-		atraccionesTercera.add(lothlorein);
-		atraccionesTercera.add(laComarca);
-		atraccionesCuarta.add(lothlorein);
-		atraccionesCuarta.add(esgaroth);
-		atraccionesQuinta.add(minasTirith);
-		atraccionesQuinta.add(abismoDeHelm);
-		atraccionesQuinta.add(erebor);
+		atraccionesPrimera = new ArrayList<String>();
+		atraccionesSegunda = new ArrayList<String>();
+		atraccionesTercera = new ArrayList<String>();
+		atraccionesCuarta = new ArrayList<String>();
+		atraccionesQuinta = new ArrayList<String>();
+		atraccionesPrimera.add(bosqueNegro.getNombre());
+		atraccionesPrimera.add(mordor.getNombre());
+		atraccionesSegunda.add(moria.getNombre());
+		atraccionesSegunda.add(mordor.getNombre());
+		atraccionesSegunda.add(bosqueNegro.getNombre());
+		atraccionesTercera.add(lothlorein.getNombre());
+		atraccionesTercera.add(laComarca.getNombre());
+		atraccionesCuarta.add(lothlorein.getNombre());
+		atraccionesCuarta.add(esgaroth.getNombre());
+		atraccionesQuinta.add(minasTirith.getNombre());
+		atraccionesQuinta.add(abismoDeHelm.getNombre());
+		atraccionesQuinta.add(erebor.getNombre());
+		primeras = new String[2];
+		primeras[0] = bosqueNegro.getNombre();
+		primeras[1] = mordor.getNombre();
+		segundas = new String[3];
+		segundas[0] = moria.getNombre();
+		segundas[1] = mordor.getNombre();
+		segundas[2] = bosqueNegro.getNombre();
+		terceras = new String[2];
+		terceras[0] = lothlorein.getNombre();
+		terceras[1] = laComarca.getNombre();
+		cuartas = new String[2];
+		cuartas[0] = lothlorein.getNombre();
+		cuartas[1] = esgaroth.getNombre();
+		quintas = new String[3];
+		quintas[0] = minasTirith.getNombre();
+		quintas[1] = abismoDeHelm.getNombre();
+		quintas[2] = erebor.getNombre();
 		promociones = new ArrayList<Promocion>();
-		primera = new PromocionPorcentual("Primera", TipoAtraccion.AVENTURA, atraccionesPrimera, 20);
-		segunda = new PromocionAxB("Segunda", TipoAtraccion.AVENTURA, atraccionesSegunda, bosqueNegro);
-		tercera = new PromocionAbsoluta("Tercera", TipoAtraccion.DEGUSTACION, atraccionesTercera, 36);
-		cuarta = new PromocionPorcentual("Cuarta", TipoAtraccion.DEGUSTACION, atraccionesCuarta, 25);
-		quinta = new PromocionAxB("Quinta", TipoAtraccion.PAISAJE, atraccionesQuinta, erebor);
+		primera = new PromocionPorcentual("Primera", TipoAtraccion.AVENTURA, primeras, atracciones, 20);
+		segunda = new PromocionAxB("Segunda", TipoAtraccion.AVENTURA, segundas, atracciones, bosqueNegro.getNombre());
+		tercera = new PromocionAbsoluta("Tercera", TipoAtraccion.DEGUSTACION, terceras, atracciones, 36);
+		cuarta = new PromocionPorcentual("Cuarta", TipoAtraccion.DEGUSTACION, cuartas, atracciones, 25);
+		quinta = new PromocionAxB("Quinta", TipoAtraccion.PAISAJE, quintas, atracciones, erebor.getNombre());
 		promociones.add(primera);
 		promociones.add(segunda);
 		promociones.add(tercera);
@@ -138,5 +156,9 @@ public class TestSugerirProducto {
 		eowyn.aceptarSugerencia(bosqueNegro, true);
 		eowyn.aceptarSugerencia(mordor, true);
 		assertEquals(atraccionesPrimera, sistema.getAtraccionesDeSuItinerario(eowyn));
+	}
+	@Test
+	public void testDeSugerirPromocionConPreferencia() {
+		
 	}
 }

@@ -8,16 +8,18 @@ import excepciones.ExcepcionDePromocion;
 
 public class PromocionAbsoluta extends Promocion {
 
-	public PromocionAbsoluta(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones, double precioFinal)
+	public PromocionAbsoluta(String nombre, TipoAtraccion tipo, String[] nombresDeAtracciones,
+			List<Atraccion> atracciones, double precioFinal)
 			throws ExcepcionDeBase, ExcepcionDePromocion, ExcepcionDeAtraccion {
-		super(nombre, PromocionPorcentual.calcularTiempo(atracciones), precioFinal, tipo, atracciones);
+		super(nombre, PromocionPorcentual.calcularTiempo(atracciones, nombresDeAtracciones), precioFinal, tipo,
+				nombresDeAtracciones, atracciones);
 	}
 
 	@Override
 	public String imprimir() {
 		String retorno = "";
-		retorno += this.getAtracciones().get(0).getNombre() + " y ";
-		retorno += this.getAtracciones().get(1).getNombre();
+		retorno += this.getNombresDeAtracciones().get(0) + " y ";
+		retorno += this.getNombresDeAtracciones().get(1);
 		return retorno;
 	}
 

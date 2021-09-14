@@ -24,8 +24,21 @@ public class ArchivoUsuario {
 			lectorDeArchivo = new Scanner(new File(nombreArchivo));
 			usuarios = new ArrayList<Usuario>();
 			this.usuarios = this.leerArchivoUsuario();
+			this.mostrarPorPantalla();
 		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
 			System.err.println("El archivo de usuarios: '" + nombreArchivo + "' no fue encontrado.");
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void mostrarPorPantalla() {
+		System.out.println("Bienvenido, acontinuacion inicia la ejecucion de nuestro sistema:");
+		System.out.println("Comenzamos leyendo el achivo de Usuarios, los usuarios leidos son:");
+		System.out.println();
+		for (Usuario indice : this.getUsuarios()) {
+			System.out.println(indice);
 		}
 	}
 
@@ -157,6 +170,8 @@ public class ArchivoUsuario {
 	 *       que contiene la instancia.
 	 */
 	public void generarArchivoUsuario() {
+		System.out.println("Comenzamos a generar los archivos con la información por cada usuario");
+		System.out.println();
 		String nombre = "";
 		try {
 			for (Usuario indice : this.usuarios) {
@@ -169,5 +184,8 @@ public class ArchivoUsuario {
 			System.err.println("Hubo un error inesperado al momento de generar el archivo de salida para un usuario: "
 					+ excepcion.getMessage());
 		}
+		System.out.println();
+		System.out.println("La creación de archivos ha finalizado con éxito y el programa termina su ejecución");
+		System.out.println();
 	}
 }

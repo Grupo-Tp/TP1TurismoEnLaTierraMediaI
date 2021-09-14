@@ -148,14 +148,14 @@ public class Usuario {
 				Promocion tratarComoPromocion = (Promocion) baseATratar;
 				tiempoTotal += tratarComoPromocion.getTiempo();
 				costoTotal += tratarComoPromocion.getCosto();
-				salida = salida + "Promocion llamada " + tratarComoPromocion.getNombre()
+				salida += "Promocion llamada " + tratarComoPromocion.getNombre()
 						+ " compuesta por las atracciones " + tratarComoPromocion.imprimir() + "\n";
 			}
 			if (baseATratar instanceof Atraccion) {
 				Atraccion tratarComoAtraccion = (Atraccion) baseATratar;
 				tiempoTotal += tratarComoAtraccion.getTiempo();
 				costoTotal += tratarComoAtraccion.getCosto();
-				salida = salida + "Atraccion llamada " + tratarComoAtraccion.getNombre() + "\n";
+				salida += "Atraccion llamada " + tratarComoAtraccion.getNombre() + "\n";
 			}
 		}
 		salida = salida + "El itinerario programado tiene una duracion total de " + tiempoTotal

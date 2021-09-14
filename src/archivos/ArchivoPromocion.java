@@ -30,8 +30,21 @@ public class ArchivoPromocion {
 			bufferDelLectorDeArchivoDePromociones = new BufferedReader(lectorDeArchivoDePromociones);
 			promociones = new ArrayList<Promocion>();
 			promociones = this.leerArchivoPromocion(lasAtracciones);
+			this.mostrarPorPantalla();
 		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
 			System.err.println("El archivo de promociones: '" + nombreArchivo + "' no fue encontrado");
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void mostrarPorPantalla() {
+		System.out.println();
+		System.out.println("Terminamos leyendo el achivo de Promociones, las promociones leidas son:");
+		System.out.println();
+		for (Promocion indice : this.getPromociones()) {
+			System.out.println(indice.toString());
 		}
 	}
 
@@ -128,7 +141,6 @@ public class ArchivoPromocion {
 			String lineaPromocion = "";
 			while ((lineaPromocion = bufferDelLectorDeArchivoDePromociones.readLine()) != null) {
 				String[] parametros = lineaPromocion.split(",");
-				List<Atraccion> atraccionesDeLaPromocion = new ArrayList<Atraccion>();
 				Promocion promocion = null;
 				TipoAtraccion tipoDeAtraccionDeLaPromocion = null;
 				String[] nombresDeAtraccionesDeLaPromocion = null;
@@ -141,11 +153,9 @@ public class ArchivoPromocion {
 						nombresDeAtraccionesDeLaPromocion = new String[2];
 						nombresDeAtraccionesDeLaPromocion[0] = parametros[3];
 						nombresDeAtraccionesDeLaPromocion[1] = parametros[4];
-						atraccionesDeLaPromocion = ArchivoAtraccion
-								.crearListaDeAtraccion(nombresDeAtraccionesDeLaPromocion, atracciones);
 						double porcentaje = this.validarProcentajeDeDescuento(parametros[5]);
 						promocion = new PromocionPorcentual(nombre, tipoDeAtraccionDeLaPromocion,
-								atraccionesDeLaPromocion, porcentaje);
+								nombresDeAtraccionesDeLaPromocion, atracciones, porcentaje);
 						break;
 					}
 					case "AxB": {
@@ -153,22 +163,17 @@ public class ArchivoPromocion {
 						nombresDeAtraccionesDeLaPromocion[0] = parametros[3];
 						nombresDeAtraccionesDeLaPromocion[1] = parametros[4];
 						nombresDeAtraccionesDeLaPromocion[2] = parametros[5];
-						atraccionesDeLaPromocion = ArchivoAtraccion
-								.crearListaDeAtraccion(nombresDeAtraccionesDeLaPromocion, atracciones);
-						Atraccion atraccionGratuita = atraccionesDeLaPromocion.get(atraccionesDeLaPromocion.size() - 1);
-						promocion = new PromocionAxB(nombre, tipoDeAtraccionDeLaPromocion, atraccionesDeLaPromocion,
-								atraccionGratuita);
+						promocion = new PromocionAxB(nombre, tipoDeAtraccionDeLaPromocion,
+								nombresDeAtraccionesDeLaPromocion, atracciones, parametros[5]);
 						break;
 					}
 					case "Absoluta": {
 						nombresDeAtraccionesDeLaPromocion = new String[2];
 						nombresDeAtraccionesDeLaPromocion[0] = parametros[3];
 						nombresDeAtraccionesDeLaPromocion[1] = parametros[4];
-						atraccionesDeLaPromocion = ArchivoAtraccion
-								.crearListaDeAtraccion(nombresDeAtraccionesDeLaPromocion, atracciones);
 						double monto = this.validarPrecioFinal(parametros[5]);
 						promocion = new PromocionAbsoluta(nombre, tipoDeAtraccionDeLaPromocion,
-								atraccionesDeLaPromocion, monto);
+								nombresDeAtraccionesDeLaPromocion, atracciones, monto);
 						break;
 					}
 					default:

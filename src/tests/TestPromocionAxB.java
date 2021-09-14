@@ -19,7 +19,9 @@ import excepciones.ExcepcionDePromocion;
 public class TestPromocionAxB {
 
 	PromocionAxB promo;
-	List<Atraccion> atracciones, invalidas, conInvalidas;
+	String[] nombresDeAtracciones;
+	List<String> nombres;
+	List<Atraccion> atracciones;
 	Atraccion moria, minasTirith, laComarca, mordor, abismoDeHelm, lothlorein, erebor, bosqueNegro, esgaroth;
 	PromocionAxB atraccionInvalida, tiempoInvalido, costoInvalido, cupoInvalido;
 	Atraccion invalida;
@@ -35,15 +37,27 @@ public class TestPromocionAxB {
 		erebor = new Atraccion("Erebor", 3, 12, TipoAtraccion.PAISAJE, 32);
 		bosqueNegro = new Atraccion("Bosque Negro", 4, 3, TipoAtraccion.AVENTURA, 12);
 		esgaroth = new Atraccion("Esgaroth", 3, 50, TipoAtraccion.DEGUSTACION, 20);
-
-		invalidas = null;
 		invalida = null;
-		conInvalidas = new ArrayList<Atraccion>();
 		atracciones = new ArrayList<Atraccion>();
-		atracciones.add(moria);
-		atracciones.add(mordor);
+		atracciones.add(abismoDeHelm);
 		atracciones.add(bosqueNegro);
-		promo = new PromocionAxB("Segunda", TipoAtraccion.AVENTURA, atracciones, bosqueNegro);
+		atracciones.add(erebor);
+		atracciones.add(esgaroth);
+		atracciones.add(lothlorein);
+		atracciones.add(laComarca);
+		atracciones.add(minasTirith);
+		atracciones.add(mordor);
+		atracciones.add(moria);
+		nombresDeAtracciones = new String[3];
+		nombresDeAtracciones[0] = moria.getNombre();
+		nombresDeAtracciones[1] = mordor.getNombre();
+		nombresDeAtracciones[2] = bosqueNegro.getNombre();
+		nombres = new ArrayList<String>();
+		nombres.add(moria.getNombre());
+		nombres.add(mordor.getNombre());
+		nombres.add(bosqueNegro.getNombre());
+		promo = new PromocionAxB("Segunda", TipoAtraccion.AVENTURA, nombresDeAtracciones, atracciones,
+				bosqueNegro.getNombre());
 	}
 
 	@After
@@ -67,42 +81,25 @@ public class TestPromocionAxB {
 
 	@Test
 	public void testDeGetAtraccionGratis() {
-		assertEquals(bosqueNegro, promo.getAtraccionGratis());
+		assertEquals(bosqueNegro.getNombre(), promo.getAtraccionGratis());
 	}
 
 	@Test(expected = ExcepcionDePromocion.class)
 	public void testDeAtraccionGratisNulaConExcepcionDePromocion()
 			throws ExcepcionDeBase, ExcepcionDePromocion, ExcepcionDeAtraccion {
-		atraccionInvalida = new PromocionAxB("Segunda", TipoAtraccion.AVENTURA, atracciones, invalida);
-		assertNull(atraccionInvalida);
-	}
-
-	@Test(expected = ExcepcionDeBase.class)
-	public void testDeAtraccionesNulasConExcepcionDeBase()
-			throws ExcepcionDeBase, ExcepcionDePromocion, NullPointerException, ExcepcionDeAtraccion {
-		atraccionInvalida = new PromocionAxB("Segunda", TipoAtraccion.AVENTURA, conInvalidas, moria);
-		assertNull(atraccionInvalida);
+		atraccionInvalida = new PromocionAxB("Segunda", TipoAtraccion.AVENTURA, nombresDeAtracciones, atracciones,
+				"invalida");
 	}
 
 	@Test(expected = ExcepcionDeAtraccion.class)
 	public void testDeAtraccionesNulasYAtraccionGratisNulaConExcepcionDeAtraccion()
 			throws ExcepcionDeBase, ExcepcionDePromocion, ExcepcionDeAtraccion {
-		atraccionInvalida = new PromocionAxB("Segunda", TipoAtraccion.AVENTURA, invalidas, invalida);
-		assertNull(atraccionInvalida);
+		atraccionInvalida = new PromocionAxB("Segunda", TipoAtraccion.AVENTURA, nombresDeAtracciones, null, null);
 	}
 
 	@Test
 	public void testDeGetAtracciones() {
-		assertEquals(atracciones, promo.getAtracciones());
-	}
-
-	@Test
-	public void testSubirAtraccion() {
-		promo.subirAtraccion();
-
-		assertEquals(5, moria.getCupo(), 0);
-		assertEquals(3, mordor.getCupo(), 0);
-		assertEquals(11, bosqueNegro.getCupo(), 0);
+		assertEquals(nombres, promo.getNombresDeAtracciones());
 	}
 
 	@Test

@@ -7,11 +7,12 @@ import excepciones.ExcepcionDeBase;
 import excepciones.ExcepcionDePromocion;
 
 public class PromocionAxB extends Promocion {
-	private Atraccion atraccionGratis;
+	private String atraccionGratis;
 
-	public PromocionAxB(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones, Atraccion atraccionGratis)
-			throws ExcepcionDeBase, ExcepcionDePromocion, ExcepcionDeAtraccion {
-		super(nombre, PromocionPorcentual.calcularTiempo(atracciones), calcularCosto(atracciones), tipo, atracciones);
+	public PromocionAxB(String nombre, TipoAtraccion tipo, String[] nombresDeAtracciones, List<Atraccion> atracciones,
+			String atraccionGratis) throws ExcepcionDeBase, ExcepcionDePromocion, ExcepcionDeAtraccion {
+		super(nombre, PromocionPorcentual.calcularTiempo(atracciones, nombresDeAtracciones),
+				calcularCosto(atracciones, nombresDeAtracciones), tipo, nombresDeAtracciones, atracciones);
 		this.setAtraccionGratis(atraccionGratis);
 	}
 
@@ -21,11 +22,14 @@ public class PromocionAxB extends Promocion {
 	 * @param atracciones Lista de atracciones que incluye la promocion.
 	 * @return Costo total de todas las atracciones.
 	 */
-	protected static double calcularCosto(List<Atraccion> atracciones) {
+	protected static double calcularCosto(List<Atraccion> atracciones, String[] nombresDeAtracciones) {
 		double costo = 0;
-		for (int indice = 0; indice < atracciones.size() - 1; indice++) {
-			costo += atracciones.get(indice).getCosto();
+		String gratis = "";
+		for (String atraccion : nombresDeAtracciones) {
+			costo += Atraccion.buscarAtraccionPorNombre(atraccion, atracciones).getCosto();
+			gratis = atraccion;
 		}
+		costo -= Atraccion.buscarAtraccionPorNombre(gratis, atracciones).getCosto();
 		return costo;
 	}
 
@@ -34,7 +38,7 @@ public class PromocionAxB extends Promocion {
 	 * @post No tiene.
 	 * @return La atraccion que la promocion ofrece gratis.
 	 */
-	public Atraccion getAtraccionGratis() {
+	public String getAtraccionGratis() {
 		return atraccionGratis;
 	}
 
@@ -44,19 +48,19 @@ public class PromocionAxB extends Promocion {
 	 * @param atraccionGratis Atraccion que ofrece gratuita la promocion.
 	 * @throws ExcepcionDePromocion Nuestra excepcion de Promocion.
 	 */
-	private void setAtraccionGratis(Atraccion atraccionGratis) throws ExcepcionDePromocion {
-		if (atraccionGratis != null)
+	private void setAtraccionGratis(String atraccionGratis) throws ExcepcionDePromocion {
+		if (this.getNombresDeAtracciones().contains(atraccionGratis))
 			this.atraccionGratis = atraccionGratis;
 		else
-			throw new ExcepcionDePromocion("asignar su promocion gratis, ya que esta es nula o esta vacia");
+			throw new ExcepcionDePromocion("asignar su promocion gratis, ya que esta no se encuentra en la lista de atracciones que incluye la promocion");
 	}
 
 	@Override
 	public String imprimir() {
 		String retorno = "";
-		retorno += this.getAtracciones().get(0).getNombre() + ", ";
-		retorno += this.getAtracciones().get(1).getNombre() + " y ";
-		retorno += this.getAtracciones().get(2).getNombre();
+		retorno += this.getNombresDeAtracciones().get(0) + ", ";
+		retorno += this.getNombresDeAtracciones().get(1) + " y ";
+		retorno += this.getNombresDeAtracciones().get(2);
 		return retorno;
 	}
 

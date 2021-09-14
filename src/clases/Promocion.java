@@ -1,57 +1,54 @@
 package clases;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import excepciones.ExcepcionDeBase;
 import excepciones.ExcepcionDePromocion;
 
 public abstract class Promocion extends Base {
-	private List<Atraccion> atracciones = null;
+	private ArrayList<String> nombresDeAtracciones;
 
-	public Promocion(String nombre, double tiempo, double costo, TipoAtraccion tipo, List<Atraccion> atracciones)
-			throws ExcepcionDeBase, ExcepcionDePromocion {
+	public Promocion(String nombre, double tiempo, double costo, TipoAtraccion tipo, String[] nombresDeAtracciones,
+			List<Atraccion> atracciones) throws ExcepcionDeBase, ExcepcionDePromocion {
 		super(nombre, tiempo, costo, tipo);
-		this.setAtracciones(atracciones);
+		this.setNombresDeAtracciones(nombresDeAtracciones, atracciones);
 	}
 
 	/**
-	 * @pre No tiene.
-	 * @post No tiene.
-	 * @return Lista con las atracciones que incluye la promocion.
+	 * @return the nombresDeAtracciones
 	 */
-	public List<Atraccion> getAtracciones() {
-		return atracciones;
+	public ArrayList<String> getNombresDeAtracciones() {
+		return nombresDeAtracciones;
 	}
 
 	/**
-	 * @pre No Tiene.
-	 * @post Se actualizo la lista con las atracciones disponibles.
-	 * @param atracciones Lista con atracciones disponibles.
-	 * @return No tiene.
-	 * @throws ExcepcionDePromocion Nuestra excepcion de error.
+	 * this.nombresDeAtracciones = nombresDeAtracciones;
+	 * 
+	 * @param nombresDeAtracciones the nombresDeAtracciones to set
+	 * @throws ExcepcionDePromocion
 	 */
-	private void setAtracciones(List<Atraccion> atracciones) throws ExcepcionDePromocion {
+	private void setNombresDeAtracciones(String[] nombresDeAtracciones, List<Atraccion> atracciones)
+			throws ExcepcionDePromocion {
 		boolean validar = true;
-		for (Atraccion indice : atracciones) {
-			validar = validar && (this.getTipo() == indice.getTipo());
-		}
-		if (validar)
-			this.atracciones = atracciones;
-		else
-			throw new ExcepcionDePromocion(
-					"asignar la lista de atracciones, ya que el tipo de atraccion de una o más atracciones"
-							+ " no coincide con el tipo de atracciones de la promocion");
-	}
-
-	/**
-	 * @pre No tiene.
-	 * @post Se redujo en uno el cupo de todas las atracciones que componen la
-	 *       promocion.
-	 */
-	public void subirAtraccion() {
-		for (Atraccion indice : this.getAtracciones()) {
-			indice.subirAtraccion();
-		}
+		ArrayList<String> retorno = new ArrayList<String>();
+		if (nombresDeAtracciones.length > 1) {
+			for (String nombre : nombresDeAtracciones) {
+				validar = validar
+						&& this.getTipo() == Atraccion.buscarAtraccionPorNombre(nombre, atracciones).getTipo();
+			}
+			if (validar)
+				for (String nombre : nombresDeAtracciones) {
+					retorno.add(nombre);
+				}
+			if (nombresDeAtracciones.length == retorno.size())
+				this.nombresDeAtracciones = retorno;
+			else
+				throw new ExcepcionDePromocion(
+						"asignar la lista de atracciones, ya que el tipo de atraccion de una o más atracciones"
+								+ " no coincide con el tipo de atracciones de la promocion");
+		} else
+			throw new ExcepcionDePromocion("asignar la lista de atracciones ya que la lista de atracciones esta vacía");
 	}
 
 	/**

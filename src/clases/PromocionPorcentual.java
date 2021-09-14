@@ -10,9 +10,11 @@ public class PromocionPorcentual extends Promocion {
 
 	double porcentajeDescuento;
 
-	public PromocionPorcentual(String nombre, TipoAtraccion tipo, List<Atraccion> atracciones, double porcentaje)
+	public PromocionPorcentual(String nombre, TipoAtraccion tipo, String[] nombresDeAtracciones,
+			List<Atraccion> atracciones, double porcentaje)
 			throws ExcepcionDeBase, ExcepcionDePromocion, ExcepcionDeAtraccion {
-		super(nombre, calcularTiempo(atracciones), calcularCosto(atracciones, porcentaje), tipo, atracciones);
+		super(nombre, calcularTiempo(atracciones, nombresDeAtracciones),
+				calcularCosto(atracciones, nombresDeAtracciones, porcentaje), tipo, nombresDeAtracciones, atracciones);
 		this.setPorcentajeDescuento(porcentaje);
 	}
 
@@ -24,10 +26,11 @@ public class PromocionPorcentual extends Promocion {
 	 *         aplicado.
 	 * @throws ExcepcionDePromocion Nuestra excepcion de errores.
 	 */
-	private static double calcularCosto(List<Atraccion> atracciones, double porcentaje) throws ExcepcionDePromocion {
+	private static double calcularCosto(List<Atraccion> atracciones, String[] nombresDeAtracciones, double porcentaje)
+			throws ExcepcionDePromocion {
 		double costo = 0;
-		for (Atraccion atraccion : atracciones) {
-			costo += atraccion.getCosto();
+		for (String atraccion : nombresDeAtracciones) {
+			costo += Atraccion.buscarAtraccionPorNombre(atraccion, atracciones).getCosto();
 		}
 		return costo * validarPorcentaje(porcentaje);
 	}
@@ -55,13 +58,14 @@ public class PromocionPorcentual extends Promocion {
 	 * @return Duracion total de todas las atracciones que incluye la promocion.
 	 * @throws ExcepcionDeAtraccion Nuestra excepcion de errores.
 	 */
-	protected static double calcularTiempo(List<Atraccion> atracciones) throws ExcepcionDeAtraccion {
+	protected static double calcularTiempo(List<Atraccion> atracciones, String[] nombresDeAtracciones)
+			throws ExcepcionDeAtraccion {
 		double tiempo = 0;
-		if (atracciones != null) {
-			for (Atraccion atraccion : atracciones) {
-				tiempo += atraccion.getTiempo();
+		if (atracciones != null && nombresDeAtracciones != null && nombresDeAtracciones.length > 1)
+			for (String atraccion : nombresDeAtracciones) {
+				tiempo += Atraccion.buscarAtraccionPorNombre(atraccion, atracciones).getTiempo();
 			}
-		} else
+		else
 			throw new ExcepcionDeAtraccion(
 					"calcular el tiempo necesario para recorrer la promocion, ya que la lista de atracciones es nula");
 		return tiempo;
@@ -96,8 +100,8 @@ public class PromocionPorcentual extends Promocion {
 	@Override
 	public String imprimir() {
 		String retorno = "";
-		retorno += this.getAtracciones().get(0).getNombre() + " y ";
-		retorno += this.getAtracciones().get(1).getNombre();
+		retorno += this.getNombresDeAtracciones().get(0) + " y ";
+		retorno += this.getNombresDeAtracciones().get(1);
 		return retorno;
 	}
 

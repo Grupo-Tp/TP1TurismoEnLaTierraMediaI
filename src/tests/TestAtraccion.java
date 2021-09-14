@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +14,7 @@ import excepciones.ExcepcionDeAtraccion;
 import excepciones.ExcepcionDeBase;
 
 public class TestAtraccion {
+	ArrayList<Atraccion>atracciones;
 	Atraccion moria, minasTirith, laComarca, mordor, abismoDeHelm, lothlorein, erebor, bosqueNegro, esgaroth;
 	Atraccion nombreInvalido, tiempoInvalido, costoInvalido, cupoInvalido;
 
@@ -26,10 +29,20 @@ public class TestAtraccion {
 		erebor = new Atraccion("Erebor", 3, 12, TipoAtraccion.PAISAJE, 32);
 		bosqueNegro = new Atraccion("Bosque Negro", 4, 3, TipoAtraccion.AVENTURA, 12);
 		esgaroth = new Atraccion("Esgaroth", 3, 50, TipoAtraccion.DEGUSTACION, 20);
+		atracciones = new ArrayList<Atraccion>();
+		atracciones.add(abismoDeHelm);
+		atracciones.add(bosqueNegro);
+		atracciones.add(erebor);
+		atracciones.add(esgaroth);
+		atracciones.add(lothlorein);
+		atracciones.add(laComarca);
+		atracciones.add(minasTirith);
+		atracciones.add(mordor);
+		atracciones.add(moria);
 	}
 
 	@After
-	public void tearDown(){
+	public void tearDown() {
 		moria = null;
 		minasTirith = null;
 		laComarca = null;
@@ -173,6 +186,19 @@ public class TestAtraccion {
 		assertEquals(31, erebor.getCupo(), 0);
 		assertEquals(11, bosqueNegro.getCupo(), 0);
 		assertEquals(19, esgaroth.getCupo(), 0);
+	}
+
+	@Test
+	public void testDeBuscarAtraccionPorNombre() {
+		assertEquals(moria,Atraccion.buscarAtraccionPorNombre(moria.getNombre(), atracciones));
+		assertEquals(minasTirith,Atraccion.buscarAtraccionPorNombre(minasTirith.getNombre(), atracciones));
+		assertEquals(laComarca,Atraccion.buscarAtraccionPorNombre(laComarca.getNombre(), atracciones));
+		assertEquals(mordor,Atraccion.buscarAtraccionPorNombre(mordor.getNombre(), atracciones));
+		assertEquals(abismoDeHelm,Atraccion.buscarAtraccionPorNombre(abismoDeHelm.getNombre(), atracciones));
+		assertEquals(lothlorein,Atraccion.buscarAtraccionPorNombre(lothlorein.getNombre(), atracciones));
+		assertEquals(erebor,Atraccion.buscarAtraccionPorNombre(erebor.getNombre(), atracciones));
+		assertEquals(bosqueNegro,Atraccion.buscarAtraccionPorNombre(bosqueNegro.getNombre(), atracciones));
+		assertEquals(esgaroth,Atraccion.buscarAtraccionPorNombre(esgaroth.getNombre(), atracciones));
 	}
 
 	@Test

@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import clases.Atraccion;
-import clases.Promocion;
 import clases.PromocionAxB;
 import clases.TipoAtraccion;
 import clases.Usuario;
@@ -22,8 +21,9 @@ import excepciones.ExcepcionDeUsuario;
 
 public class TestUsuario {
 	List<Atraccion> atracciones;
-	Atraccion moria, mordor, bosqueNegro;
-	Promocion promo;
+	String[] nombresDeAtracciones;
+	Atraccion moria, mordor, bosqueNegro, minasTirith, laComarca, abismoDeHelm, lothlorein, erebor, esgaroth;
+	PromocionAxB promo;
 	Usuario eowyn, gandalf, sam, galadriel;
 	Usuario nombreInvalido, tiempoInvalido, presupuestoInvalido;
 
@@ -34,13 +34,33 @@ public class TestUsuario {
 		sam = new Usuario("Sam", 8, 36, TipoAtraccion.DEGUSTACION);
 		galadriel = new Usuario("Galadriel", 6, 120, TipoAtraccion.PAISAJE);
 		moria = new Atraccion("Moria", 2, 10, TipoAtraccion.AVENTURA, 6);
+		minasTirith = new Atraccion("Minas Tirith", 2.5, 5, TipoAtraccion.PAISAJE, 25);
+		laComarca = new Atraccion("La Comarca", 6.5, 3, TipoAtraccion.DEGUSTACION, 150);
 		mordor = new Atraccion("Mordor", 3, 25, TipoAtraccion.AVENTURA, 4);
+		abismoDeHelm = new Atraccion("Abismo de Heml", 2, 5, TipoAtraccion.PAISAJE, 15);
+		lothlorein = new Atraccion("Lothlórein", 1, 35, TipoAtraccion.DEGUSTACION, 30);
+		erebor = new Atraccion("Erebor", 3, 12, TipoAtraccion.PAISAJE, 32);
 		bosqueNegro = new Atraccion("Bosque Negro", 4, 3, TipoAtraccion.AVENTURA, 12);
+		esgaroth = new Atraccion("Esgaroth", 3, 50, TipoAtraccion.DEGUSTACION, 20);
 		atracciones = new ArrayList<Atraccion>();
+		atracciones.add(abismoDeHelm);
+		atracciones.add(bosqueNegro);
+		atracciones.add(erebor);
+		atracciones.add(esgaroth);
+		atracciones.add(lothlorein);
+		atracciones.add(laComarca);
+		atracciones.add(minasTirith);
+		atracciones.add(mordor);
+		atracciones.add(moria);
 		atracciones.add(moria);
 		atracciones.add(mordor);
 		atracciones.add(bosqueNegro);
-		promo = new PromocionAxB("Segunda", TipoAtraccion.AVENTURA, atracciones, bosqueNegro);
+		nombresDeAtracciones = new String[3];
+		nombresDeAtracciones[0] = moria.getNombre();
+		nombresDeAtracciones[1] = mordor.getNombre();
+		nombresDeAtracciones[2] = bosqueNegro.getNombre();
+		promo = new PromocionAxB("Segunda", TipoAtraccion.AVENTURA, nombresDeAtracciones, atracciones,
+				nombresDeAtracciones[2]);
 	}
 
 	@After

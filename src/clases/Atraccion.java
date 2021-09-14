@@ -1,5 +1,8 @@
 package clases;
 
+import java.util.Iterator;
+import java.util.List;
+
 import excepciones.ExcepcionDeAtraccion;
 import excepciones.ExcepcionDeBase;
 
@@ -42,6 +45,17 @@ public class Atraccion extends Base {
 	 */
 	public void subirAtraccion() {
 		this.cupo--;
+	}
+
+	public static Atraccion buscarAtraccionPorNombre(String nombre, List<Atraccion> atracciones) {
+		Iterator<Atraccion> indice = atracciones.iterator();
+		while (indice.hasNext()) {
+			Atraccion atraccion = indice.next();
+			if (atraccion.getNombre().equals(nombre)) {
+				return atraccion;
+			}
+		}
+		return null;
 	}
 
 	@Override

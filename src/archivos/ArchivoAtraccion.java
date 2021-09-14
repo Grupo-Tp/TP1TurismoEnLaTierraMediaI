@@ -26,8 +26,21 @@ public class ArchivoAtraccion {
 			bufferDelLectorDeArchivoDeAtracciones = new BufferedReader(lectorDeArchivoDeAtracciones);
 			atracciones = new ArrayList<Atraccion>();
 			this.atracciones = this.leerArchivoAtraccion();
+			this.mostrarPorPantalla();
 		} catch (FileNotFoundException excepcionDeAperturaDeArchivo) {
 			System.err.println("El archivo de atracciones: '" + nombreArchivo + "' no fue encontrado.");
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void mostrarPorPantalla() {
+		System.out.println();
+		System.out.println("Continuamos leyendo el achivo de Atracciones, las atracciones leidas son:");
+		System.out.println();
+		for (Atraccion indice : this.getAtracciones()) {
+			System.out.println(indice);
 		}
 	}
 
