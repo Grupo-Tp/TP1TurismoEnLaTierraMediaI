@@ -55,11 +55,12 @@ public class TestPromocionAbsoluta {
 		invalida = new PromocionAbsoluta("Tercera", TipoAtraccion.DEGUSTACION, nombresDeAtracciones, atracciones, 36);
 	}
 
-	@Test
+	@Test(expected = ExcepcionDeAtraccion.class)
 	public void testDeNombresDeAtraccionesVacia() throws ExcepcionDeBase, ExcepcionDePromocion, ExcepcionDeAtraccion {
 		nombresDeAtracciones = null;
 		invalida = new PromocionAbsoluta("Tercera", TipoAtraccion.DEGUSTACION, nombresDeAtracciones, atracciones, 36);
 	}
+
 	@Test
 	public void testDeToString() {
 		String test = "Tercera, que incluye a las atracciones de Lothlórein y La Comarca que son de tipo DEGUSTACION, "
