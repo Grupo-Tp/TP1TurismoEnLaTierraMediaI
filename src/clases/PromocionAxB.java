@@ -18,9 +18,12 @@ public class PromocionAxB extends Promocion {
 
 	/**
 	 * @pre No tiene.
-	 * @post Se calculo el costo de todas las atracciones.
-	 * @param atracciones Lista de atracciones que incluye la promocion.
-	 * @return Costo total de todas las atracciones.
+	 * @post Se calculo el costo de todas las atracciones contenidas en los nombres
+	 *       de atracciones.
+	 * @param atracciones          Lista de atracciones que incluye la promocion.
+	 * @param nombresDeAtracciones Nombres de atracciones a calcular su costo
+	 * @return Costo total de todas las atracciones contenidas en los nombres de las
+	 *         atracciones.
 	 */
 	protected static double calcularCosto(List<Atraccion> atracciones, String[] nombresDeAtracciones) {
 		double costo = 0;
@@ -35,7 +38,7 @@ public class PromocionAxB extends Promocion {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno el nombrede la traccion gratis.
 	 * @return La atraccion que la promocion ofrece gratis.
 	 */
 	public String getAtraccionGratis() {
@@ -44,15 +47,18 @@ public class PromocionAxB extends Promocion {
 
 	/**
 	 * @pre No tiene.
-	 * @post Se asigno la atraccion que es gratiuta en esta promocion.
+	 * @post Se asigno el nombte de la atraccion que es gratiuta en esta promocion.
 	 * @param atraccionGratis Atraccion que ofrece gratuita la promocion.
-	 * @throws ExcepcionDePromocion Nuestra excepcion de Promocion.
+	 * @throws ExcepcionDePromocion Informo la existencia de un error al momento de
+	 *                              asignar el el nombre de la atraccion, ya que
+	 *                              esta no se encuentra en la lista de atracciones.
 	 */
 	private void setAtraccionGratis(String atraccionGratis) throws ExcepcionDePromocion {
 		if (this.getNombresDeAtracciones().contains(atraccionGratis))
 			this.atraccionGratis = atraccionGratis;
 		else
-			throw new ExcepcionDePromocion("asignar su promocion gratis, ya que esta no se encuentra en la lista de atracciones que incluye la promocion");
+			throw new ExcepcionDePromocion(
+					"asignar su promocion gratis, ya que esta no se encuentra en la lista de atracciones que incluye la promocion");
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public class Usuario {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno el nombre del usuario.
 	 * @return El nombre del usuario.
 	 */
 	public String getNombre() {
@@ -35,7 +35,9 @@ public class Usuario {
 	 * @pre No tiene.
 	 * @post Se asigno y valido el nombre del usuario.
 	 * @param nombre Nuevo nombre que tendra el usuario.
-	 * @throws ExcepcionDeUsuario Excepcion que informa un error.
+	 * @throws ExcepcionDeUsuario Informo la existencia de un error al momento de
+	 *                            asignar el nombre del usuario, ya que posee un
+	 *                            valor invalido.
 	 */
 	private void setNombre(String nombre) throws ExcepcionDeUsuario {
 		if (nombre != "")
@@ -46,7 +48,7 @@ public class Usuario {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno el tiempo disponible del usuario.
 	 * @return El tiempo disponible del usuario.
 	 */
 	public double getTiempo() {
@@ -57,7 +59,9 @@ public class Usuario {
 	 * @pre No tiene.
 	 * @post Se asigno y valido el tiempo disponible del usuario.
 	 * @param tiempo Nueva cantidad de tiempo que tendra el usuario.
-	 * @throws ExcepcionDeUsuario Excepcion que informa un error.
+	 * @throws ExcepcionDeUsuario Informo la existencia de un error al momento de
+	 *                            asignar el tiempo del usuario, ya que posee un
+	 *                            valor invalido.
 	 */
 	private void setTiempo(double tiempo) throws ExcepcionDeUsuario {
 		if (tiempo > 0)
@@ -68,7 +72,7 @@ public class Usuario {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno el presupuesto del usuario.
 	 * @return El presupuesto que tiene el usuario.
 	 */
 	public double getPresupuesto() {
@@ -79,7 +83,9 @@ public class Usuario {
 	 * @pre No tiene.
 	 * @post Se valido y asigno el presupuesto que dispone el usuario.
 	 * @param presupuesto Nueva cantidad de dinero que tendra el usuario.
-	 * @throws ExcepcionDeUsuario Excepcion que informa un error.
+	 * @throws ExcepcionDeUsuario Informo la existencia de un error al momento de
+	 *                            asignar el presupuesto del usuario, ya que posee
+	 *                            un valor invalido.
 	 */
 	private void setPresupuesto(double presupuesto) throws ExcepcionDeUsuario {
 		if (presupuesto > 0)
@@ -90,7 +96,7 @@ public class Usuario {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno la preferencia de atracciones que tiene el usuario.
 	 * @return Tipo de preferencia del usuario.
 	 */
 	public TipoAtraccion getPreferencia() {
@@ -127,7 +133,7 @@ public class Usuario {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno una lista con los productos que acepto el usuario.
 	 * @return Itinerario del usuario.
 	 */
 	public List<Base> getItinerario() {
@@ -137,7 +143,7 @@ public class Usuario {
 	/**
 	 * @pre No tiene.
 	 * @post Se genero un resumen del itinerario del usuario.
-	 * @return El itinerario del usuario resumido.
+	 * @return El itinerario del usuario resumido en un string.
 	 */
 	public String mostrarItinerario() {
 		String salida = "El itinerario programado para " + this.getNombre()
@@ -148,8 +154,8 @@ public class Usuario {
 				Promocion tratarComoPromocion = (Promocion) baseATratar;
 				tiempoTotal += tratarComoPromocion.getTiempo();
 				costoTotal += tratarComoPromocion.getCosto();
-				salida += "Promocion llamada " + tratarComoPromocion.getNombre()
-						+ " compuesta por las atracciones " + tratarComoPromocion.imprimir() + "\n";
+				salida += "Promocion llamada " + tratarComoPromocion.getNombre() + " compuesta por las atracciones "
+						+ tratarComoPromocion.imprimir() + "\n";
 			}
 			if (baseATratar instanceof Atraccion) {
 				Atraccion tratarComoAtraccion = (Atraccion) baseATratar;

@@ -37,7 +37,9 @@ public class ArchivoPromocion {
 	}
 
 	/**
-	 * 
+	 * @pre No tiene.
+	 * @post Mostro por pantalla información de la ejecución del programa, junto con
+	 *       todas las promociones registradas.
 	 */
 	private void mostrarPorPantalla() {
 		System.out.println();
@@ -50,7 +52,7 @@ public class ArchivoPromocion {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno una lista con todas las promociones generadas.
 	 * @return Retorna la lista con las instancias de promocion que fueron generadas
 	 *         a partir del archivo de atracciones.
 	 */
@@ -64,8 +66,11 @@ public class ArchivoPromocion {
 	 * @param tipo Ingresa el parametro leido de una linea del archivo de
 	 *             atracciones.
 	 * @return Retorna el tipo de atraccion validado.
-	 * @throws ExcepcionArchivoDePromocion Nuestra excepcion para informar los
-	 *                                     errores.
+	 * @throws ExcepcionArchivoDePromocion Informó la existencia de un error en el
+	 *                                     tipo de atraccion contenida en la
+	 *                                     promocion que fue leido, ya que no se
+	 *                                     pudo convertir en un enumerado de tipo
+	 *                                     TipoAtraccion.
 	 */
 	private TipoAtraccion validarTipoDePromocion(String tipo) throws ExcepcionArchivoDePromocion {
 		TipoAtraccion retorno = null;
@@ -98,8 +103,10 @@ public class ArchivoPromocion {
 	 * @param costo Ingresa el parametro leido de una linea del archivo de
 	 *              atracciones.
 	 * @return Retorna el costo validado.
-	 * @throws ExcepcionArchivoDePromocion Nuestra excepcion para informar los
-	 *                                     errores.
+	 * @throws ExcepcionArchivoDePromocion Informó la existencia de un error en el
+	 *                                     precio final leido de la promocion, ya
+	 *                                     que no se lo pudo convertir a un valor
+	 *                                     numérico real.
 	 */
 	private double validarPrecioFinal(String monto) throws ExcepcionArchivoDePromocion {
 		double valor = 0;
@@ -117,8 +124,10 @@ public class ArchivoPromocion {
 	 * @param costo Ingresa el parametro leido de una linea del archivo de
 	 *              atracciones.
 	 * @return Retorna el costo validado.
-	 * @throws ExcepcionArchivoDePromocion Nuestra excepcion para informar los
-	 *                                     errores.
+	 * @throws ExcepcionArchivoDePromocion Informó la existencia de un error en el
+	 *                                     porcentaje de descuento leido de la
+	 *                                     promocion, ya que no se lo pudo convertir
+	 *                                     a un valor numérico real.
 	 */
 	private double validarProcentajeDeDescuento(String monto) throws ExcepcionArchivoDePromocion {
 		double valor = 0;

@@ -20,11 +20,20 @@ public class PromocionPorcentual extends Promocion {
 
 	/**
 	 * @pre No tiene.
-	 * @post Se calculo el costo de todas las atracciones y aplico el descuento.
-	 * @param atracciones Lista de atracciones que incluye la promocion.
-	 * @return Costo total de todas las atracciones con el porcentaje de descuento
-	 *         aplicado.
-	 * @throws ExcepcionDePromocion Nuestra excepcion de errores.
+	 * @post Se calculo el costo de todas las atracciones, que se encuentran en la
+	 *       promocion y aplico el descuento basando en un porcentaje de descuento
+	 *       determinado.
+	 * @param atracciones          Lista de atracciones en donde buscaremos las
+	 *                             instancias de atracciones que coincidan con los
+	 *                             nombres de atracciones que contiene la promocion.
+	 * @param nombresDeAtracciones Nombres de atracciones que contiene la promocion.
+	 * @param porcentaje           Porentaje de descuento que ofrece la promocion
+	 *                             sobre el precio total.
+	 * @return Costo total de todas las atracciones contenidas en la promocion con
+	 *         el porcentaje de descuento aplicado.
+	 * @throws ExcepcionDePromocion Informo la existencia de un error al momento de
+	 *                              asignar el costo de la promocion, ya que el
+	 *                              porcentaje ingresado posee un valor invalido.
 	 */
 	private static double calcularCosto(List<Atraccion> atracciones, String[] nombresDeAtracciones, double porcentaje)
 			throws ExcepcionDePromocion {
@@ -40,7 +49,9 @@ public class PromocionPorcentual extends Promocion {
 	 * @post Se valido que el porcentaje de descuento.
 	 * @param porcentaje Valor que de descuento que tiene la promocion.
 	 * @return El porcentaje de descuento de la promocion.
-	 * @throws ExcepcionDePromocion Nuestra excepcion de errores.
+	 * @throws ExcepcionDePromocion Informo la existencia de un error al momento de
+	 *                              calcular el porcentaje de descuento, ya que
+	 *                              posee un valor invalido.
 	 */
 	private static double validarPorcentaje(double porcentaje) throws ExcepcionDePromocion {
 		if ((porcentaje > 0) && (porcentaje < 100))
@@ -54,9 +65,15 @@ public class PromocionPorcentual extends Promocion {
 	/**
 	 * @pre No tiene.
 	 * @post Se calculo la duracion de todas las atracciones.
-	 * @param atracciones Lista de atracciones que incluye la promocion.
+	 * @param atracciones          Lista de atracciones donde buscaremos las
+	 *                             atracciones contenidas en la promcion.
+	 * @param nombresDeAtracciones Nombres de atracciones que incluye la promocion.
 	 * @return Duracion total de todas las atracciones que incluye la promocion.
-	 * @throws ExcepcionDeAtraccion Nuestra excepcion de errores.
+	 * @throws ExcepcionDeAtraccion Informo la existencia de un error al momento de
+	 *                              calcular la duración de la promocion, se han
+	 *                              encontrado errores en la lista de atracciones o
+	 *                              los nombres de atracciones que contienen la
+	 *                              promocion.
 	 */
 	protected static double calcularTiempo(List<Atraccion> atracciones, String[] nombresDeAtracciones)
 			throws ExcepcionDeAtraccion {
@@ -67,13 +84,14 @@ public class PromocionPorcentual extends Promocion {
 			}
 		else
 			throw new ExcepcionDeAtraccion(
-					"calcular el tiempo necesario para recorrer la promocion, ya que la lista de atracciones es nula");
+					"calcular el tiempo necesario para recorrer la promocion, ya que la lista de atracciones"
+							+ " o los nombres de las atracciones que incluye la promocion es nula");
 		return tiempo;
 	}
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno el procentaje de descuento que posee la promocion.
 	 * @return Cantidad de descuento en porcentaje que tiene la promocion.
 	 */
 	public double getPorcentajeDescuento() {
@@ -85,8 +103,9 @@ public class PromocionPorcentual extends Promocion {
 	 * @post Se actualizo el porcentaje de descuento del costo de las atracciones
 	 *       contenidas en la promocion.
 	 * @param porcentaje Monto con el porcentaje de descuento.
-	 * @return No tiene.
-	 * @throws ExcepcionDePromocion Nuestra excepcion de error.
+	 * @throws ExcepcionDePromocion Informo la existencia de un error al momento de
+	 *                              asignar el porcentaje de descuento de la
+	 *                              promocion, ya que posee un valor invalido.
 	 */
 	private void setPorcentajeDescuento(double porcentaje) throws ExcepcionDePromocion {
 		if ((porcentaje > 0) && (porcentaje < 100))

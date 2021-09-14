@@ -31,7 +31,9 @@ public class ArchivoUsuario {
 	}
 
 	/**
-	 * 
+	 * @pre No tiene.
+	 * @post Mostro por pantalla información de la ejecución del programa, junto con
+	 *       todos los usuarios registrados.
 	 */
 	private void mostrarPorPantalla() {
 		System.out.println("Bienvenido, acontinuacion inicia la ejecucion de nuestro sistema:");
@@ -44,7 +46,7 @@ public class ArchivoUsuario {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno una lista con todos los usuarios generados.
 	 * @return Retorna la lista con las instancias de usuarios que fueron generadas
 	 *         a partir del archivo de usuarios.
 	 */
@@ -58,8 +60,9 @@ public class ArchivoUsuario {
 	 * @param presupuesto Ingresa el parametro leido de una linea del archivo de
 	 *                    atracciones.
 	 * @return Retorna el costo validado.
-	 * @throws ExcepcionArchivoDeUsuario Nuestra excepcion para informar los
-	 *                                   errores.
+	 * @throws ExcepcionArchivoDeUsuario Informó la existencia de un error en el
+	 *                                   presupuesto leido del usuario, ya que no se
+	 *                                   lo pudo convertir a un valor numérico real.
 	 */
 	private double validarPresupuesto(String presupuesto) throws ExcepcionArchivoDeUsuario {
 		double valor = 0;
@@ -77,8 +80,9 @@ public class ArchivoUsuario {
 	 * @param tiempo Ingresa el parametro leido de una linea del archivo de
 	 *               atracciones.
 	 * @return Retorna el tiempo validado.
-	 * @throws ExcepcionArchivoDeUsuario Nuestra excepcion para informar los
-	 *                                   errores.
+	 * @throws ExcepcionArchivoDeUsuario Informó la existencia de un error en el
+	 *                                   tiempo leido del usuario, ya que no se lo
+	 *                                   pudo convertir a un valor numérico real.
 	 */
 	private double validarTiempo(String tiempo) throws ExcepcionArchivoDeUsuario {
 		double valor = 0;
@@ -96,8 +100,11 @@ public class ArchivoUsuario {
 	 * @param preferencia Ingresa el parametro leido de una linea del archivo de
 	 *                    atracciones.
 	 * @return Retorna el tipo de atraccion validado.
-	 * @throws ExcepcionArchivoDeUsuario Nuestra excepcion para informar los
-	 *                                   errores.
+	 * @throws ExcepcionArchivoDeUsuario Informó la existencia de un error en el
+	 *                                   tipo de preferencia de atracciones del
+	 *                                   usuario que fue leido, ya que no se pudo
+	 *                                   convertir en un enumerado de tipo
+	 *                                   TipoAtraccion.
 	 */
 	private TipoAtraccion validarPreferencia(String preferencia) throws ExcepcionArchivoDeUsuario {
 		TipoAtraccion retorno = null;
@@ -164,7 +171,7 @@ public class ArchivoUsuario {
 	}
 
 	/**
-	 * @pre Se debe validar que la lista de usuarios no se encuentre vacia.
+	 * @pre No tiene.
 	 * @post Se generó un archivo con el nombre "Usuario " más el nombre del usuario
 	 *       con la extencion .txt, por cada usuario que se encuentre en la lista
 	 *       que contiene la instancia.

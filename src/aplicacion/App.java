@@ -3,7 +3,6 @@ package aplicacion;
 import archivos.ArchivoAtraccion;
 import archivos.ArchivoPromocion;
 import archivos.ArchivoUsuario;
-import clases.SugerirProducto;
 
 public class App {
 	public static void main(String[] args) {

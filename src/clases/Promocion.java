@@ -16,6 +16,9 @@ public abstract class Promocion extends Base {
 	}
 
 	/**
+	 * @pre No tiene
+	 * @post Retorno la lista con los nombres de atracciones que incluye la
+	 *       promocion.
 	 * @return the nombresDeAtracciones
 	 */
 	public ArrayList<String> getNombresDeAtracciones() {
@@ -23,10 +26,15 @@ public abstract class Promocion extends Base {
 	}
 
 	/**
-	 * this.nombresDeAtracciones = nombresDeAtracciones;
-	 * 
-	 * @param nombresDeAtracciones the nombresDeAtracciones to set
-	 * @throws ExcepcionDePromocion
+	 * @pre No tiene.
+	 * @post Se actualizó los nombres de las atracciones que incluye la promocion.
+	 * @param nombresDeAtracciones Nombres de atracciones a actualizar.
+	 * @throws ExcepcionDePromocion Informo la existencia de un error al momento de
+	 *                              asignar los nombres de las atracciones que
+	 *                              incluye la promocion, ya que alguna de ellas
+	 *                              tiene un tipo de atraccion que no coincide con
+	 *                              el tipo de atracciones contenida en la
+	 *                              promocion.
 	 */
 	private void setNombresDeAtracciones(String[] nombresDeAtracciones, List<Atraccion> atracciones)
 			throws ExcepcionDePromocion {
@@ -53,7 +61,7 @@ public abstract class Promocion extends Base {
 
 	/**
 	 * @pre No tiene.
-	 * @post Busco y recupero los nombres de las atracciones que componen la
+	 * @post Se recuperó el nombre de todas las atracciones contenidas en la
 	 *       promocion.
 	 * @return String con los nombres de las atracciones que la componen.
 	 */

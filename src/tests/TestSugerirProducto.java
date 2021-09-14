@@ -9,12 +9,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import aplicacion.SugerirProducto;
 import clases.Atraccion;
 import clases.Promocion;
 import clases.PromocionAbsoluta;
 import clases.PromocionAxB;
 import clases.PromocionPorcentual;
-import clases.SugerirProducto;
 import clases.TipoAtraccion;
 import clases.Usuario;
 
@@ -157,8 +157,5 @@ public class TestSugerirProducto {
 		eowyn.aceptarSugerencia(mordor, true);
 		assertEquals(atraccionesPrimera, sistema.getAtraccionesDeSuItinerario(eowyn));
 	}
-	@Test
-	public void testDeSugerirPromocionConPreferencia() {
-		
-	}
+
 }

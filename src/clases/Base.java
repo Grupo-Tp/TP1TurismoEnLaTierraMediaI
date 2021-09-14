@@ -19,7 +19,7 @@ public abstract class Base {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno el nombre de la atraccion o promocion.
 	 * @return Nombre de la Atraccion o Promocion.
 	 */
 	public String getNombre() {
@@ -30,8 +30,9 @@ public abstract class Base {
 	 * @pre No Tiene.
 	 * @post Se actualizo el nombre de la Atraccion o Promocion.
 	 * @param nombre Nuevo nombre a actualizar.
-	 * @return .
-	 * @throws ExcepcionDeBase Nuestra excepcion de errores.
+	 * @throws ExcepcionDeBase Informo la existencia de un error al momento de
+	 *                         asignar el nombre de la atraccion o promocion, ya que
+	 *                         posee un valor invalido.
 	 */
 	private void setNombre(String nombre) throws ExcepcionDeBase {
 		if (nombre != "")
@@ -42,7 +43,7 @@ public abstract class Base {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno la duracion de la atraccion o promocion.
 	 * @return Duración de la Atraccion o Promocion.
 	 */
 	public double getTiempo() {
@@ -53,8 +54,9 @@ public abstract class Base {
 	 * @pre No Tiene.
 	 * @post Se actualizo la duracion de la Atraccion o Promocion.
 	 * @param tiempo Nueva duración a actualizar.
-	 * @return No tiene.
-	 * @throws ExcepcionDeBase Nuestra excepcion de errores.
+	 * @throws ExcepcionDeBase Informo la existencia de un error al momento de
+	 *                         asignar la duracion de la atraccion o promocion, ya
+	 *                         que posee un valor invalido.
 	 */
 	private void setTiempo(double tiempo) throws ExcepcionDeBase {
 		if (tiempo > 0)
@@ -65,7 +67,7 @@ public abstract class Base {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno el costo de la atraccion o promocion.
 	 * @return Costo de la Atraccion o Promocion.
 	 */
 	public double getCosto() {
@@ -78,7 +80,9 @@ public abstract class Base {
 	 * @param costo Cantidad de monedas que requiere la atraccion o promocion a
 	 *              actualizar.
 	 * @return No tiene.
-	 * @throws ExcepcionDeBase Nuestra excepcion para informar un error.
+	 * @throws ExcepcionDeBase Informo la existencia de un error al momento de
+	 *                         asignar el costo de la atraccion o promocion, ya que
+	 *                         posee un valor invalido.
 	 */
 	private void setCosto(double costo) throws ExcepcionDeBase {
 		if (costo > 0)
@@ -89,7 +93,8 @@ public abstract class Base {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Retorno el tipo de atraccion o tipo de atracciones contenidas en la
+	 *       promocion.
 	 * @return Tipo de Atraccion o Promocion.
 	 */
 	public TipoAtraccion getTipo() {
@@ -100,7 +105,6 @@ public abstract class Base {
 	 * @pre No Tiene.
 	 * @post Se actualizo el tipo de la Atraccion o Promocion.
 	 * @param tipo Tipo que requiere la atraccion o promocion a actualizar.
-	 * @return No tiene.
 	 */
 	private void setTipo(TipoAtraccion tipo) {
 		this.tipo = tipo;

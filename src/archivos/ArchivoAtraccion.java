@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -33,7 +32,9 @@ public class ArchivoAtraccion {
 	}
 
 	/**
-	 * 
+	 * @pre No tiene.
+	 * @post Mostro por pantalla información de la ejecución del programa, junto con
+	 *       todas las atracciones registradas.
 	 */
 	private void mostrarPorPantalla() {
 		System.out.println();
@@ -46,7 +47,7 @@ public class ArchivoAtraccion {
 
 	/**
 	 * @pre No tiene.
-	 * @post No tiene.
+	 * @post Se retorno una lista con las atracciones generadas.
 	 * @return Retorna la lista con las instancias de atraccion que fueron generadas
 	 *         a partir del archivo de atracciones.
 	 */
@@ -60,8 +61,10 @@ public class ArchivoAtraccion {
 	 * @param costo Ingresa el parametro leido de una linea del archivo de
 	 *              atracciones.
 	 * @return Retorna el costo validado.
-	 * @throws ExcepcionArchivoDeAtraccion Nuestra excepcion para informar los
-	 *                                     errores.
+	 * @throws ExcepcionArchivoDeAtraccion Informó la existencia de un error en el
+	 *                                     costo leido de la atraccion, ya que no se
+	 *                                     lo pudo convertir a un valor numérico
+	 *                                     real.
 	 */
 	private double validarCosto(String costo) throws ExcepcionArchivoDeAtraccion {
 		double valor = 0;
@@ -79,8 +82,10 @@ public class ArchivoAtraccion {
 	 * @param tiempo Ingresa el parametro leido de una linea del archivo de
 	 *               atracciones.
 	 * @return Retorna el tiempo validado.
-	 * @throws ExcepcionArchivoDeAtraccion Nuestra excepcion para informar los
-	 *                                     errores.
+	 * @throws ExcepcionArchivoDeAtraccion Informó la existencia de un error en el
+	 *                                     tiempo leido de la atraccion, ya que no
+	 *                                     se pudo convertir en un valor numérico
+	 *                                     real.
 	 */
 	private double validarTiempo(String tiempo) throws ExcepcionArchivoDeAtraccion {
 		double valor = 0;
@@ -98,8 +103,10 @@ public class ArchivoAtraccion {
 	 * @param cupo Ingresa el parametro leido de una linea del archivo de
 	 *             atracciones.
 	 * @return Retorna el cupo validado.
-	 * @throws ExcepcionArchivoDeAtraccion Nuestra excepcion para informar los
-	 *                                     errores.
+	 * @throws ExcepcionArchivoDeAtraccion Informó la existencia de un error en el
+	 *                                     cupo leido de la atraccion, ya que no se
+	 *                                     pudo convertir en un valor numérico
+	 *                                     entero.
 	 */
 	private int validarCupo(String cupo) throws ExcepcionArchivoDeAtraccion {
 		int valor = 0;
@@ -117,8 +124,10 @@ public class ArchivoAtraccion {
 	 * @param tipo Ingresa el parametro leido de una linea del archivo de
 	 *             atracciones.
 	 * @return Retorna el tipo de atraccion validado.
-	 * @throws ExcepcionArchivoDeAtraccion Nuestra excepcion para informar los
-	 *                                     errores.
+	 * @throws ExcepcionArchivoDeAtraccion Informó la existencia de un error en el
+	 *                                     tipo de atraccion leido, ya que no se
+	 *                                     pudo convertir en un enumerado de tipo
+	 *                                     TipoAtraccion.
 	 */
 	private TipoAtraccion validarTipo(String tipo) throws ExcepcionArchivoDeAtraccion {
 		TipoAtraccion retorno = null;
@@ -141,48 +150,6 @@ public class ArchivoAtraccion {
 			}
 		} catch (IllegalArgumentException excepcionDeTipoNula) {
 			throw new ExcepcionArchivoDeAtraccion("tipo de atraccion, el valor leido es: " + tipo);
-		}
-		return retorno;
-	}
-
-	/**
-	 * @pre No tiene.
-	 * @post Se creo una nueva lista con las instancias de las atracciones
-	 *       nombradas.
-	 * @param nombresDeAtracciones Arreglo con los nombres de las instancias de las
-	 *                             atracciones a buscar en la lista de atracciones
-	 *                             prorporcionada.
-	 * @param lista                Lista con las instancias de las atracciones.
-	 * @return Retorna una lista con las instancias de atracciones que forman parte
-	 *         de la promocion.
-	 * @throws ExcepcionDeAtraccion Nuestra excepcion para informar errores.
-	 */
-	public static List<Atraccion> crearListaDeAtraccion(String[] nombresDeAtracciones, List<Atraccion> lista)
-			throws ExcepcionDeAtraccion {
-		List<Atraccion> retorno = new ArrayList<Atraccion>();
-		try {
-			for (int cantidad = 0; cantidad < nombresDeAtracciones.length; cantidad++) {
-				Iterator<Atraccion> indice = lista.iterator();
-				boolean encontre = false;
-				while (indice.hasNext() && !encontre) {
-					Atraccion atraccion = indice.next();
-					if (atraccion.getNombre().equals(nombresDeAtracciones[cantidad])) {
-						retorno.add(atraccion);
-						encontre = true;
-					}
-				}
-			}
-			if (retorno.size() != nombresDeAtracciones.length)
-				throw new ArrayIndexOutOfBoundsException();
-		} catch (NullPointerException excepcionDeAgregarUnaAtraccionNula) {
-			throw new ExcepcionDeAtraccion("se ha intentado agregar una atraccion nula.");
-		} catch (ClassCastException excepcionDeAgregarUnObjetoQueNoEsAtraccion) {
-			throw new ExcepcionDeAtraccion("se ha intentado agregar algo que no es una atraccion.");
-		} catch (NoSuchElementException excepcionDeSiguienteElementoDeLista) {
-			throw new ExcepcionDeAtraccion("ha habido un problema con la lista de atracciones proporcionada.");
-		} catch (ArrayIndexOutOfBoundsException excepcionDeFueraDeLosLimitesDelArreglo) {
-			throw new ExcepcionDeAtraccion(
-					"ha habido un problema con los nombres de las atracciones que incluye la promocion.");
 		}
 		return retorno;
 	}
