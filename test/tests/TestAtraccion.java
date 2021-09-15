@@ -74,7 +74,6 @@ public class TestAtraccion {
 	@Test(expected = ExcepcionDeBase.class)
 	public void testDeValidacionDeNombre() throws ExcepcionDeBase, ExcepcionDeAtraccion {
 		nombreInvalido = new Atraccion("", 6, 120, TipoAtraccion.PAISAJE, 6);
-		assertNull(nombreInvalido);
 	}
 
 	@Test
@@ -93,13 +92,12 @@ public class TestAtraccion {
 	@Test(expected = ExcepcionDeBase.class)
 	public void testDeValidacionDeTiempoNegativo() throws ExcepcionDeBase, ExcepcionDeAtraccion {
 		tiempoInvalido = new Atraccion("Invalido", -6, 120, TipoAtraccion.PAISAJE, 6);
-		assertNull(tiempoInvalido);
+
 	}
 
 	@Test(expected = ExcepcionDeBase.class)
 	public void testDeValidacionDeTiempoCero() throws ExcepcionDeBase, ExcepcionDeAtraccion {
 		tiempoInvalido = new Atraccion("Invalido", 0, 120, TipoAtraccion.PAISAJE, 6);
-		assertNull(tiempoInvalido);
 	}
 
 	@Test
@@ -118,13 +116,11 @@ public class TestAtraccion {
 	@Test(expected = ExcepcionDeBase.class)
 	public void testDeValidacionDeCostoNegativo() throws ExcepcionDeBase, ExcepcionDeAtraccion {
 		costoInvalido = new Atraccion("Invalido", 6, -120, TipoAtraccion.PAISAJE, 6);
-		assertNull(costoInvalido);
 	}
 
 	@Test(expected = ExcepcionDeBase.class)
 	public void testDeValidacionDeCostoCero() throws ExcepcionDeBase, ExcepcionDeAtraccion {
 		costoInvalido = new Atraccion("Invalido", 6, 0, TipoAtraccion.PAISAJE, 6);
-		assertNull(costoInvalido);
 	}
 
 	@Test
@@ -156,13 +152,11 @@ public class TestAtraccion {
 	@Test(expected = ExcepcionDeAtraccion.class)
 	public void testDeValidacionDeCupoNegativo() throws ExcepcionDeBase, ExcepcionDeAtraccion {
 		cupoInvalido = new Atraccion("Invalido", 6, 120, TipoAtraccion.PAISAJE, -6);
-		assertNull(cupoInvalido);
 	}
 
 	@Test(expected = ExcepcionDeAtraccion.class)
 	public void testDeValidacionDeCupoCero() throws ExcepcionDeBase, ExcepcionDeAtraccion {
 		cupoInvalido = new Atraccion("Invalido", 6, 120, TipoAtraccion.PAISAJE, 0);
-		assertNull(cupoInvalido);
 	}
 
 	@Test
